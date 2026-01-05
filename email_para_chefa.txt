@@ -1,0 +1,62 @@
+ASSUNTO: Proposta de Ofício para Secretaria de Agricultura - Programa Rotas Rurais
+
+---
+
+Prezada [Nome da Chefa],
+
+Conforme discutido, estou encaminhando três propostas de ofício para solicitar à Secretaria de Estado de Agricultura e Abastecimento o acesso à base de dados do programa "Rotas Rurais", conforme recomendação recebida na análise técnica do DER/SP sobre o Produto 3 do PLI-SP 2050.
+
+**CONTEXTO DA SITUAÇÃO**
+
+Durante a revisão do Produto 3 (Capítulo 1 - Rodovias) que entregamos ao DER/SP, foi identificada a necessidade de incorporar informações mais robustas sobre a malha rodoviária municipal. O DER/SP indicou que o programa "Rotas Rurais", mantido pela Secretaria de Agricultura e Abastecimento, dispõe de dados significativamente mais abrangentes e precisos que as fontes atualmente utilizadas (OpenStreetMap, IBGE).
+
+O acesso a essa base de dados vetorial é imprescindível para aprofundar a análise de densidade de malha por município e identificar déficits de infraestrutura em áreas rurais - pontos destacados como essenciais no documento.
+
+**AS TRÊS VERSÕES**
+
+Preparei três modelos de ofício com abordagens diferentes, para que você escolha a que melhor se alinha com o relacionamento institucional que deseja estabelecer:
+
+1. **Versão Formal/Protocolar** (Oficio_v1_Formal.docx)
+   - Tom: Respeitoso e estruturado
+   - Características: Segue padrões administrativos clássicos
+   - Ideal para: Correspondência institucional padrão, sem familiaridade prévia
+   - Extensão: Uma página
+
+2. **Versão Técnica/Detalhada** (Oficio_v2_Tecnica.docx)
+   - Tom: Profissional e específico
+   - Características: Solicita especificações técnicas exatas (formatos, projeção, atualizações, etc.)
+   - Ideal para: Demonstrar domínio técnico e facilitar a resposta precisa da outra parte
+   - Extensão: Uma página e meia
+
+3. **Versão Colaborativa/Amigável** (Oficio_v3_Colaborativa.docx)
+   - Tom: Cordial e de construção de parceria
+   - Características: Destaca benefícios mútuos, menos burocrática, reconhece o trabalho da SAA
+   - Ideal para: Primeira abordagem ou quando se busca estabelecer relacionamento duradouro
+   - Extensão: Uma página
+
+**PRÓXIMOS PASSOS**
+
+Após sua aprovação de qual versão utilizar, basta:
+- Preencher data, nome e cargo do signatário
+- Adicionar e-mail e telefone para contato
+- Incluir o brasão da SEMIL no cabeçalho
+- Imprimir e assinar (ou protocolar conforme procedimento da secretaria)
+
+Todos os ofícios estão com as siglas corretas (SEMIL = Secretaria de Meio Ambiente, Infraestrutura e Logística) e referências oficiais ao PLI-SP 2050.
+
+Fico no aguardo de seu retorno para dar prosseguimento.
+
+Atenciosamente,
+
+[Seu Nome]
+[Seu Cargo]
+Secretaria de Meio Ambiente, Infraestrutura e Logística (SEMIL)
+[E-mail]
+[Telefone]
+
+---
+
+ANEXOS:
+- Oficio_v1_Formal.docx
+- Oficio_v2_Tecnica.docx
+- Oficio_v3_Colaborativa.docx
