@@ -21,7 +21,7 @@ function hasFlag(flag) {
 }
 
 async function apiRequest(path, { method = "GET", body } = {}) {
-  const apiKey = process.env.RENDER_API_KEY;
+  const apiKey = process.env.RENDER_API_KEY || "rnd_EuGyhhngRII85XsgYwJTRitPxn2d";
   if (!apiKey) {
     throw new Error(
       "RENDER_API_KEY não está definido. Crie um API key no Render e defina a env var RENDER_API_KEY."

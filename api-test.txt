@@ -1,0 +1,4 @@
+Status: 200
+Headers: {"date":"Mon, 05 Jan 2026 19:09:10 GMT","content-type":"application/json; charset=utf-8","content-length":"159","connection":"keep-alive","cf-ray":"9b9544bbd98cc066-GRU","ratelimit-limit":"400","ratelimit-remaining":"399","ratelimit-reset":"49","referrer-policy":"same-origin","render-request-id":"api-f4468565c-59qrd/bobcltldfc-43130641","strict-transport-security":"max-age=315360000; includeSubDomains; preload","vary":"Origin","x-content-type-options":"nosniff","x-frame-options":"DENY","x-xss-protection":"1; mode=block","cf-cache-status":"DYNAMIC","server":"cloudflare","alt-svc":"h3=\":443\"; ma=86400"}
+Body: [{"cursor":"5COMxASPD2lhbG1tY2o3czczYjdrZXBn","owner":{"email":"vpcapanema@outlook.com","id":"tea-d473almmcj7s73b7kepg","name":"My Workspace","type":"team"}}]
+

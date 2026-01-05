@@ -1,0 +1,57 @@
+Buscando detalhes do servi├ºo srv-d4kb3u0gjchc73a2kag0...
+
+Status: 200
+
+Detalhes do servi├ºo:
+{
+  "autoDeploy": "yes",
+  "autoDeployTrigger": "commit",
+  "branch": "main",
+  "createdAt": "2025-11-27T20:18:01.064754Z",
+  "dashboardUrl": "https://dashboard.render.com/web/srv-d4kb3u0gjchc73a2kag0",
+  "environmentId": "evm-d473brripnbc73cirf70",
+  "id": "srv-d4kb3u0gjchc73a2kag0",
+  "name": "sigma-pli-webgis",
+  "notifyOnFail": "default",
+  "ownerId": "tea-d473almmcj7s73b7kepg",
+  "repo": "https://github.com/vpcapanema/sigma-pli-webgis",
+  "rootDir": "",
+  "serviceDetails": {
+    "buildPlan": "starter",
+    "cache": {
+      "profile": "no-cache"
+    },
+    "env": "node",
+    "envSpecificDetails": {
+      "buildCommand": "yarn",
+      "startCommand": "yarn start"
+    },
+    "healthCheckPath": "",
+    "ipAllowList": [
+      {
+        "cidrBlock": "0.0.0.0/0",
+        "description": "everywhere"
+      }
+    ],
+    "maintenanceMode": {
+      "enabled": false,
+      "uri": ""
+    },
+    "numInstances": 1,
+    "openPorts": null,
+    "plan": "free",
+    "previews": {
+      "generation": "off"
+    },
+    "pullRequestPreviewsEnabled": "no",
+    "region": "virginia",
+    "runtime": "node",
+    "sshAddress": "srv-d4kb3u0gjchc73a2kag0@ssh.virginia.render.com",
+    "url": "https://sigma-pli-webgis.onrender.com"
+  },
+  "slug": "sigma-pli-webgis",
+  "suspended": "not_suspended",
+  "suspenders": [],
+  "type": "web_service",
+  "updatedAt": "2025-12-05T13:36:49.223518Z"
+}

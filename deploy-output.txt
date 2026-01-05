@@ -1,0 +1,28 @@
+Buscando workspace "My Workspace"...
+Encontrados 1 workspaces
+Ô£ô Workspace ID: tea-d473almmcj7s73b7kepg
+
+Payload:
+{
+  "type": "static_site",
+  "name": "densidade-de-malha-relatorio",
+  "ownerId": "tea-d473almmcj7s73b7kepg",
+  "repo": "https://github.com/vpcapanema/densidade-de-malha",
+  "branch": "main",
+  "autoDeploy": "yes",
+  "publishPath": "relatorio"
+}
+
+Criando Static Site...
+
+Enviando POST /services com 216 bytes
+Content-Length header: 216
+
+Ô£ô Servi├ºo criado com sucesso!
+{
+  "serviceId": "srv-d5e1636r433s73arb300",
+  "name": "densidade-de-malha-relatorio",
+  "dashboardUrl": "https://dashboard.render.com/static/srv-d5e1636r433s73arb300",
+  "url": "https://densidade-de-malha-relatorio.onrender.com",
+  "deployId": "dep-d5e163er433s73arb3a0"
+}
