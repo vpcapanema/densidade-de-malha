@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Utilizados | Densidade de Malha Rodoviária SP</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Densidade de Malha SP</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html" class="active">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="mapas.html">Mapas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 50vh;">
+        <div class="hero-content">
+            <span class="badge">📁 Seção 03</span>
+            <h1>Dados Utilizados</h1>
+            <p class="subtitle">Fontes e bases de dados empregadas</p>
+        </div>
+    </section>
+
+    <!-- Fontes de Dados -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fontes de Dados</h2>
+                <p class="text-muted">Instituições oficiais fornecedoras dos dados</p>
+            </div>
+
+            <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                            <line x1="4" y1="22" x2="4" y2="15"/>
+                        </svg>
+                    </div>
+                    <h3>DER/SP</h3>
+                    <p><strong>Departamento de Estradas de Rodagem do Estado de São Paulo</strong></p>
+                    <p>
+                        Base de dados georreferenciada do Sistema Rodoviário Estadual,
+                        contendo todos os trechos de rodovias sob jurisdição estadual.
+                    </p>
+                    <p class="text-muted" style="font-size: 0.85rem;">
+                        📍 Portal de Dados Abertos DER/SP<br>
+                        📅 Atualização: 2024
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon" style="background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                        </svg>
+                    </div>
+                    <h3>IBGE</h3>
+                    <p><strong>Instituto Brasileiro de Geografia e Estatística</strong></p>
+                    <p>
+                        Malhas territoriais oficiais (municípios, regiões geográficas),
+                        dados populacionais do Censo 2022 e manchas urbanizadas do Brasil.
+                    </p>
+                    <p class="text-muted" style="font-size: 0.85rem;">
+                        📍 Portal IBGE Geociências<br>
+                        📅 Malhas: 2024 | População: Censo 2022 | Áreas Urbanizadas: 2019
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalhamento dos Dados -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Detalhamento das Bases</h2>
+                <p class="text-muted">Características técnicas de cada conjunto de dados</p>
+            </div>
+
+            <!-- Malha Rodoviária -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--accent-color);">🛣️ Malha Rodoviária DER/SP</h3>
+                
+                <div class="table-container" style="box-shadow: none; margin-top: 1rem;">
+                    <table>
+                        <tr>
+                            <td style="width: 200px;"><strong>Tipo de Dado</strong></td>
+                            <td>Vetorial (linhas)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Formato Original</strong></td>
+                            <td>Shapefile (.shp)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sistema de Coordenadas</strong></td>
+                            <td>EPSG:5880 - SIRGAS 2000 / Brazil Polyconic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total de Feições</strong></td>
+                            <td>4.779 trechos rodoviários</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Extensão Total</strong></td>
+                            <td>21.673,96 km</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h4 class="mt-3">Principais Atributos:</h4>
+                <div class="table-container" style="box-shadow: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Descrição</th>
+                                <th>Exemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>Rodovia</code></td>
+                                <td>Código da rodovia</td>
+                                <td>SP-280, SPA-123, BR-116</td>
+                            </tr>
+                            <tr>
+                                <td><code>Administra</code></td>
+                                <td>Tipo de administração</td>
+                                <td>Concessionária, DER</td>
+                            </tr>
+                            <tr>
+                                <td><code>Extensao</code></td>
+                                <td>Extensão do trecho (km)</td>
+                                <td>5.42</td>
+                            </tr>
+                            <tr>
+                                <td><code>Municipio</code></td>
+                                <td>Município de localização</td>
+                                <td>Campinas</td>
+                            </tr>
+                            <tr>
+                                <td><code>PerimetroU</code></td>
+                                <td>Se está em perímetro urbano</td>
+                                <td>Sim, Não</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Limites Municipais -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--success-color);">🗺️ Limites Municipais IBGE</h3>
+                
+                <div class="table-container" style="box-shadow: none; margin-top: 1rem;">
+                    <table>
+                        <tr>
+                            <td style="width: 200px;"><strong>Tipo de Dado</strong></td>
+                            <td>Vetorial (polígonos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Formato Original</strong></td>
+                            <td>Shapefile (.shp)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sistema de Coordenadas</strong></td>
+                            <td>EPSG:4674 - SIRGAS 2000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total de Feições</strong></td>
+                            <td>645 municípios</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Área Total</strong></td>
+                            <td>248.219,63 km²</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Regiões Geográficas -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--secondary-color);">📍 Regiões Geográficas IBGE</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4>Regiões Geográficas Imediatas</h4>
+                        <p class="text-muted">
+                            Estrutura de referência para políticas públicas de curto prazo,
+                            articuladas por centros urbanos próximos.
+                        </p>
+                        <p><strong>Total:</strong> 53 regiões</p>
+                    </div>
+                    <div>
+                        <h4>Regiões Geográficas Intermediárias</h4>
+                        <p class="text-muted">
+                            Organizam o território estadual a partir de metrópoles
+                            e capitais regionais.
+                        </p>
+                        <p><strong>Total:</strong> 11 regiões</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- População -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--warning-color);">👥 População - Censo 2022</h3>
+                
+                <div class="table-container" style="box-shadow: none; margin-top: 1rem;">
+                    <table>
+                        <tr>
+                            <td style="width: 200px;"><strong>Fonte</strong></td>
+                            <td>IBGE - Censo Demográfico 2022</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Formato</strong></td>
+                            <td>Planilha Excel (.xls)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cobertura</strong></td>
+                            <td>645 municípios de São Paulo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>População Total SP</strong></td>
+                            <td>44.411.238 habitantes</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Áreas Urbanizadas -->
+            <div class="card">
+                <h3 style="color: var(--primary-color);">🏙️ Áreas Urbanizadas IBGE</h3>
+                
+                <div class="table-container" style="box-shadow: none; margin-top: 1rem;">
+                    <table>
+                        <tr>
+                            <td style="width: 200px;"><strong>Tipo de Dado</strong></td>
+                            <td>Vetorial (polígonos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fonte</strong></td>
+                            <td>IBGE - Áreas Urbanizadas do Brasil 2019</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sistema de Coordenadas</strong></td>
+                            <td>EPSG:4674 - SIRGAS 2000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Brasil</strong></td>
+                            <td>128.459 polígonos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total São Paulo</strong></td>
+                            <td>15.992 polígonos (filtrado espacialmente)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="highlight-box mt-3">
+                    <h4>📌 Metodologia IBGE para Áreas Urbanizadas</h4>
+                    <p style="margin-bottom: 0;">
+                        As manchas urbanizadas foram identificadas por interpretação de imagens de satélite,
+                        considerando aspectos morfológicos como proximidade entre edificações e padrões de
+                        arruamento. São classificadas em <strong>densas</strong> e <strong>pouco densas</strong>,
+                        conforme o grau de ocupação urbana.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diagrama de Integração -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Integração dos Dados</h2>
+                <p class="text-muted">Como as bases foram combinadas</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <!-- Linha de fontes -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 1.2rem 1rem; border-radius: 12px; text-align: center; font-weight: 600;">
+                        🛣️ Malha DER/SP
+                    </div>
+                    <div style="background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%); color: white; padding: 1.2rem 1rem; border-radius: 12px; text-align: center; font-weight: 600;">
+                        🗺️ Limites IBGE
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); color: white; padding: 1.2rem 1rem; border-radius: 12px; text-align: center; font-weight: 600;">
+                        👥 População
+                    </div>
+                    <div style="background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%); color: white; padding: 1.2rem 1rem; border-radius: 12px; text-align: center; font-weight: 600;">
+                        🏙️ Áreas Urbanas
+                    </div>
+                </div>
+
+                <!-- Setas convergindo -->
+                <div style="text-align: center; font-size: 2rem; color: var(--primary-color); margin: 1rem 0;">
+                    ⬇️ ⬇️ ⬇️ ⬇️
+                </div>
+
+                <!-- Processo central -->
+                <div style="background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); color: white; padding: 1.5rem 2rem; border-radius: 12px; text-align: center; margin-bottom: 1.5rem;">
+                    <h4 style="color: white; margin: 0 0 0.5rem 0;">⚙️ Processamento Espacial</h4>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Junção espacial, classificações e cálculos de densidade</p>
+                </div>
+
+                <!-- Seta para baixo -->
+                <div style="text-align: center; font-size: 2rem; color: var(--primary-color); margin: 1rem 0;">
+                    ⬇️
+                </div>
+
+                <!-- Resultado -->
+                <div style="background: linear-gradient(135deg, #1a5276 0%, #154360 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 8px 30px rgba(26,82,118,0.3);">
+                    <h3 style="color: white; margin-bottom: 0.5rem;">📊 Base Integrada</h3>
+                    <p style="margin-bottom: 0; opacity: 0.9;">
+                        Densidade de Malha Rodoviária por Unidade Territorial
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); text-align: center;">
+        <div class="container">
+            <a href="objetivos.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Objetivos
+            </a>
+            <a href="metodologia.html" class="btn btn-primary">
+                Metodologia →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Dezembro 2025 | Análise Geoespacial - Densidade de Malha Rodoviária SP</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

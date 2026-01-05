@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Densidade de Malha Rodoviária | São Paulo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Densidade de Malha SP</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html" class="active">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="mapas.html">Mapas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">📊 Análise Geoespacial 2025</span>
+            <h1>Densidade de Malha Rodoviária</h1>
+            <p class="subtitle">Estado de São Paulo</p>
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto 2rem;">
+                Análise espacial da infraestrutura rodoviária estadual paulista,
+                com indicadores de densidade por área e população, classificados
+                por tipo de administração, categoria de rodovia e localização urbano-rural.
+            </p>
+            <a href="objetivos.html" class="btn btn-primary">
+                Explorar Estudo
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contextualização -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contextualização</h2>
+                <p class="text-muted">Entendendo o cenário da infraestrutura rodoviária paulista</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p>
+                    O Estado de São Paulo possui a maior e mais complexa rede rodoviária do Brasil,
+                    sendo fundamental para o escoamento da produção agrícola e industrial, além de
+                    conectar milhões de pessoas diariamente. A análise da <strong>densidade de malha
+                    rodoviária</strong> é um indicador essencial para avaliar a cobertura e eficiência
+                    dessa infraestrutura.
+                </p>
+
+                <div class="highlight-box">
+                    <h4>📍 Por que estudar a densidade de malha?</h4>
+                    <p style="margin-bottom: 0;">
+                        A densidade de malha rodoviária permite identificar regiões com maior ou menor
+                        cobertura de infraestrutura, auxiliando no planejamento de investimentos,
+                        na priorização de obras e na formulação de políticas públicas de transporte.
+                    </p>
+                </div>
+
+                <p>
+                    Este estudo analisa a rede rodoviária sob jurisdição do <strong>Departamento de
+                    Estradas de Rodagem do Estado de São Paulo (DER/SP)</strong>, que inclui:
+                </p>
+
+                <ul style="margin-left: 2rem; margin-bottom: 2rem;">
+                    <li>Rodovias estaduais (SP, SPA, SPI)</li>
+                    <li>Trechos de rodovias federais delegados ao estado (BR)</li>
+                    <li>Rodovias sob regime de concessão</li>
+                    <li>Rodovias administradas diretamente pelo DER</li>
+                </ul>
+
+                <p>
+                    A análise contempla diferentes recortes territoriais — municipal, Regiões Geográficas
+                    Imediatas e Regiões Geográficas Intermediárias — permitindo uma visão multinível
+                    da distribuição da infraestrutura rodoviária no território paulista.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Números Principais -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Visão Geral</h2>
+                <p class="text-muted">Números da malha rodoviária estadual</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">21.674</div>
+                    <div class="stat-label">Quilômetros de Rodovias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">645</div>
+                    <div class="stat-label">Municípios Analisados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.779</div>
+                    <div class="stat-label">Trechos Rodoviários</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">44,6M</div>
+                    <div class="stat-label">Habitantes (Censo 2022)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Importância do Estudo -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Importância do Estudo</h2>
+                <p class="text-muted">Aplicações práticas desta análise</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                        </svg>
+                    </div>
+                    <h3>Planejamento</h3>
+                    <p>
+                        Identificar áreas com baixa densidade de malha para priorização
+                        de investimentos em expansão e melhoria da infraestrutura.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>Eficiência</h3>
+                    <p>
+                        Avaliar a relação entre extensão de rodovias, área territorial
+                        e população para otimizar a alocação de recursos.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Cobertura Territorial</h3>
+                    <p>
+                        Mapear a distribuição espacial das rodovias e identificar
+                        disparidades regionais na oferta de infraestrutura.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Acessibilidade</h3>
+                    <p>
+                        Analisar a relação entre infraestrutura viária e população
+                        para garantir acesso equitativo ao sistema rodoviário.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estrutura do Relatório -->
+    <section class="section" style="background: var(--gradient-dark); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Estrutura do Relatório</h2>
+                <p style="color: rgba(255,255,255,0.7);">Navegue pelas seções do estudo</p>
+            </div>
+
+            <div class="cards-grid">
+                <a href="objetivos.html" class="card" style="text-decoration: none;">
+                    <h3 style="color: var(--primary-color);">📎 Objetivos</h3>
+                    <p>Metas e questões que este estudo busca responder.</p>
+                </a>
+                <a href="dados.html" class="card" style="text-decoration: none;">
+                    <h3 style="color: var(--primary-color);">📁 Dados Utilizados</h3>
+                    <p>Fontes de dados e informações geográficas empregadas.</p>
+                </a>
+                <a href="metodologia.html" class="card" style="text-decoration: none;">
+                    <h3 style="color: var(--primary-color);">🔬 Metodologia</h3>
+                    <p>Procedimentos e classificações aplicadas na análise.</p>
+                </a>
+                <a href="resultados.html" class="card" style="text-decoration: none;">
+                    <h3 style="color: var(--primary-color);">📊 Resultados</h3>
+                    <p>Indicadores e estatísticas calculadas.</p>
+                </a>
+                <a href="mapas.html" class="card" style="text-decoration: none;">
+                    <h3 style="color: var(--primary-color);">🗺️ Mapas</h3>
+                    <p>Visualizações cartográficas interativas.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>Sobre o Estudo</h4>
+                    <p>
+                        Análise da densidade de malha rodoviária do Estado de São Paulo,
+                        desenvolvida com dados oficiais do DER/SP e IBGE.
+                    </p>
+                </div>
+                <div>
+                    <h4>Fontes de Dados</h4>
+                    <p>
+                        DER/SP - Departamento de Estradas de Rodagem<br>
+                        IBGE - Instituto Brasileiro de Geografia e Estatística
+                    </p>
+                </div>
+                <div>
+                    <h4>Tecnologias</h4>
+                    <p>
+                        Python, GeoPandas, Folium<br>
+                        HTML5, CSS3, JavaScript
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Dezembro 2025 | Análise Geoespacial</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

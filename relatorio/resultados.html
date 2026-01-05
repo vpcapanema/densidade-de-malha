@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados | Densidade de Malha Rodoviária SP</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { background: white; border-radius: 16px; padding: 2rem; box-shadow: var(--shadow-soft); margin-bottom: 2rem; }
+        .chart-container-fixed { height: 350px; }
+        .chart-title { text-align: center; margin-bottom: 1rem; color: var(--dark-color); }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Densidade de Malha SP</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html" class="active">Resultados</a></li>
+            <li><a href="mapas.html">Mapas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 50vh;">
+        <div class="hero-content">
+            <span class="badge">📊 Seção 05</span>
+            <h1>Resultados</h1>
+            <p class="subtitle">Indicadores e estatísticas calculadas</p>
+        </div>
+    </section>
+
+    <!-- Números Gerais -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Visão Geral do Estado</h2>
+                <p class="text-muted">Números consolidados de São Paulo</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">21.587</div>
+                    <div class="stat-label">km de Rodovias</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0,087</div>
+                    <div class="stat-label">km/km² (Dens. Área)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0,49</div>
+                    <div class="stat-label">km/1000 hab (Dens. Pop)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">645</div>
+                    <div class="stat-label">Municípios com Rodovias</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados por Administração -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Distribuição por Administração</h2>
+                <p class="text-muted">Concessionadas vs Não Concessionadas</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div class="chart-container">
+                    <h4 class="chart-title">Extensão por Tipo de Administração</h4>
+                    <canvas id="chartAdministracao"></canvas>
+                </div>
+
+                <div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Administração</th>
+                                    <th>Extensão (km)</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🏢 Concessionada</td>
+                                    <td><strong>9.245,51</strong></td>
+                                    <td>42,8%</td>
+                                </tr>
+                                <tr>
+                                    <td>🏛️ Não Concessionada</td>
+                                    <td><strong>12.341,66</strong></td>
+                                    <td>57,2%</td>
+                                </tr>
+                                <tr style="background: var(--light-color);">
+                                    <td><strong>Total</strong></td>
+                                    <td><strong>21.587,17</strong></td>
+                                    <td>100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>📌 Destaque</h4>
+                        <p style="margin-bottom: 0;">
+                            Mais da metade (57,2%) da malha rodoviária estadual é administrada
+                            diretamente pelo DER/SP, enquanto 42,8% está sob regime de concessão.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados por Tipo de Rodovia -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Distribuição por Tipo de Rodovia</h2>
+                <p class="text-muted">Hierarquia funcional das vias</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div class="chart-container">
+                    <h4 class="chart-title">Extensão por Tipo de Rodovia</h4>
+                    <canvas id="chartTipoRodovia"></canvas>
+                </div>
+
+                <div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Extensão (km)</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🛣️ SP (Eixo Principal)</td>
+                                    <td><strong>17.744,70</strong></td>
+                                    <td>81,7%</td>
+                                </tr>
+                                <tr>
+                                    <td>🔗 SPA (Acesso)</td>
+                                    <td><strong>2.618,28</strong></td>
+                                    <td>12,1%</td>
+                                </tr>
+                                <tr>
+                                    <td>↔️ SPI (Interligação)</td>
+                                    <td><strong>257,34</strong></td>
+                                    <td>1,2%</td>
+                                </tr>
+                                <tr>
+                                    <td>🚛 BR (Federal)</td>
+                                    <td><strong>1.073,95</strong></td>
+                                    <td>4,9%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>📌 Destaque</h4>
+                        <p style="margin-bottom: 0;">
+                            As rodovias SP (eixos principais) representam 81,9% da malha,
+                            seguidas pelos acessos SPA (11,8%) e rodovias federais BR (5,1%).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados por Tipo de Pista -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Distribuição por Tipo de Pista</h2>
+                <p class="text-muted">Características físicas das vias</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div class="chart-container">
+                    <h4 class="chart-title">Extensão por Tipo de Pista</h4>
+                    <canvas id="chartTipoPista"></canvas>
+                </div>
+
+                <div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Pista</th>
+                                    <th>Extensão (km)</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🛤️ PAV (Pista Simples Pavimentada)</td>
+                                    <td><strong>13.486,03</strong></td>
+                                    <td>62,1%</td>
+                                </tr>
+                                <tr>
+                                    <td>🛣️ DUP (Pista Dupla)</td>
+                                    <td><strong>6.734,78</strong></td>
+                                    <td>31,0%</td>
+                                </tr>
+                                <tr>
+                                    <td>🚧 IMP (Em Implantação)</td>
+                                    <td><strong>980,08</strong></td>
+                                    <td>4,5%</td>
+                                </tr>
+                                <tr>
+                                    <td>📋 PLAN (Planejada)</td>
+                                    <td><strong>508,35</strong></td>
+                                    <td>2,3%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>📌 Destaque</h4>
+                        <p style="margin-bottom: 0;">
+                            Cerca de <strong>31%</strong> da malha rodoviária estadual é composta por 
+                            pistas duplas, indicando investimento significativo em capacidade viária.
+                            Aproximadamente <strong>6,8%</strong> está em fase de implantação ou planejamento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resultados por Localização -->
+    <section class="section" style="background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Distribuição Urbano-Rural</h2>
+                <p style="color: rgba(255,255,255,0.8);">Classificação por manchas urbanas do IBGE</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div class="chart-container">
+                    <h4 class="chart-title">Extensão por Localização</h4>
+                    <canvas id="chartLocalizacao"></canvas>
+                </div>
+
+                <div>
+                    <div class="table-container" style="background: rgba(255,255,255,0.98); border-radius: 12px;">
+                        <table style="color: #333;">
+                            <thead style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white;">
+                                <tr>
+                                    <th>Localização</th>
+                                    <th>Extensão (km)</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody style="background: white;">
+                                <tr>
+                                    <td>🏙️ Urbano (&gt;50%)</td>
+                                    <td><strong>2.608,20</strong></td>
+                                    <td>12,1%</td>
+                                </tr>
+                                <tr>
+                                    <td>🏘️ Misto (10-50%)</td>
+                                    <td><strong>4.453,58</strong></td>
+                                    <td>20,6%</td>
+                                </tr>
+                                <tr>
+                                    <td>🌾 Rural (&lt;10%)</td>
+                                    <td><strong>14.525,39</strong></td>
+                                    <td>67,3%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box" style="background: rgba(255,255,255,0.95); color: var(--text-color);">
+                        <h4>📌 Comparativo com Campo PerimetroU</h4>
+                        <p>
+                            A classificação por manchas urbanas do IBGE identificou
+                            <strong>5,5x mais extensão</strong> em áreas urbanas do que
+                            o campo PerimetroU original do DER (2.608 km vs 552 km).
+                        </p>
+                        <p style="margin-bottom: 0;">
+                            Isso sugere que o campo PerimetroU do DER <strong>subestima
+                            significativamente</strong> os trechos em contexto urbano.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Municípios -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Municípios com Maior Extensão</h2>
+                <p class="text-muted">Top 10 municípios por quilometragem de rodovias</p>
+            </div>
+
+            <div class="chart-container" style="max-width: 900px; margin: 0 auto;">
+                <canvas id="chartTopMunicipios" height="300"></canvas>
+            </div>
+
+            <div class="table-container" style="max-width: 900px; margin: 2rem auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Município</th>
+                            <th>Extensão Total (km)</th>
+                            <th>Dens. Área (km/km²)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Piracicaba</td><td><strong>196,15</strong></td><td>0,142</td></tr>
+                        <tr><td>2</td><td>Campinas</td><td><strong>186,29</strong></td><td>0,234</td></tr>
+                        <tr><td>3</td><td>Itapetininga</td><td><strong>183,60</strong></td><td>0,103</td></tr>
+                        <tr><td>4</td><td>Ribeirão Preto</td><td><strong>158,74</strong></td><td>0,244</td></tr>
+                        <tr><td>5</td><td>São Paulo</td><td><strong>155,16</strong></td><td>0,102</td></tr>
+                        <tr><td>6</td><td>Mogi das Cruzes</td><td><strong>146,68</strong></td><td>0,206</td></tr>
+                        <tr><td>7</td><td>Mogi Guaçu</td><td><strong>140,00</strong></td><td>0,172</td></tr>
+                        <tr><td>8</td><td>Marília</td><td><strong>136,61</strong></td><td>0,117</td></tr>
+                        <tr><td>9</td><td>Itu</td><td><strong>136,37</strong></td><td>0,213</td></tr>
+                        <tr><td>10</td><td>Botucatu</td><td><strong>132,72</strong></td><td>0,090</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regiões Geográficas -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Regiões Geográficas Intermediárias</h2>
+                <p class="text-muted">Agregação macrorregional (11 regiões)</p>
+            </div>
+
+            <div class="chart-container" style="max-width: 1000px; margin: 0 auto;">
+                <canvas id="chartRegioes" height="350"></canvas>
+            </div>
+
+            <div class="table-container" style="max-width: 1000px; margin: 2rem auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Região Intermediária</th>
+                            <th>Extensão (km)</th>
+                            <th>Área (km²)</th>
+                            <th>Dens. Área</th>
+                            <th>Dens. Pop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Sorocaba</td><td><strong>3.752,58</strong></td><td>45.253,86</td><td>0,0829</td><td>1,1854</td></tr>
+                        <tr><td>Campinas</td><td><strong>3.417,56</strong></td><td>24.923,86</td><td>0,1371</td><td>0,4803</td></tr>
+                        <tr><td>Ribeirão Preto</td><td><strong>2.309,84</strong></td><td>27.533,40</td><td>0,0839</td><td>0,9007</td></tr>
+                        <tr><td>São José do Rio Preto</td><td><strong>1.984,21</strong></td><td>26.152,86</td><td>0,0759</td><td>1,2191</td></tr>
+                        <tr><td>São José dos Campos</td><td><strong>1.755,97</strong></td><td>16.336,76</td><td>0,1075</td><td>0,6865</td></tr>
+                        <tr><td>São Paulo</td><td><strong>1.658,00</strong></td><td>11.399,89</td><td>0,1454</td><td>0,0696</td></tr>
+                        <tr><td>Bauru</td><td><strong>1.656,90</strong></td><td>22.244,73</td><td>0,0745</td><td>1,1905</td></tr>
+                        <tr><td>Marília</td><td><strong>1.541,13</strong></td><td>19.556,66</td><td>0,0788</td><td>1,5024</td></tr>
+                        <tr><td>Presidente Prudente</td><td><strong>1.351,21</strong></td><td>24.866,71</td><td>0,0543</td><td>1,5474</td></tr>
+                        <tr><td>Araraquara</td><td><strong>1.104,79</strong></td><td>12.134,73</td><td>0,0910</td><td>0,9994</td></tr>
+                        <tr><td>Araçatuba</td><td><strong>1.054,98</strong></td><td>18.812,59</td><td>0,0561</td><td>1,3373</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Indicadores de Densidade -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Indicadores de Densidade</h2>
+                <p class="text-muted">Métricas calculadas para análise da malha rodoviária</p>
+            </div>
+
+            <div class="cards-grid" style="max-width: 1100px; margin: 0 auto;">
+                <div class="card" style="border-top: 4px solid #1a5276;">
+                    <h3>📐 Densidade por Área</h3>
+                    <div class="stat-number" style="font-size: 2.5rem;">0,087</div>
+                    <div class="stat-label">km de rodovia / km² de território</div>
+                    <hr style="margin: 1rem 0; border-color: #eee;">
+                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
+                        Maior: <strong>Águas de São Pedro</strong> (1,352 km/km²)<br>
+                        Média municipal: 0,103 km/km² | Mediana: 0,086 km/km²
+                    </p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #27ae60;">
+                    <h3>👥 Densidade por População</h3>
+                    <div class="stat-number" style="font-size: 2.5rem;">0,469</div>
+                    <div class="stat-label">km de rodovia / 1.000 habitantes</div>
+                    <hr style="margin: 1rem 0; border-color: #eee;">
+                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
+                        Maior: <strong>Iporanga</strong> (17,23 km/1000hab)<br>
+                        Média municipal: 2,24 km/1000hab | Mediana: 1,63 km/1000hab
+                    </p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #e74c3c;">
+                    <h3>🏢 Dens. Concessionada</h3>
+                    <div class="stat-number" style="font-size: 2.5rem;">0,037</div>
+                    <div class="stat-label">km de rodovia concess. / km²</div>
+                    <hr style="margin: 1rem 0; border-color: #eee;">
+                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
+                        42,8% da malha é concessionada<br>
+                        Dens. por pop: 0,201 km/1000hab
+                    </p>
+                </div>
+
+                <div class="card" style="border-top: 4px solid #f39c12;">
+                    <h3>🏛️ Dens. Não Concessionada</h3>
+                    <div class="stat-number" style="font-size: 2.5rem;">0,050</div>
+                    <div class="stat-label">km de rodovia DER / km²</div>
+                    <hr style="margin: 1rem 0; border-color: #eee;">
+                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
+                        57,2% da malha é administrada pelo DER<br>
+                        Dens. por pop: 0,268 km/1000hab
+                    </p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="max-width: 1100px; margin: 3rem auto 0;">
+                <h4>📌 Interpretação dos Indicadores</h4>
+                <p>
+                    A <strong>densidade por área</strong> indica a cobertura territorial da malha rodoviária.
+                    Valores altos indicam municípios pequenos com boa infraestrutura viária.
+                </p>
+                <p>
+                    A <strong>densidade por população</strong> reflete a disponibilidade de infraestrutura
+                    rodoviária per capita. Municípios rurais com baixa população tendem a ter valores mais altos.
+                </p>
+                <p style="margin-bottom: 0;">
+                    Esses indicadores permitem comparar a infraestrutura rodoviária entre diferentes
+                    unidades territoriais (municípios, regiões) e identificar áreas com maior ou menor
+                    cobertura da malha viária estadual.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Análise ZEE - Regiões Administrativas -->
+    <section class="section" style="background: linear-gradient(135deg, #1a5276 0%, #154360 100%); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">🗺️ Zoneamento Ecológico-Econômico (ZEE)</h2>
+                <p style="color: rgba(255,255,255,0.8);">Análise por Regiões Administrativas e Grupos do ZEE de São Paulo</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;">
+                <!-- Regiões Administrativas -->
+                <div class="chart-container" style="background: white; height: 450px;">
+                    <h4 class="chart-title">Regiões Administrativas (16 unidades)</h4>
+                    <canvas id="chartRA" height="380"></canvas>
+                </div>
+
+                <!-- Grupos ZEE -->
+                <div class="chart-container" style="background: white; height: 450px;">
+                    <h4 class="chart-title">Grupos ZEE (9 unidades)</h4>
+                    <canvas id="chartZEE" height="380"></canvas>
+                </div>
+            </div>
+
+            <!-- Tabela Regiões Administrativas -->
+            <div class="table-container" style="max-width: 1200px; margin: 2rem auto; background: white; border-radius: 12px; padding: 1rem;">
+                <h4 style="color: #333; text-align: center; margin-bottom: 1rem;">📊 Regiões Administrativas - Principais Indicadores</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="background: #1a5276; color: white;">Região Administrativa</th>
+                            <th style="background: #1a5276; color: white;">Extensão (km)</th>
+                            <th style="background: #1a5276; color: white;">Área (km²)</th>
+                            <th style="background: #1a5276; color: white;">Dens. Área</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Campinas</td><td><strong>3.613,26</strong></td><td>27.080</td><td>0,133</td></tr>
+                        <tr><td>Sorocaba</td><td><strong>2.276,52</strong></td><td>24.877</td><td>0,091</td></tr>
+                        <tr><td>São José do Rio Preto</td><td><strong>1.887,30</strong></td><td>26.006</td><td>0,073</td></tr>
+                        <tr><td>São José dos Campos</td><td><strong>1.830,21</strong></td><td>16.178</td><td>0,113</td></tr>
+                        <tr><td>Marília</td><td><strong>1.392,92</strong></td><td>16.329</td><td>0,085</td></tr>
+                        <tr><td>Itapeva</td><td><strong>1.374,23</strong></td><td>12.194</td><td>0,113</td></tr>
+                        <tr><td>São Paulo</td><td><strong>1.343,78</strong></td><td>7.947</td><td>0,169</td></tr>
+                        <tr><td>Presidente Prudente</td><td><strong>1.324,48</strong></td><td>20.189</td><td>0,066</td></tr>
+                        <tr><td>Bauru</td><td><strong>1.151,58</strong></td><td>16.713</td><td>0,069</td></tr>
+                        <tr><td>Araçatuba</td><td><strong>1.071,27</strong></td><td>18.559</td><td>0,058</td></tr>
+                        <tr><td>Central</td><td><strong>986,68</strong></td><td>8.343</td><td>0,118</td></tr>
+                        <tr><td>Ribeirão Preto</td><td><strong>972,30</strong></td><td>9.344</td><td>0,104</td></tr>
+                        <tr><td>Franca</td><td><strong>832,50</strong></td><td>6.290</td><td>0,132</td></tr>
+                        <tr><td>Registro</td><td><strong>760,45</strong></td><td>12.136</td><td>0,063</td></tr>
+                        <tr><td>Barretos</td><td><strong>568,52</strong></td><td>4.603</td><td>0,124</td></tr>
+                        <tr><td>Santos</td><td><strong>295,03</strong></td><td>2.429</td><td>0,121</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tabela Grupos ZEE -->
+            <div class="table-container" style="max-width: 1000px; margin: 2rem auto; background: white; border-radius: 12px; padding: 1rem;">
+                <h4 style="color: #333; text-align: center; margin-bottom: 1rem;">🌿 Grupos ZEE - Unidades de Análise Integrada</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="background: #27ae60; color: white;">Grupo</th>
+                            <th style="background: #27ae60; color: white;">Abrangência</th>
+                            <th style="background: #27ae60; color: white;">Extensão (km)</th>
+                            <th style="background: #27ae60; color: white;">Dens. Área</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Grupo 02</td><td>Bauru, Marília e Pres. Prudente</td><td><strong>3.869,04</strong></td><td>0,070</td></tr>
+                        <tr><td>Grupo 04</td><td>Itapeva e Sorocaba</td><td><strong>3.650,43</strong></td><td>0,095</td></tr>
+                        <tr><td>Grupo 05</td><td>Campinas</td><td><strong>3.613,54</strong></td><td>0,133</td></tr>
+                        <tr><td>Grupo 01</td><td>Central, Barretos, Franca e Rib. Preto</td><td><strong>3.360,16</strong></td><td>0,118</td></tr>
+                        <tr><td>Grupo 03</td><td>Araçatuba e SJ Rio Preto</td><td><strong>2.958,35</strong></td><td>0,066</td></tr>
+                        <tr><td>Grupo 09</td><td>São José dos Campos</td><td><strong>1.830,01</strong></td><td>0,113</td></tr>
+                        <tr><td>Grupo 08</td><td>Região Metropolitana de SP</td><td><strong>1.343,75</strong></td><td>0,169</td></tr>
+                        <tr><td>Grupo 06</td><td>Registro</td><td><strong>760,56</strong></td><td>0,063</td></tr>
+                        <tr><td>Grupo 07</td><td>Santos</td><td><strong>295,09</strong></td><td>0,121</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="max-width: 1100px; margin: 2rem auto 0; background: rgba(255,255,255,0.95); color: #333;">
+                <h4>🔍 Destaques da Análise ZEE</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <p><strong>Maior densidade por área:</strong><br>
+                        Região Metropolitana de SP (Grupo 08) com 0,169 km/km²</p>
+                    </div>
+                    <div>
+                        <p><strong>Maior extensão total:</strong><br>
+                        Grupo 02 (Bauru, Marília, P. Prudente) com 3.869 km</p>
+                    </div>
+                    <div>
+                        <p><strong>Menor densidade:</strong><br>
+                        Araçatuba (0,058 km/km²) - área extensa com menos rodovias</p>
+                    </div>
+                    <div>
+                        <p><strong>Menor extensão:</strong><br>
+                        Santos com 295 km - região litorânea mais compacta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <section class="section" style="background: white; text-align: center;">
+        <div class="container">
+            <a href="metodologia.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Metodologia
+            </a>
+            <a href="mapas.html" class="btn btn-primary">
+                Ver Mapas →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Dezembro 2025 | Análise Geoespacial - Densidade de Malha Rodoviária SP</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts dos Gráficos -->
+    <script>
+        // Cores
+        const cores = {
+            primary: '#1a5276',
+            secondary: '#2980b9',
+            accent: '#e74c3c',
+            success: '#27ae60',
+            warning: '#f39c12',
+            purple: '#8e44ad'
+        };
+
+        // Gráfico de Administração (Donut)
+        new Chart(document.getElementById('chartAdministracao'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Concessionada', 'Não Concessionada'],
+                datasets: [{
+                    data: [9245.51, 12341.66],
+                    backgroundColor: [cores.accent, cores.success],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Gráfico de Tipo de Rodovia (Donut)
+        new Chart(document.getElementById('chartTipoRodovia'), {
+            type: 'doughnut',
+            data: {
+                labels: ['SP', 'SPA', 'SPI', 'BR'],
+                datasets: [{
+                    data: [17744.70, 2618.28, 257.34, 1073.95],
+                    backgroundColor: [cores.primary, cores.secondary, cores.warning, cores.accent],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Gráfico de Tipo de Pista (Donut)
+        new Chart(document.getElementById('chartTipoPista'), {
+            type: 'doughnut',
+            data: {
+                labels: ['PAV (Simples)', 'DUP (Dupla)', 'IMP (Implantação)', 'PLAN (Planejada)'],
+                datasets: [{
+                    data: [13486.03, 6734.78, 980.08, 508.35],
+                    backgroundColor: [cores.primary, cores.success, cores.warning, cores.purple],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Gráfico de Localização (Donut)
+        new Chart(document.getElementById('chartLocalizacao'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Urbano', 'Misto', 'Rural'],
+                datasets: [{
+                    data: [2608.20, 4453.58, 14525.39],
+                    backgroundColor: [cores.accent, cores.warning, cores.success],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Gráfico Top Municípios (Barras Horizontais)
+        new Chart(document.getElementById('chartTopMunicipios'), {
+            type: 'bar',
+            data: {
+                labels: ['Piracicaba', 'Campinas', 'Itapetininga', 'Ribeirão Preto', 'São Paulo', 
+                         'Mogi das Cruzes', 'Mogi Guaçu', 'Marília', 'Itu', 'Botucatu'],
+                datasets: [{
+                    label: 'Extensão (km)',
+                    data: [196.15, 186.29, 183.60, 158.74, 155.16, 146.68, 140.00, 136.61, 136.37, 132.72],
+                    backgroundColor: cores.primary,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { 
+                        beginAtZero: true,
+                        title: { display: true, text: 'Extensão (km)' }
+                    }
+                }
+            }
+        });
+
+        // Gráfico Regiões (Barras)
+        new Chart(document.getElementById('chartRegioes'), {
+            type: 'bar',
+            data: {
+                labels: ['Sorocaba', 'Campinas', 'Rib. Preto', 'SJ Rio Preto', 'SJC', 
+                         'São Paulo', 'Bauru', 'Marília', 'Pres. Prudente', 'Araraquara', 'Araçatuba'],
+                datasets: [{
+                    label: 'Extensão (km)',
+                    data: [3752.58, 3417.56, 2309.84, 1984.21, 1755.97, 1658.00, 1656.90, 1541.13, 1351.21, 1104.79, 1054.98],
+                    backgroundColor: [cores.primary, cores.secondary, cores.accent, cores.success, 
+                                      cores.warning, cores.purple, cores.primary, cores.secondary,
+                                      cores.accent, cores.success, cores.warning],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        title: { display: true, text: 'Extensão (km)' }
+                    }
+                }
+            }
+        });
+
+        // Gráfico Regiões Administrativas ZEE (Barras Horizontais)
+        new Chart(document.getElementById('chartRA'), {
+            type: 'bar',
+            data: {
+                labels: ['Campinas', 'Sorocaba', 'SJ Rio Preto', 'SJ Campos', 'Marília', 
+                         'Itapeva', 'São Paulo', 'Pres. Prudente', 'Bauru', 'Araçatuba',
+                         'Central', 'Rib. Preto', 'Franca', 'Registro', 'Barretos', 'Santos'],
+                datasets: [{
+                    label: 'Extensão (km)',
+                    data: [3613.26, 2276.52, 1887.30, 1830.21, 1392.92, 1374.23, 1343.78, 
+                           1324.48, 1151.58, 1071.27, 986.68, 972.30, 832.50, 760.45, 568.52, 295.03],
+                    backgroundColor: '#1a5276',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { 
+                        beginAtZero: true,
+                        title: { display: true, text: 'Extensão (km)' }
+                    }
+                }
+            }
+        });
+
+        // Gráfico Grupos ZEE (Barras Horizontais)
+        new Chart(document.getElementById('chartZEE'), {
+            type: 'bar',
+            data: {
+                labels: ['Grupo 02', 'Grupo 04', 'Grupo 05', 'Grupo 01', 'Grupo 03', 
+                         'Grupo 09', 'Grupo 08', 'Grupo 06', 'Grupo 07'],
+                datasets: [{
+                    label: 'Extensão (km)',
+                    data: [3869.04, 3650.43, 3613.54, 3360.16, 2958.35, 1830.01, 1343.75, 760.56, 295.09],
+                    backgroundColor: '#27ae60',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { 
+                        beginAtZero: true,
+                        title: { display: true, text: 'Extensão (km)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

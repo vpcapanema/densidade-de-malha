@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos | Densidade de Malha Rodoviária SP</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Densidade de Malha SP</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html" class="active">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="mapas.html">Mapas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header da Página -->
+    <section class="hero" style="min-height: 50vh;">
+        <div class="hero-content">
+            <span class="badge">📎 Seção 02</span>
+            <h1>Objetivos</h1>
+            <p class="subtitle">Metas e questões do estudo</p>
+        </div>
+    </section>
+
+    <!-- Objetivo Geral -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Objetivo Geral</h2>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="highlight-box" style="font-size: 1.15rem;">
+                    <p style="margin-bottom: 0;">
+                        <strong>Calcular e mapear a densidade de malha rodoviária</strong> do Estado de São Paulo,
+                        utilizando dados oficiais do DER/SP e IBGE, com classificações por tipo de administração,
+                        categoria de rodovia e localização urbano-rural, apresentando os resultados por
+                        unidade territorial (município, região imediata e região intermediária).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objetivos Específicos -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Objetivos Específicos</h2>
+                <p class="text-muted">Detalhamento das metas do estudo</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>1. Classificar a malha por tipo de administração</h4>
+                        <p class="text-muted">
+                            Separar as rodovias entre <strong>concessionadas</strong> (operadas por empresas privadas)
+                            e <strong>não concessionadas</strong> (administradas diretamente pelo DER/SP),
+                            permitindo análises comparativas da distribuição territorial.
+                        </p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>2. Classificar por tipo de rodovia</h4>
+                        <p class="text-muted">
+                            Categorizar os trechos segundo sua hierarquia funcional:
+                            <strong>SP</strong> (eixos principais), <strong>SPA</strong> (acessos),
+                            <strong>SPI</strong> (interligações) e <strong>BR</strong> (federais delegadas).
+                        </p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>3. Classificar por localização urbano-rural</h4>
+                        <p class="text-muted">
+                            Identificar os trechos em áreas <strong>urbanas</strong>, <strong>mistas</strong>
+                            ou <strong>rurais</strong>, utilizando as manchas urbanizadas do IBGE como
+                            referência espacial (metodologia baseada em boas práticas do IBGE).
+                        </p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>4. Calcular indicadores de densidade</h4>
+                        <p class="text-muted">
+                            Computar dois tipos de densidade para cada unidade territorial:<br>
+                            • <strong>Densidade por área</strong>: km de rodovia / km² de território<br>
+                            • <strong>Densidade por população</strong>: km de rodovia / 1.000 habitantes
+                        </p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>5. Agregar por diferentes níveis territoriais</h4>
+                        <p class="text-muted">
+                            Apresentar os resultados agregados por <strong>município</strong>,
+                            <strong>Região Geográfica Imediata</strong> e
+                            <strong>Região Geográfica Intermediária</strong>, seguindo a divisão
+                            territorial oficial do IBGE.
+                        </p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <h4>6. Produzir visualizações cartográficas</h4>
+                        <p class="text-muted">
+                            Gerar mapas temáticos interativos que permitam a visualização espacial
+                            dos indicadores calculados, facilitando a identificação de padrões
+                            e disparidades regionais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Questões Norteadoras -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Questões Norteadoras</h2>
+                <p class="text-muted">Perguntas que este estudo busca responder</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>🔍 Distribuição Espacial</h3>
+                    <p>
+                        Como a malha rodoviária está distribuída no território paulista?
+                        Existem regiões com maior ou menor densidade de infraestrutura?
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🏢 Concessões</h3>
+                    <p>
+                        Qual a proporção de rodovias concessionadas versus não concessionadas?
+                        Como essa divisão varia geograficamente?
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🌆 Urbano vs Rural</h3>
+                    <p>
+                        Quanta extensão de rodovia atravessa áreas urbanas?
+                        Como a densidade varia entre contextos urbanos e rurais?
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>👥 Acessibilidade</h3>
+                    <p>
+                        Qual a relação entre infraestrutura rodoviária e população?
+                        As regiões mais populosas possuem maior oferta de rodovias?
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Hierarquia Viária</h3>
+                    <p>
+                        Como se distribui a malha entre eixos principais (SP),
+                        acessos (SPA) e interligações (SPI)?
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🗺️ Disparidades Regionais</h3>
+                    <p>
+                        Quais regiões apresentam os maiores e menores indicadores
+                        de densidade? O que pode explicar essas diferenças?
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos Esperados -->
+    <section class="section" style="background: var(--gradient-primary); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Produtos Esperados</h2>
+                <p style="color: rgba(255,255,255,0.8);">Entregas resultantes deste estudo</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📄 Relatório Técnico</h3>
+                    <p>
+                        Documento completo com contextualização, metodologia,
+                        resultados e análises da densidade de malha rodoviária.
+                    </p>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>📊 Base de Dados</h3>
+                    <p>
+                        Arquivos em formato GeoPackage, Shapefile e Excel com
+                        todos os indicadores calculados por unidade territorial.
+                    </p>
+                </div>
+
+                <div class="card" style="background: rgba(255,255,255,0.95);">
+                    <h3>🗺️ Mapas Temáticos</h3>
+                    <p>
+                        Visualizações cartográficas interativas dos principais
+                        indicadores de densidade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação entre páginas -->
+    <section class="section" style="background: white; text-align: center;">
+        <div class="container">
+            <a href="index.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Introdução
+            </a>
+            <a href="dados.html" class="btn btn-primary">
+                Dados Utilizados →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Dezembro 2025 | Análise Geoespacial - Densidade de Malha Rodoviária SP</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

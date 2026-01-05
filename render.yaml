@@ -1,0 +1,6 @@
+services:
+  - type: static
+    name: densidade-de-malha-relatorio
+    env: static
+    staticPublishPath: relatorio
+    buildCommand: ""

@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+pip-wheel-metadata/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+
+# Dados e saídas geoespaciais (geralmente grandes)
+dados/entrada/
+dados/saida/
+
+# Artefatos temporários
+*.log
+*.tmp
+*.bak
+Thumbs.db
+Desktop.ini

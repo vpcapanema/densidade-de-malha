@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodologia | Densidade de Malha Rodoviária SP</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }
+    .formula { background: #f8f9fa; padding: 1.5rem; border-radius: 10px; font-family: 'Courier New', monospace; text-align: center; margin: 1rem 0; font-size: 1.1rem; }
+    .formula-desc { text-align: center; font-style: italic; color: var(--text-light); margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Densidade de Malha SP</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html" class="active">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="mapas.html">Mapas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 50vh;">
+        <div class="hero-content">
+            <span class="badge">🔬 Seção 04</span>
+            <h1>Metodologia</h1>
+            <p class="subtitle">Procedimentos e classificações aplicadas</p>
+        </div>
+    </section>
+
+    <!-- Fluxo Metodológico -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fluxo Metodológico</h2>
+                <p class="text-muted">Etapas do processamento</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Etapa 1: Aquisição de Dados</h4>
+                        <p class="text-muted">
+                            Download das bases de dados oficiais do DER/SP (malha rodoviária),
+                            IBGE (limites territoriais, população e áreas urbanizadas).
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Etapa 2: Pré-processamento</h4>
+                        <p class="text-muted">
+                            Validação das geometrias, harmonização de sistemas de coordenadas
+                            (reprojeção para EPSG:5880) e limpeza de dados inconsistentes.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Etapa 3: Classificações</h4>
+                        <p class="text-muted">
+                            Aplicação das classificações por administração, tipo de rodovia
+                            e localização urbano-rural.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Etapa 4: Agregação Territorial</h4>
+                        <p class="text-muted">
+                            Agregação da extensão rodoviária por município, RG Imediata
+                            e RG Intermediária.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Etapa 5: Cálculo de Densidades</h4>
+                        <p class="text-muted">
+                            Computação dos indicadores de densidade por área e por população.
+                        </p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Etapa 6: Visualização</h4>
+                        <p class="text-muted">
+                            Geração de mapas temáticos e exportação dos resultados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classificação por Administração -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Classificação por Administração</h2>
+                <p class="text-muted">Tipo de gestão das rodovias</p>
+            </div>
+
+            <div class="cards-grid" style="max-width: 900px; margin: 0 auto;">
+                <div class="card" style="border-left: 4px solid #e74c3c;">
+                    <h3>🏢 Concessionada</h3>
+                    <p>
+                        Rodovias operadas por empresas privadas sob regime de concessão.
+                        A concessionária é responsável pela operação, manutenção e
+                        melhorias da via, mediante cobrança de pedágio.
+                    </p>
+                    <p class="text-muted"><strong>Critério:</strong> Campo "Administra" contém "CONCESS"</p>
+                </div>
+
+                <div class="card" style="border-left: 4px solid #27ae60;">
+                    <h3>🏛️ Não Concessionada</h3>
+                    <p>
+                        Rodovias administradas diretamente pelo DER/SP (Departamento
+                        de Estradas de Rodagem). O Estado é responsável pela operação,
+                        manutenção e investimentos.
+                    </p>
+                    <p class="text-muted"><strong>Critério:</strong> Campo "Administra" contém "DER"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classificação por Tipo de Rodovia -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Classificação por Tipo de Rodovia</h2>
+                <p class="text-muted">Hierarquia funcional das vias</p>
+            </div>
+
+            <div class="table-container" style="max-width: 900px; margin: 0 auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Função</th>
+                            <th>Critério</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: var(--primary-color);">SP</strong></td>
+                            <td>Rodovia Estadual</td>
+                            <td>Eixo principal de ligação entre regiões</td>
+                            <td>Código inicia com "SP" (exceto SPA/SPI)</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--secondary-color);">SPA</strong></td>
+                            <td>Acesso</td>
+                            <td>Conexão de núcleos urbanos à malha principal</td>
+                            <td>Código inicia com "SPA"</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--warning-color);">SPI</strong></td>
+                            <td>Interligação</td>
+                            <td>Ligação entre rodovias ou contorno de áreas</td>
+                            <td>Código inicia com "SPI"</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--accent-color);">BR</strong></td>
+                            <td>Federal Delegada</td>
+                            <td>Trecho federal sob gestão estadual</td>
+                            <td>Código inicia com "BR"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classificação Urbano/Rural -->
+    <section class="section" style="background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Classificação Urbano-Rural</h2>
+                <p style="color: rgba(255,255,255,0.8);">Metodologia baseada em manchas urbanas do IBGE</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="highlight-box" style="background: rgba(255,255,255,0.95); color: var(--text-color);">
+                    <h4>📖 Referência Metodológica</h4>
+                    <p>
+                        A classificação urbano-rural foi realizada com base nas <strong>Áreas Urbanizadas
+                        do Brasil 2019</strong> do IBGE, seguindo as boas práticas descritas no relatório
+                        metodológico oficial (IBGE, 2017).
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        As manchas urbanizadas foram identificadas por interpretação de imagens de satélite
+                        RapidEye (5m de resolução), considerando aspectos morfológicos como proximidade
+                        entre edificações e padrões de arruamento.
+                    </p>
+                </div>
+
+                <h3 style="color: white; margin-top: 2rem;">Procedimento de Classificação</h3>
+                
+                <div class="cards-grid" style="margin-top: 1rem;">
+                    <div class="card">
+                        <h4>1. Interseção Espacial</h4>
+                        <p>
+                            Cada trecho rodoviário é cruzado espacialmente com o conjunto
+                            de manchas urbanizadas do IBGE para São Paulo.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4>2. Cálculo de Proporção</h4>
+                        <p>
+                            Calcula-se a proporção da extensão de cada trecho que está
+                            dentro de uma mancha urbanizada.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4>3. Classificação por Limiar</h4>
+                        <p>
+                            O trecho é classificado conforme sua proporção em área urbana,
+                            utilizando limiares de 10% e 50%.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 style="color: white; margin-top: 2rem;">Critérios de Classificação</h3>
+
+                <div class="table-container" style="margin-top: 1rem;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Classificação</th>
+                                <th>Critério</th>
+                                <th>Interpretação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong style="color: var(--accent-color);">🏙️ Urbano</strong></td>
+                                <td>> 50% do trecho em mancha urbanizada</td>
+                                <td>Trecho predominantemente em área urbana consolidada</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--warning-color);">🏘️ Misto</strong></td>
+                                <td>10% a 50% do trecho em mancha urbanizada</td>
+                                <td>Trecho em área de transição urbano-rural</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--success-color);">🌾 Rural</strong></td>
+                                <td>< 10% do trecho em mancha urbanizada</td>
+                                <td>Trecho predominantemente em área rural</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cálculo de Densidades -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cálculo de Densidades</h2>
+                <p class="text-muted">Indicadores gerados</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="cards-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card" style="border-top: 4px solid var(--primary-color);">
+                        <h3>📐 Densidade por Área</h3>
+                        <p>
+                            Mede a quantidade de rodovias em relação à extensão territorial.
+                            Indica o grau de cobertura da infraestrutura rodoviária.
+                        </p>
+                        <div class="formula">
+                            D<sub>área</sub> = Extensão (km) / Área (km²)
+                        </div>
+                        <p class="formula-desc">Unidade: km de rodovia por km² de território</p>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--secondary-color);">
+                        <h3>👥 Densidade por População</h3>
+                        <p>
+                            Mede a quantidade de rodovias em relação à população.
+                            Indica a disponibilidade de infraestrutura per capita.
+                        </p>
+                        <div class="formula">
+                            D<sub>pop</sub> = Extensão (km) / (População / 1.000)
+                        </div>
+                        <p class="formula-desc">Unidade: km de rodovia por 1.000 habitantes</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-4">
+                    <h4>💡 Interpretação dos Indicadores</h4>
+                    <p>
+                        <strong>Densidade por área alta:</strong> Maior cobertura territorial de rodovias,
+                        típico de regiões urbanizadas ou com intensa atividade econômica.
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        <strong>Densidade por população alta:</strong> Maior disponibilidade de infraestrutura
+                        por habitante, típico de regiões menos populosas ou com economia baseada em logística.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agregação Territorial -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Agregação Territorial</h2>
+                <p class="text-muted">Níveis de análise</p>
+            </div>
+
+            <div class="cards-grid" style="max-width: 1000px; margin: 0 auto;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🏘️</div>
+                    <h3>Municipal</h3>
+                    <p class="text-muted">645 unidades</p>
+                    <p>Menor unidade de análise. Permite identificar disparidades locais.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📍</div>
+                    <h3>RG Imediata</h3>
+                    <p class="text-muted">53 unidades</p>
+                    <p>Agregação regional baseada em centros urbanos próximos.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🗺️</div>
+                    <h3>RG Intermediária</h3>
+                    <p class="text-muted">11 unidades</p>
+                    <p>Agregação macrorregional baseada em metrópoles e capitais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ferramentas -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ferramentas Utilizadas</h2>
+                <p class="text-muted">Tecnologias empregadas no processamento</p>
+            </div>
+
+            <div class="cards-grid" style="max-width: 900px; margin: 0 auto;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🐍</div>
+                    <h3>Python 3.12</h3>
+                    <p>Linguagem de programação para processamento de dados</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🗺️</div>
+                    <h3>GeoPandas</h3>
+                    <p>Biblioteca para manipulação de dados geoespaciais</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌐</div>
+                    <h3>Folium</h3>
+                    <p>Geração de mapas interativos baseados em Leaflet</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); text-align: center;">
+        <div class="container">
+            <a href="dados.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Dados Utilizados
+            </a>
+            <a href="resultados.html" class="btn btn-primary">
+                Resultados →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Dezembro 2025 | Análise Geoespacial - Densidade de Malha Rodoviária SP</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
