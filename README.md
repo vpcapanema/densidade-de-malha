@@ -24,3 +24,15 @@ E acesse `http://localhost:8000/relatorio/`.
 
 Este repo inclui `render.yaml` configurado para publicar `relatorio/` como site estático.
 No Render, basta conectar o repositório e criar o serviço.
+
+### Deploy via API / automação
+
+O Render expõe uma API pública (https://api.render.com/v1). Para automatizar a criação do Static Site, você pode usar o script em [tools/render-create-static-site.mjs](tools/render-create-static-site.mjs).
+
+Pré-requisito: criar um API key no Render e exportar em `RENDER_API_KEY`.
+
+```bash
+node tools/render-create-static-site.mjs --owner-name "<NOME_DO_WORKSPACE>"
+```
+
+O script cria um Static Site Git-backed apontando para este repositório e publica a pasta `relatorio/`.
