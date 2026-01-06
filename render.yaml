@@ -1,5 +1,4 @@
 services:
   - type: static_site
     name: densidade-de-malha-relatorio
-    buildCommand: cp -r relatorio public
-    staticPublishPath: public
+    staticPublishPath: relatorio
