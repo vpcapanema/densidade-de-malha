@@ -3,15 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados | Densidade de Malha Rodoviária SP</title>
+    <title>Resultados | Malha viária DER — Uma análise exploratória</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .chart-container { background: white; border-radius: 16px; padding: 2rem; box-shadow: var(--shadow-soft); margin-bottom: 2rem; }
-        .chart-container-fixed { height: 350px; }
-        .chart-title { text-align: center; margin-bottom: 1rem; color: var(--dark-color); }
+        /* ======================================
+           LAYOUT PRINCIPAL - RESULTADOS
+        ====================================== */
+        :root {
+            --azul-escuro: #1a5276;
+            --azul-claro: #3498db;
+            --verde: #27ae60;
+            --vermelho: #e74c3c;
+            --laranja: #f39c12;
+            --roxo: #8e44ad;
+            --cinza-bg: #f8f9fa;
+            --sombra: 0 4px 12px rgba(0,0,0,0.08);
+            --borda: 1px solid #e1e5eb;
+        }
+        
+        /* Espaçamento do conteúdo principal */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 3rem;
+            padding-top: 2rem;
+        }
+        
+        /* Header das Questões Norteadoras */
+        .questao-header {
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-claro) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin: 3rem 0 1.5rem;
+            box-shadow: var(--sombra);
+        }
+        
+        .questao-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+        
+        .questao-numero {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .questao-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            color: white;
+        }
+        
+        /* Container de cada questão */
+        .questao-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        /* Grid de conteúdo: Gráfico + Mapa */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 500px;
+        }
+        
+        /* Painel do Gráfico */
+        .chart-panel {
+            padding: 1.5rem;
+            border-right: var(--borda);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-panel h3 {
+            font-size: 1rem;
+            color: var(--azul-escuro);
+            margin: 0 0 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--azul-claro);
+        }
+        
+        .chart-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 380px;
+        }
+        
+        .chart-wrapper canvas {
+            max-width: 100%;
+            max-height: 380px;
+        }
+        
+        /* Painel do Mapa */
+        .map-panel {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .map-panel h3 {
+            font-size: 1rem;
+            color: var(--azul-escuro);
+            margin: 0;
+            padding: 1.5rem 1.5rem 1rem;
+            border-bottom: var(--borda);
+        }
+        
+        .map-wrapper {
+            flex: 1;
+            min-height: 450px;
+        }
+        
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Ações do mapa (Tela cheia) */
+        .map-actions {
+            padding: 0.75rem 1.5rem 1.25rem;
+            border-top: var(--borda);
+            display: flex;
+            justify-content: flex-end;
+            background: #fff;
+        }
+
+        .map-actions .btn {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Indicadores/Métricas */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--cinza-bg);
+            border-top: var(--borda);
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--azul-escuro);
+            line-height: 1.2;
+        }
+        
+        .metric-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+        
+        /* Notas de rodapé */
+        .questao-notes {
+            padding: 1rem 1.5rem;
+            background: #fffbf0;
+            border-top: var(--borda);
+            font-size: 0.85rem;
+            color: #856404;
+        }
+        
+        .questao-notes strong {
+            color: #664d03;
+        }
+        
+        /* (page-intro removido: resultados usa hero padrão do site) */
+        
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .chart-panel {
+                border-right: none;
+                border-bottom: var(--borda);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .metrics-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Layout responsivo para Q4 com 3 gráficos */
+        @media (max-width: 1200px) {
+            .q4-charts-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Hero compacto para Resultados */
+        .hero-resultados {
+            min-height: 40vh;
+        }
+
+        /* Bloco introdutório abaixo do hero */
+        .resultados-intro {
+            margin-top: -2rem;
+        }
+
+        .resultados-intro-body {
+            padding: 1.5rem 1.75rem;
+        }
+
+        .resultados-intro-text {
+            margin: 0;
+            text-align: left;
+            color: #444;
+        }
+
+        /* Q4: grids (3 colunas) */
+        .q4-charts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +257,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
-            <span>Densidade de Malha SP</span>
+            <span>Malha viária DER</span>
         </div>
         <ul class="navbar-menu">
             <li><a href="index.html">Introdução</a></li>
@@ -29,702 +265,604 @@
             <li><a href="dados.html">Dados</a></li>
             <li><a href="metodologia.html">Metodologia</a></li>
             <li><a href="resultados.html" class="active">Resultados</a></li>
-            <li><a href="mapas.html">Mapas</a></li>
+            <li><a href="discussao.html">Discussão</a></li>
+            <li><a href="conclusao.html">Conclusão</a></li>
+            <li><a href="anexo-mapas.html">Anexo (Mapas)</a></li>
         </ul>
     </nav>
 
-    <!-- Header -->
-    <section class="hero" style="min-height: 50vh;">
+    <!-- Header (padrão do site) -->
+    <section class="hero hero-resultados">
         <div class="hero-content">
             <span class="badge">📊 Seção 05</span>
             <h1>Resultados</h1>
-            <p class="subtitle">Indicadores e estatísticas calculadas</p>
+            <p class="subtitle">Síntese dos indicadores e mapas temáticos</p>
         </div>
     </section>
 
-    <!-- Números Gerais -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Visão Geral do Estado</h2>
-                <p class="text-muted">Números consolidados de São Paulo</p>
-            </div>
-
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number">21.587</div>
-                    <div class="stat-label">km de Rodovias</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">0,087</div>
-                    <div class="stat-label">km/km² (Dens. Área)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">0,49</div>
-                    <div class="stat-label">km/1000 hab (Dens. Pop)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">645</div>
-                    <div class="stat-label">Municípios com Rodovias</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resultados por Administração -->
-    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-        <div class="container">
-            <div class="section-header">
-                <h2>Distribuição por Administração</h2>
-                <p class="text-muted">Concessionadas vs Não Concessionadas</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                <div class="chart-container">
-                    <h4 class="chart-title">Extensão por Tipo de Administração</h4>
-                    <canvas id="chartAdministracao"></canvas>
-                </div>
-
-                <div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Administração</th>
-                                    <th>Extensão (km)</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>🏢 Concessionada</td>
-                                    <td><strong>9.245,51</strong></td>
-                                    <td>42,8%</td>
-                                </tr>
-                                <tr>
-                                    <td>🏛️ Não Concessionada</td>
-                                    <td><strong>12.341,66</strong></td>
-                                    <td>57,2%</td>
-                                </tr>
-                                <tr style="background: var(--light-color);">
-                                    <td><strong>Total</strong></td>
-                                    <td><strong>21.587,17</strong></td>
-                                    <td>100%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h4>📌 Destaque</h4>
-                        <p style="margin-bottom: 0;">
-                            Mais da metade (57,2%) da malha rodoviária estadual é administrada
-                            diretamente pelo DER/SP, enquanto 42,8% está sob regime de concessão.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resultados por Tipo de Rodovia -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Distribuição por Tipo de Rodovia</h2>
-                <p class="text-muted">Hierarquia funcional das vias</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                <div class="chart-container">
-                    <h4 class="chart-title">Extensão por Tipo de Rodovia</h4>
-                    <canvas id="chartTipoRodovia"></canvas>
-                </div>
-
-                <div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>Extensão (km)</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>🛣️ SP (Eixo Principal)</td>
-                                    <td><strong>17.744,70</strong></td>
-                                    <td>81,7%</td>
-                                </tr>
-                                <tr>
-                                    <td>🔗 SPA (Acesso)</td>
-                                    <td><strong>2.618,28</strong></td>
-                                    <td>12,1%</td>
-                                </tr>
-                                <tr>
-                                    <td>↔️ SPI (Interligação)</td>
-                                    <td><strong>257,34</strong></td>
-                                    <td>1,2%</td>
-                                </tr>
-                                <tr>
-                                    <td>🚛 BR (Federal)</td>
-                                    <td><strong>1.073,95</strong></td>
-                                    <td>4,9%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h4>📌 Destaque</h4>
-                        <p style="margin-bottom: 0;">
-                            As rodovias SP (eixos principais) representam 81,9% da malha,
-                            seguidas pelos acessos SPA (11,8%) e rodovias federais BR (5,1%).
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resultados por Tipo de Pista -->
-    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-        <div class="container">
-            <div class="section-header">
-                <h2>Distribuição por Tipo de Pista</h2>
-                <p class="text-muted">Características físicas das vias</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                <div class="chart-container">
-                    <h4 class="chart-title">Extensão por Tipo de Pista</h4>
-                    <canvas id="chartTipoPista"></canvas>
-                </div>
-
-                <div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tipo de Pista</th>
-                                    <th>Extensão (km)</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>🛤️ PAV (Pista Simples Pavimentada)</td>
-                                    <td><strong>13.486,03</strong></td>
-                                    <td>62,1%</td>
-                                </tr>
-                                <tr>
-                                    <td>🛣️ DUP (Pista Dupla)</td>
-                                    <td><strong>6.734,78</strong></td>
-                                    <td>31,0%</td>
-                                </tr>
-                                <tr>
-                                    <td>🚧 IMP (Em Implantação)</td>
-                                    <td><strong>980,08</strong></td>
-                                    <td>4,5%</td>
-                                </tr>
-                                <tr>
-                                    <td>📋 PLAN (Planejada)</td>
-                                    <td><strong>508,35</strong></td>
-                                    <td>2,3%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="highlight-box">
-                        <h4>📌 Destaque</h4>
-                        <p style="margin-bottom: 0;">
-                            Cerca de <strong>31%</strong> da malha rodoviária estadual é composta por 
-                            pistas duplas, indicando investimento significativo em capacidade viária.
-                            Aproximadamente <strong>6,8%</strong> está em fase de implantação ou planejamento.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resultados por Localização -->
-    <section class="section" style="background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%); color: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2 style="color: white;">Distribuição Urbano-Rural</h2>
-                <p style="color: rgba(255,255,255,0.8);">Classificação por manchas urbanas do IBGE</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                <div class="chart-container">
-                    <h4 class="chart-title">Extensão por Localização</h4>
-                    <canvas id="chartLocalizacao"></canvas>
-                </div>
-
-                <div>
-                    <div class="table-container" style="background: rgba(255,255,255,0.98); border-radius: 12px;">
-                        <table style="color: #333;">
-                            <thead style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white;">
-                                <tr>
-                                    <th>Localização</th>
-                                    <th>Extensão (km)</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody style="background: white;">
-                                <tr>
-                                    <td>🏙️ Urbano (&gt;50%)</td>
-                                    <td><strong>2.608,20</strong></td>
-                                    <td>12,1%</td>
-                                </tr>
-                                <tr>
-                                    <td>🏘️ Misto (10-50%)</td>
-                                    <td><strong>4.453,58</strong></td>
-                                    <td>20,6%</td>
-                                </tr>
-                                <tr>
-                                    <td>🌾 Rural (&lt;10%)</td>
-                                    <td><strong>14.525,39</strong></td>
-                                    <td>67,3%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="highlight-box" style="background: rgba(255,255,255,0.95); color: var(--text-color);">
-                        <h4>📌 Comparativo com Campo PerimetroU</h4>
-                        <p>
-                            A classificação por manchas urbanas do IBGE identificou
-                            <strong>5,5x mais extensão</strong> em áreas urbanas do que
-                            o campo PerimetroU original do DER (2.608 km vs 552 km).
-                        </p>
-                        <p style="margin-bottom: 0;">
-                            Isso sugere que o campo PerimetroU do DER <strong>subestima
-                            significativamente</strong> os trechos em contexto urbano.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Top Municípios -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Municípios com Maior Extensão</h2>
-                <p class="text-muted">Top 10 municípios por quilometragem de rodovias</p>
-            </div>
-
-            <div class="chart-container" style="max-width: 900px; margin: 0 auto;">
-                <canvas id="chartTopMunicipios" height="300"></canvas>
-            </div>
-
-            <div class="table-container" style="max-width: 900px; margin: 2rem auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Município</th>
-                            <th>Extensão Total (km)</th>
-                            <th>Dens. Área (km/km²)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>Piracicaba</td><td><strong>196,15</strong></td><td>0,142</td></tr>
-                        <tr><td>2</td><td>Campinas</td><td><strong>186,29</strong></td><td>0,234</td></tr>
-                        <tr><td>3</td><td>Itapetininga</td><td><strong>183,60</strong></td><td>0,103</td></tr>
-                        <tr><td>4</td><td>Ribeirão Preto</td><td><strong>158,74</strong></td><td>0,244</td></tr>
-                        <tr><td>5</td><td>São Paulo</td><td><strong>155,16</strong></td><td>0,102</td></tr>
-                        <tr><td>6</td><td>Mogi das Cruzes</td><td><strong>146,68</strong></td><td>0,206</td></tr>
-                        <tr><td>7</td><td>Mogi Guaçu</td><td><strong>140,00</strong></td><td>0,172</td></tr>
-                        <tr><td>8</td><td>Marília</td><td><strong>136,61</strong></td><td>0,117</td></tr>
-                        <tr><td>9</td><td>Itu</td><td><strong>136,37</strong></td><td>0,213</td></tr>
-                        <tr><td>10</td><td>Botucatu</td><td><strong>132,72</strong></td><td>0,090</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Regiões Geográficas -->
-    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-        <div class="container">
-            <div class="section-header">
-                <h2>Regiões Geográficas Intermediárias</h2>
-                <p class="text-muted">Agregação macrorregional (11 regiões)</p>
-            </div>
-
-            <div class="chart-container" style="max-width: 1000px; margin: 0 auto;">
-                <canvas id="chartRegioes" height="350"></canvas>
-            </div>
-
-            <div class="table-container" style="max-width: 1000px; margin: 2rem auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Região Intermediária</th>
-                            <th>Extensão (km)</th>
-                            <th>Área (km²)</th>
-                            <th>Dens. Área</th>
-                            <th>Dens. Pop</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Sorocaba</td><td><strong>3.752,58</strong></td><td>45.253,86</td><td>0,0829</td><td>1,1854</td></tr>
-                        <tr><td>Campinas</td><td><strong>3.417,56</strong></td><td>24.923,86</td><td>0,1371</td><td>0,4803</td></tr>
-                        <tr><td>Ribeirão Preto</td><td><strong>2.309,84</strong></td><td>27.533,40</td><td>0,0839</td><td>0,9007</td></tr>
-                        <tr><td>São José do Rio Preto</td><td><strong>1.984,21</strong></td><td>26.152,86</td><td>0,0759</td><td>1,2191</td></tr>
-                        <tr><td>São José dos Campos</td><td><strong>1.755,97</strong></td><td>16.336,76</td><td>0,1075</td><td>0,6865</td></tr>
-                        <tr><td>São Paulo</td><td><strong>1.658,00</strong></td><td>11.399,89</td><td>0,1454</td><td>0,0696</td></tr>
-                        <tr><td>Bauru</td><td><strong>1.656,90</strong></td><td>22.244,73</td><td>0,0745</td><td>1,1905</td></tr>
-                        <tr><td>Marília</td><td><strong>1.541,13</strong></td><td>19.556,66</td><td>0,0788</td><td>1,5024</td></tr>
-                        <tr><td>Presidente Prudente</td><td><strong>1.351,21</strong></td><td>24.866,71</td><td>0,0543</td><td>1,5474</td></tr>
-                        <tr><td>Araraquara</td><td><strong>1.104,79</strong></td><td>12.134,73</td><td>0,0910</td><td>0,9994</td></tr>
-                        <tr><td>Araçatuba</td><td><strong>1.054,98</strong></td><td>18.812,59</td><td>0,0561</td><td>1,3373</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Indicadores de Densidade -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Indicadores de Densidade</h2>
-                <p class="text-muted">Métricas calculadas para análise da malha rodoviária</p>
-            </div>
-
-            <div class="cards-grid" style="max-width: 1100px; margin: 0 auto;">
-                <div class="card" style="border-top: 4px solid #1a5276;">
-                    <h3>📐 Densidade por Área</h3>
-                    <div class="stat-number" style="font-size: 2.5rem;">0,087</div>
-                    <div class="stat-label">km de rodovia / km² de território</div>
-                    <hr style="margin: 1rem 0; border-color: #eee;">
-                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
-                        Maior: <strong>Águas de São Pedro</strong> (1,352 km/km²)<br>
-                        Média municipal: 0,103 km/km² | Mediana: 0,086 km/km²
-                    </p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #27ae60;">
-                    <h3>👥 Densidade por População</h3>
-                    <div class="stat-number" style="font-size: 2.5rem;">0,469</div>
-                    <div class="stat-label">km de rodovia / 1.000 habitantes</div>
-                    <hr style="margin: 1rem 0; border-color: #eee;">
-                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
-                        Maior: <strong>Iporanga</strong> (17,23 km/1000hab)<br>
-                        Média municipal: 2,24 km/1000hab | Mediana: 1,63 km/1000hab
-                    </p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #e74c3c;">
-                    <h3>🏢 Dens. Concessionada</h3>
-                    <div class="stat-number" style="font-size: 2.5rem;">0,037</div>
-                    <div class="stat-label">km de rodovia concess. / km²</div>
-                    <hr style="margin: 1rem 0; border-color: #eee;">
-                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
-                        42,8% da malha é concessionada<br>
-                        Dens. por pop: 0,201 km/1000hab
-                    </p>
-                </div>
-
-                <div class="card" style="border-top: 4px solid #f39c12;">
-                    <h3>🏛️ Dens. Não Concessionada</h3>
-                    <div class="stat-number" style="font-size: 2.5rem;">0,050</div>
-                    <div class="stat-label">km de rodovia DER / km²</div>
-                    <hr style="margin: 1rem 0; border-color: #eee;">
-                    <p class="text-muted" style="font-size: 0.9rem; margin: 0;">
-                        57,2% da malha é administrada pelo DER<br>
-                        Dens. por pop: 0,268 km/1000hab
-                    </p>
-                </div>
-            </div>
-
-            <div class="highlight-box" style="max-width: 1100px; margin: 3rem auto 0;">
-                <h4>📌 Interpretação dos Indicadores</h4>
-                <p>
-                    A <strong>densidade por área</strong> indica a cobertura territorial da malha rodoviária.
-                    Valores altos indicam municípios pequenos com boa infraestrutura viária.
-                </p>
-                <p>
-                    A <strong>densidade por população</strong> reflete a disponibilidade de infraestrutura
-                    rodoviária per capita. Municípios rurais com baixa população tendem a ter valores mais altos.
-                </p>
-                <p style="margin-bottom: 0;">
-                    Esses indicadores permitem comparar a infraestrutura rodoviária entre diferentes
-                    unidades territoriais (municípios, regiões) e identificar áreas com maior ou menor
-                    cobertura da malha viária estadual.
+    <main class="main-content">
+        <div class="questao-container resultados-intro">
+            <div class="resultados-intro-body">
+                <p class="resultados-intro-text">
+                    Esta seção apresenta os resultados organizados conforme as <strong>6 Questões Norteadoras</strong> do estudo.
+                    Em cada questão, os gráficos sintetizam a distribuição dos valores e os mapas permitem explorar o padrão espacial.
+                    Use o controle de camadas para exibir a <strong>Malha Viária</strong> sobre os polígonos.
                 </p>
             </div>
         </div>
-    </section>
 
-    <!-- Análise ZEE - Regiões Administrativas -->
-    <section class="section" style="background: linear-gradient(135deg, #1a5276 0%, #154360 100%); color: white;">
-        <div class="container">
-            <div class="section-header">
-                <h2 style="color: white;">🗺️ Zoneamento Ecológico-Econômico (ZEE)</h2>
-                <p style="color: rgba(255,255,255,0.8);">Análise por Regiões Administrativas e Grupos do ZEE de São Paulo</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto;">
-                <!-- Regiões Administrativas -->
-                <div class="chart-container" style="background: white; height: 450px;">
-                    <h4 class="chart-title">Regiões Administrativas (16 unidades)</h4>
-                    <canvas id="chartRA" height="380"></canvas>
+        <!-- ================================================================
+             QUESTÃO 1: DISTRIBUIÇÃO ESPACIAL
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q1</span> Como se distribui a malha viária estadual pelo território paulista?</h2>
+            <p>Análise da extensão total nos 645 municípios</p>
+        </div>
+        
+        <div class="questao-container">
+            <div class="content-grid">
+                <div class="chart-panel">
+                    <h3>📈 Distribuição por Faixa de Extensão</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartDistribuicao"></canvas>
+                    </div>
                 </div>
-
-                <!-- Grupos ZEE -->
-                <div class="chart-container" style="background: white; height: 450px;">
-                    <h4 class="chart-title">Grupos ZEE (9 unidades)</h4>
-                    <canvas id="chartZEE" height="380"></canvas>
+                <div class="map-panel">
+                    <h3>🗺️ Extensão Total por Município</h3>
+                    <div class="map-wrapper">
+                        <iframe src="mapas/mapa_q1_extensao_mun.html" loading="lazy" title="Mapa interativo: Extensão Total de Rodovias por Município"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q1_extensao_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Tabela Regiões Administrativas -->
-            <div class="table-container" style="max-width: 1200px; margin: 2rem auto; background: white; border-radius: 12px; padding: 1rem;">
-                <h4 style="color: #333; text-align: center; margin-bottom: 1rem;">📊 Regiões Administrativas - Principais Indicadores</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="background: #1a5276; color: white;">Região Administrativa</th>
-                            <th style="background: #1a5276; color: white;">Extensão (km)</th>
-                            <th style="background: #1a5276; color: white;">Área (km²)</th>
-                            <th style="background: #1a5276; color: white;">Dens. Área</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Campinas</td><td><strong>3.613,26</strong></td><td>27.080</td><td>0,133</td></tr>
-                        <tr><td>Sorocaba</td><td><strong>2.276,52</strong></td><td>24.877</td><td>0,091</td></tr>
-                        <tr><td>São José do Rio Preto</td><td><strong>1.887,30</strong></td><td>26.006</td><td>0,073</td></tr>
-                        <tr><td>São José dos Campos</td><td><strong>1.830,21</strong></td><td>16.178</td><td>0,113</td></tr>
-                        <tr><td>Marília</td><td><strong>1.392,92</strong></td><td>16.329</td><td>0,085</td></tr>
-                        <tr><td>Itapeva</td><td><strong>1.374,23</strong></td><td>12.194</td><td>0,113</td></tr>
-                        <tr><td>São Paulo</td><td><strong>1.343,78</strong></td><td>7.947</td><td>0,169</td></tr>
-                        <tr><td>Presidente Prudente</td><td><strong>1.324,48</strong></td><td>20.189</td><td>0,066</td></tr>
-                        <tr><td>Bauru</td><td><strong>1.151,58</strong></td><td>16.713</td><td>0,069</td></tr>
-                        <tr><td>Araçatuba</td><td><strong>1.071,27</strong></td><td>18.559</td><td>0,058</td></tr>
-                        <tr><td>Central</td><td><strong>986,68</strong></td><td>8.343</td><td>0,118</td></tr>
-                        <tr><td>Ribeirão Preto</td><td><strong>972,30</strong></td><td>9.344</td><td>0,104</td></tr>
-                        <tr><td>Franca</td><td><strong>832,50</strong></td><td>6.290</td><td>0,132</td></tr>
-                        <tr><td>Registro</td><td><strong>760,45</strong></td><td>12.136</td><td>0,063</td></tr>
-                        <tr><td>Barretos</td><td><strong>568,52</strong></td><td>4.603</td><td>0,124</td></tr>
-                        <tr><td>Santos</td><td><strong>295,03</strong></td><td>2.429</td><td>0,121</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Tabela Grupos ZEE -->
-            <div class="table-container" style="max-width: 1000px; margin: 2rem auto; background: white; border-radius: 12px; padding: 1rem;">
-                <h4 style="color: #333; text-align: center; margin-bottom: 1rem;">🌿 Grupos ZEE - Unidades de Análise Integrada</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="background: #27ae60; color: white;">Grupo</th>
-                            <th style="background: #27ae60; color: white;">Abrangência</th>
-                            <th style="background: #27ae60; color: white;">Extensão (km)</th>
-                            <th style="background: #27ae60; color: white;">Dens. Área</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Grupo 02</td><td>Bauru, Marília e Pres. Prudente</td><td><strong>3.869,04</strong></td><td>0,070</td></tr>
-                        <tr><td>Grupo 04</td><td>Itapeva e Sorocaba</td><td><strong>3.650,43</strong></td><td>0,095</td></tr>
-                        <tr><td>Grupo 05</td><td>Campinas</td><td><strong>3.613,54</strong></td><td>0,133</td></tr>
-                        <tr><td>Grupo 01</td><td>Central, Barretos, Franca e Rib. Preto</td><td><strong>3.360,16</strong></td><td>0,118</td></tr>
-                        <tr><td>Grupo 03</td><td>Araçatuba e SJ Rio Preto</td><td><strong>2.958,35</strong></td><td>0,066</td></tr>
-                        <tr><td>Grupo 09</td><td>São José dos Campos</td><td><strong>1.830,01</strong></td><td>0,113</td></tr>
-                        <tr><td>Grupo 08</td><td>Região Metropolitana de SP</td><td><strong>1.343,75</strong></td><td>0,169</td></tr>
-                        <tr><td>Grupo 06</td><td>Registro</td><td><strong>760,56</strong></td><td>0,063</td></tr>
-                        <tr><td>Grupo 07</td><td>Santos</td><td><strong>295,09</strong></td><td>0,121</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="highlight-box" style="max-width: 1100px; margin: 2rem auto 0; background: rgba(255,255,255,0.95); color: #333;">
-                <h4>🔍 Destaques da Análise ZEE</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div>
-                        <p><strong>Maior densidade por área:</strong><br>
-                        Região Metropolitana de SP (Grupo 08) com 0,169 km/km²</p>
-                    </div>
-                    <div>
-                        <p><strong>Maior extensão total:</strong><br>
-                        Grupo 02 (Bauru, Marília, P. Prudente) com 3.869 km</p>
-                    </div>
-                    <div>
-                        <p><strong>Menor densidade:</strong><br>
-                        Araçatuba (0,058 km/km²) - área extensa com menos rodovias</p>
-                    </div>
-                    <div>
-                        <p><strong>Menor extensão:</strong><br>
-                        Santos com 295 km - região litorânea mais compacta</p>
-                    </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value">22.114</div>
+                    <div class="metric-label">km de malha total</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">645</div>
+                    <div class="metric-label">municípios analisados</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">34,3</div>
+                    <div class="metric-label">km médios por município</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0,089</div>
+                    <div class="metric-label">km/km² densidade média</div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Navegação -->
-    <section class="section" style="background: white; text-align: center;">
-        <div class="container">
-            <a href="metodologia.html" class="btn btn-outline" style="margin-right: 1rem;">
+        <!-- ================================================================
+             QUESTÃO 2: CONCESSÕES
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q2</span> Qual a participação das concessões na malha viária?</h2>
+            <p>Distribuição entre rodovias concessionadas e não concessionadas</p>
+        </div>
+        
+        <div class="questao-container">
+            <div class="content-grid">
+                <div class="chart-panel">
+                    <h3>📈 Extensão por Regime de Concessão</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartConcessao"></canvas>
+                    </div>
+                </div>
+                <div class="map-panel">
+                    <h3>🗺️ Mapa de Concessões (use as camadas para alternar)</h3>
+                    <div class="map-wrapper">
+                        <iframe src="mapas/mapa_q2_concessao_mun.html" loading="lazy" title="Mapa interativo multicamada: Regime de Concessão de Rodovias"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q2_concessao_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #8e44ad;">6.847</div>
+                    <div class="metric-label">km concessionados (31%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #27ae60;">15.267</div>
+                    <div class="metric-label">km não concessionados (69%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">21</div>
+                    <div class="metric-label">concessionárias atuantes</div>
+                </div>
+            </div>
+            <div class="questao-notes">
+                <strong>💡 Dica:</strong> Clique no controle de camadas (canto superior direito do mapa) para alternar 
+                entre a visualização de rodovias concessionadas e não concessionadas.
+            </div>
+        </div>
+
+        <!-- ================================================================
+             QUESTÃO 3: URBANO vs RURAL
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q3</span> Como as rodovias se distribuem entre áreas urbanas e rurais?</h2>
+            <p>Classificação baseada nas manchas urbanas do IBGE (2019)</p>
+        </div>
+        
+        <div class="questao-container">
+            <div class="content-grid">
+                <div class="chart-panel">
+                    <h3>📈 Extensão por Localização</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartUrbano"></canvas>
+                    </div>
+                </div>
+                <div class="map-panel">
+                    <h3>🗺️ Mapa Urbano/Rural/Misto (use as camadas para alternar)</h3>
+                    <div class="map-wrapper">
+                        <iframe src="mapas/mapa_q3_urbano_mun.html" loading="lazy" title="Mapa interativo multicamada: Classificação Urbano vs Rural"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q3_urbano_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #e74c3c;">4.521</div>
+                    <div class="metric-label">km em área urbana</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #27ae60;">14.892</div>
+                    <div class="metric-label">km em área rural</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #f39c12;">2.701</div>
+                    <div class="metric-label">km em área mista</div>
+                </div>
+            </div>
+            <div class="questao-notes">
+                <strong>💡 Dica:</strong> O mapa permite alternar entre três camadas: Urbano (vermelho), 
+                Rural (verde) e Misto (laranja). Clique no controle de camadas para visualizar cada uma.
+            </div>
+        </div>
+
+        <!-- ================================================================
+             QUESTÃO 4: ACESSIBILIDADE
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q4</span> Qual o nível de acessibilidade rodoviária para a população?</h2>
+            <p>Três métricas complementares: extensão total, densidade por área e disponibilidade por habitante</p>
+        </div>
+        
+        <div class="questao-container">
+            <!-- Primeira linha: 3 gráficos -->
+            <div class="q4-charts-grid" style="border-bottom: var(--borda);">
+                <div class="chart-panel" style="border: none; padding: 0;">
+                    <h3 style="font-size: 0.9rem;">📊 Extensão Total (km)</h3>
+                    <div class="chart-wrapper" style="min-height: 280px;">
+                        <canvas id="chartExtensao"></canvas>
+                    </div>
+                </div>
+                <div class="chart-panel" style="border: none; padding: 0;">
+                    <h3 style="font-size: 0.9rem;">📊 Densidade por Área (km/km²)</h3>
+                    <div class="chart-wrapper" style="min-height: 280px;">
+                        <canvas id="chartDensArea"></canvas>
+                    </div>
+                </div>
+                <div class="chart-panel" style="border: none; padding: 0;">
+                    <h3 style="font-size: 0.9rem;">📊 Disponibilidade (km/1000hab)</h3>
+                    <div class="chart-wrapper" style="min-height: 280px;">
+                        <canvas id="chartDensPop"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Segunda linha: 3 mapas (um por gráfico) -->
+            <div class="q4-charts-grid" style="border-bottom: var(--borda);">
+                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
+                    <h3 style="font-size: 0.9rem;">🗺️ Extensão Total (km)</h3>
+                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
+                        <iframe src="mapas/mapa_q4_extensao_mun.html" loading="lazy" title="Mapa interativo: Q4 - Extensão Total (km)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q4_extensao_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
+                    <h3 style="font-size: 0.9rem;">🗺️ Densidade por Área (km/km²)</h3>
+                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
+                        <iframe src="mapas/mapa_q4_densidade_area_mun.html" loading="lazy" title="Mapa interativo: Q4 - Densidade por Área (km/km²)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q4_densidade_area_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
+                    <h3 style="font-size: 0.9rem;">🗺️ Disponibilidade (km/1000hab)</h3>
+                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
+                        <iframe src="mapas/mapa_q4_denspop_mun.html" loading="lazy" title="Mapa interativo: Q4 - Disponibilidade por Habitante (km/1000hab)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q4_denspop_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #1565c0;">22.114</div>
+                    <div class="metric-label">km de extensão total</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #1b5e20;">0,089</div>
+                    <div class="metric-label">km/km² (média estadual)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #d7301f;">0,48</div>
+                    <div class="metric-label">km/1000hab (média estadual)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">1,35</div>
+                    <div class="metric-label">km/km² (máximo)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">17,2</div>
+                    <div class="metric-label">km/1000hab (máximo)</div>
+                </div>
+            </div>
+            <div class="questao-notes">
+                <strong>⚠️ Interpretação:</strong> A extensão total (km) mostra a quantidade absoluta de infraestrutura. 
+                A densidade por área (km/km²) indica cobertura territorial. 
+                A densidade por população (km/1000hab) é maior em municípios rurais com baixa população - 
+                isso significa que poucos habitantes "compartilham" a malha existente.
+            </div>
+        </div>
+
+        <!-- ================================================================
+             QUESTÃO 5: HIERARQUIA VIÁRIA
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q5</span> Como se estrutura a hierarquia da malha viária?</h2>
+            <p>Distribuição por categoria funcional: SP (eixos), SPA (acessos), SPI (interligações), BR</p>
+        </div>
+        
+        <div class="questao-container">
+            <div class="content-grid">
+                <div class="chart-panel">
+                    <h3>📈 Extensão por Categoria Funcional</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartHierarquia"></canvas>
+                    </div>
+                </div>
+                <div class="map-panel">
+                    <h3>🗺️ Mapa de Proporção de Eixos Principais (SP)</h3>
+                    <div class="map-wrapper">
+                        <iframe src="mapas/mapa_q5_hierarquia_sp_mun.html" loading="lazy" title="Mapa interativo: Hierarquia Viária - Rodovias SP"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q5_hierarquia_sp_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #dc2626;">15.912</div>
+                    <div class="metric-label">km de Eixos SP (72%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #f97316;">4.128</div>
+                    <div class="metric-label">km de Acessos SPA (19%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #eab308;">423</div>
+                    <div class="metric-label">km de Interligações SPI (2%)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #2563eb;">1.651</div>
+                    <div class="metric-label">km de Federais BR (7%)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================================
+             QUESTÃO 6: DISPARIDADES REGIONAIS
+        ================================================================= -->
+        <div class="questao-header">
+            <h2><span class="questao-numero">Q6</span> Existem disparidades regionais significativas?</h2>
+            <p>Análise do desvio em relação à média estadual</p>
+        </div>
+        
+        <div class="questao-container">
+            <div class="content-grid">
+                <div class="chart-panel">
+                    <h3>📈 Distribuição por Desvio da Média</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartDisparidades"></canvas>
+                    </div>
+                </div>
+                <div class="map-panel">
+                    <h3>🗺️ Mapa de Disparidades Regionais</h3>
+                    <div class="map-wrapper">
+                        <iframe src="mapas/mapa_q6_disparidades_mun.html" loading="lazy" title="Mapa interativo: Disparidades Regionais na Distribuição de Rodovias"></iframe>
+                    </div>
+                    <div class="map-actions">
+                        <a href="mapas/mapa_q6_disparidades_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #27ae60;">187</div>
+                    <div class="metric-label">municípios acima da média</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: #e74c3c;">458</div>
+                    <div class="metric-label">municípios abaixo da média</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">15,2×</div>
+                    <div class="metric-label">razão máximo/mínimo</div>
+                </div>
+            </div>
+            <div class="questao-notes">
+                <strong>📍 Destaques regionais:</strong> A Região Metropolitana de São Paulo concentra alta densidade 
+                enquanto o Vale do Ribeira e o extremo oeste apresentam os menores valores. Cores verdes indicam 
+                valores acima da média; cores vermelhas indicam valores abaixo.
+            </div>
+        </div>
+
+        <!-- Links de navegação -->
+        <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd;">
+            <a href="metodologia.html" style="text-decoration: none; color: var(--azul-escuro);">
                 ← Metodologia
             </a>
-            <a href="mapas.html" class="btn btn-primary">
-                Ver Mapas →
+            <a href="anexo-mapas.html" style="text-decoration: none; color: var(--azul-escuro);">
+                Anexo de Mapas →
             </a>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>Dezembro 2025 | Análise Geoespacial - Densidade de Malha Rodoviária SP</p>
-            </div>
+        <div class="footer-content">
+            <p>Malha viária DER — Uma análise exploratória</p>
+            <p>Dados: DER-SP, IBGE | Desenvolvido com Python, GeoPandas, Folium e Chart.js</p>
         </div>
     </footer>
 
-    <!-- Scripts dos Gráficos -->
+    <!-- Scripts dos gráficos -->
     <script>
-        // Cores
+        // Configuração global do Chart.js
+        Chart.defaults.font.family = "'Segoe UI', Arial, sans-serif";
+        Chart.defaults.color = '#333';
+        
+        // Cores padrão
         const cores = {
-            primary: '#1a5276',
-            secondary: '#2980b9',
-            accent: '#e74c3c',
-            success: '#27ae60',
-            warning: '#f39c12',
-            purple: '#8e44ad'
+            azul: '#3498db',
+            verde: '#27ae60',
+            vermelho: '#e74c3c',
+            laranja: '#f39c12',
+            roxo: '#8e44ad',
+            sp: '#dc2626',
+            spa: '#f97316',
+            spi: '#eab308',
+            br: '#2563eb'
         };
-
-        // Gráfico de Administração (Donut)
-        new Chart(document.getElementById('chartAdministracao'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Concessionada', 'Não Concessionada'],
-                datasets: [{
-                    data: [9245.51, 12341.66],
-                    backgroundColor: [cores.accent, cores.success],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-
-        // Gráfico de Tipo de Rodovia (Donut)
-        new Chart(document.getElementById('chartTipoRodovia'), {
-            type: 'doughnut',
-            data: {
-                labels: ['SP', 'SPA', 'SPI', 'BR'],
-                datasets: [{
-                    data: [17744.70, 2618.28, 257.34, 1073.95],
-                    backgroundColor: [cores.primary, cores.secondary, cores.warning, cores.accent],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-
-        // Gráfico de Tipo de Pista (Donut)
-        new Chart(document.getElementById('chartTipoPista'), {
-            type: 'doughnut',
-            data: {
-                labels: ['PAV (Simples)', 'DUP (Dupla)', 'IMP (Implantação)', 'PLAN (Planejada)'],
-                datasets: [{
-                    data: [13486.03, 6734.78, 980.08, 508.35],
-                    backgroundColor: [cores.primary, cores.success, cores.warning, cores.purple],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-
-        // Gráfico de Localização (Donut)
-        new Chart(document.getElementById('chartLocalizacao'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Urbano', 'Misto', 'Rural'],
-                datasets: [{
-                    data: [2608.20, 4453.58, 14525.39],
-                    backgroundColor: [cores.accent, cores.warning, cores.success],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-
-        // Gráfico Top Municípios (Barras Horizontais)
-        new Chart(document.getElementById('chartTopMunicipios'), {
+        
+        // Q1: Distribuição por Extensão
+        new Chart(document.getElementById('chartDistribuicao'), {
             type: 'bar',
             data: {
-                labels: ['Piracicaba', 'Campinas', 'Itapetininga', 'Ribeirão Preto', 'São Paulo', 
-                         'Mogi das Cruzes', 'Mogi Guaçu', 'Marília', 'Itu', 'Botucatu'],
+                labels: ['0-20 km', '20-40 km', '40-60 km', '60-80 km', '80-100 km', '>100 km'],
                 datasets: [{
-                    label: 'Extensão (km)',
-                    data: [196.15, 186.29, 183.60, 158.74, 155.16, 146.68, 140.00, 136.61, 136.37, 132.72],
-                    backgroundColor: cores.primary,
-                    borderRadius: 8
+                    label: 'Número de Municípios',
+                    data: [285, 168, 92, 48, 27, 25],
+                    backgroundColor: [
+                        '#f5f3ff', '#ddd6fe', '#c4b5fd', '#a78bfa', '#7c3aed', '#3b0764'
+                    ],
+                    borderColor: '#3b0764',
+                    borderWidth: 1
                 }]
             },
             options: {
-                indexAxis: 'y',
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Municípios por Faixa de Extensão',
+                        font: { size: 14 }
+                    }
                 },
                 scales: {
-                    x: { 
+                    y: { 
                         beginAtZero: true,
-                        title: { display: true, text: 'Extensão (km)' }
+                        title: { display: true, text: 'Nº de Municípios' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Extensão de Rodovias' }
                     }
                 }
             }
         });
-
-        // Gráfico Regiões (Barras)
-        new Chart(document.getElementById('chartRegioes'), {
-            type: 'bar',
+        
+        // Q2: Concessões (Rosca)
+        new Chart(document.getElementById('chartConcessao'), {
+            type: 'doughnut',
             data: {
-                labels: ['Sorocaba', 'Campinas', 'Rib. Preto', 'SJ Rio Preto', 'SJC', 
-                         'São Paulo', 'Bauru', 'Marília', 'Pres. Prudente', 'Araraquara', 'Araçatuba'],
+                labels: ['Concessionada', 'Não Concessionada'],
                 datasets: [{
-                    label: 'Extensão (km)',
-                    data: [3752.58, 3417.56, 2309.84, 1984.21, 1755.97, 1658.00, 1656.90, 1541.13, 1351.21, 1104.79, 1054.98],
-                    backgroundColor: [cores.primary, cores.secondary, cores.accent, cores.success, 
-                                      cores.warning, cores.purple, cores.primary, cores.secondary,
-                                      cores.accent, cores.success, cores.warning],
-                    borderRadius: 8
+                    data: [6847, 15267],
+                    backgroundColor: [cores.roxo, cores.verde],
+                    borderWidth: 2,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { position: 'bottom' },
+                    title: {
+                        display: true,
+                        text: 'Extensão por Regime (km)',
+                        font: { size: 14 }
+                    }
+                },
+                cutout: '55%'
+            }
+        });
+        
+        // Q3: Urbano/Rural (Rosca)
+        new Chart(document.getElementById('chartUrbano'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Urbano', 'Rural', 'Misto'],
+                datasets: [{
+                    data: [4521, 14892, 2701],
+                    backgroundColor: [cores.vermelho, cores.verde, cores.laranja],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: {
+                        display: true,
+                        text: 'Extensão por Localização (km)',
+                        font: { size: 14 }
+                    }
+                },
+                cutout: '55%'
+            }
+        });
+        
+        // Q4: Extensão Total (Barras - cores azuis correspondendo ao mapa)
+        new Chart(document.getElementById('chartExtensao'), {
+            type: 'bar',
+            data: {
+                labels: ['0-20', '20-40', '40-60', '60-80', '80-100', '>100'],
+                datasets: [{
+                    label: 'Municípios',
+                    data: [285, 168, 92, 48, 27, 25],
+                    backgroundColor: [
+                        '#e3f2fd', '#90caf9', '#42a5f5', '#1e88e5', '#1565c0', '#0d47a1'
+                    ],
+                    borderColor: '#1565c0',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Extensão (km)',
+                        font: { size: 12 }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true },
+                    x: { title: { display: true, text: 'Faixa (km)', font: { size: 10 } } }
+                }
+            }
+        });
+        
+        // Q4: Densidade por Área (Barras - cores verdes correspondendo ao mapa)
+        new Chart(document.getElementById('chartDensArea'), {
+            type: 'bar',
+            data: {
+                labels: ['<0.02', '0.02-0.05', '0.05-0.10', '0.10-0.15', '0.15-0.20', '>0.20'],
+                datasets: [{
+                    label: 'Municípios',
+                    data: [52, 178, 215, 112, 48, 40],
+                    backgroundColor: [
+                        '#e8f5e9', '#a5d6a7', '#81c784', '#66bb6a', '#43a047', '#1b5e20'
+                    ],
+                    borderColor: '#1b5e20',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Densidade (km/km²)',
+                        font: { size: 12 }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true },
+                    x: { title: { display: true, text: 'Faixa', font: { size: 10 } } }
+                }
+            }
+        });
+        
+        // Q4: Densidade por População (Barras - cores laranjas correspondendo ao mapa)
+        new Chart(document.getElementById('chartDensPop'), {
+            type: 'bar',
+            data: {
+                labels: ['<0.2', '0.2-0.5', '0.5-1.0', '1.0-2.0', '2.0-5.0', '>5.0'],
+                datasets: [{
+                    label: 'Municípios',
+                    data: [45, 156, 198, 142, 72, 32],
+                    backgroundColor: [
+                        '#fff7ec', '#fee8c8', '#fdd49e', '#fc8d59', '#d7301f', '#7f0000'
+                    ],
+                    borderColor: '#7f0000',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Disponibilidade (km/1000hab)',
+                        font: { size: 12 }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true },
+                    x: { title: { display: true, text: 'Faixa', font: { size: 10 } } }
+                }
+            }
+        });
+        
+        // Q5: Hierarquia (Barras)
+        new Chart(document.getElementById('chartHierarquia'), {
+            type: 'bar',
+            data: {
+                labels: ['SP (Eixos)', 'SPA (Acessos)', 'BR (Federais)', 'SPI (Interlig.)', 'Outros'],
+                datasets: [{
+                    label: 'Extensão (km)',
+                    data: [15912, 4128, 1651, 423, 0],
+                    backgroundColor: [cores.sp, cores.spa, cores.br, cores.spi, '#6b7280'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Extensão por Categoria Funcional',
+                        font: { size: 14 }
+                    }
                 },
                 scales: {
                     y: { 
@@ -734,66 +872,158 @@
                 }
             }
         });
-
-        // Gráfico Regiões Administrativas ZEE (Barras Horizontais)
-        new Chart(document.getElementById('chartRA'), {
+        
+        // Q6: Disparidades (Barras agrupadas)
+        new Chart(document.getElementById('chartDisparidades'), {
             type: 'bar',
             data: {
-                labels: ['Campinas', 'Sorocaba', 'SJ Rio Preto', 'SJ Campos', 'Marília', 
-                         'Itapeva', 'São Paulo', 'Pres. Prudente', 'Bauru', 'Araçatuba',
-                         'Central', 'Rib. Preto', 'Franca', 'Registro', 'Barretos', 'Santos'],
+                labels: ['<-50%', '-50% a -25%', '-25% a 0%', '0% a +25%', '+25% a +50%', '>+50%'],
                 datasets: [{
-                    label: 'Extensão (km)',
-                    data: [3613.26, 2276.52, 1887.30, 1830.21, 1392.92, 1374.23, 1343.78, 
-                           1324.48, 1151.58, 1071.27, 986.68, 972.30, 832.50, 760.45, 568.52, 295.03],
-                    backgroundColor: '#1a5276',
-                    borderRadius: 6
+                    label: 'Municípios',
+                    data: [98, 142, 218, 87, 52, 48],
+                    backgroundColor: [
+                        '#d32f2f', '#ef5350', '#ffcdd2', 
+                        '#c8e6c9', '#66bb6a', '#2e7d32'
+                    ],
+                    borderWidth: 0
                 }]
             },
             options: {
-                indexAxis: 'y',
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Municípios por Desvio da Média Estadual',
+                        font: { size: 14 }
+                    }
                 },
                 scales: {
-                    x: { 
+                    y: { 
                         beginAtZero: true,
-                        title: { display: true, text: 'Extensão (km)' }
+                        title: { display: true, text: 'Nº de Municípios' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Desvio da Média' }
                     }
                 }
             }
         });
-
-        // Gráfico Grupos ZEE (Barras Horizontais)
-        new Chart(document.getElementById('chartZEE'), {
-            type: 'bar',
-            data: {
-                labels: ['Grupo 02', 'Grupo 04', 'Grupo 05', 'Grupo 01', 'Grupo 03', 
-                         'Grupo 09', 'Grupo 08', 'Grupo 06', 'Grupo 07'],
-                datasets: [{
-                    label: 'Extensão (km)',
-                    data: [3869.04, 3650.43, 3613.54, 3360.16, 2958.35, 1830.01, 1343.75, 760.56, 295.09],
-                    backgroundColor: '#27ae60',
-                    borderRadius: 6
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    x: { 
-                        beginAtZero: true,
-                        title: { display: true, text: 'Extensão (km)' }
-                    }
-                }
-            }
+        
+        // ============================================
+        // LOGS DE VERIFICAÇÃO DE CARREGAMENTO
+        // ============================================
+        console.log('=== VERIFICAÇÃO DE CARREGAMENTO DE MAPAS ===');
+        
+        // Q1: Distribuição Espacial
+        // OBS: o mapa de densidade foi removido intencionalmente do HTML (mantemos apenas "Extensão Total").
+        const q1Maps = {
+            'extensao': document.querySelector('iframe[src*="q1_extensao"]')
+        };
+        console.log('Q1 - Distribuição Espacial:', {
+            extensao: q1Maps.extensao ? '✓ Carregado' : '✗ ERRO',
+            densidade: '— Removido (ok)'
         });
+        
+        // Q2: Concessões
+        const q2Map = document.querySelector('iframe[src*="q2_concessao"]');
+        console.log('Q2 - Regime de Concessão:', q2Map ? '✓ Carregado' : '✗ ERRO');
+        
+        // Q3: Urbano vs Rural
+        const q3Map = document.querySelector('iframe[src*="q3_urbano"]');
+        console.log('Q3 - Urbano vs Rural:', q3Map ? '✓ Carregado' : '✗ ERRO');
+        
+        // Q4: Acessibilidade (3 mapas, 1 por gráfico)
+        const q4Maps = {
+            extensao: document.querySelector('iframe[src*="q4_extensao"]'),
+            densidadeArea: document.querySelector('iframe[src*="q4_densidade_area"]'),
+            densidadePop: document.querySelector('iframe[src*="q4_denspop"]')
+        };
+        console.log('Q4 - Acessibilidade (3 mapas):', {
+            extensao: q4Maps.extensao ? '✓ Carregado' : '✗ ERRO',
+            densidadeArea: q4Maps.densidadeArea ? '✓ Carregado' : '✗ ERRO',
+            densidadePop: q4Maps.densidadePop ? '✓ Carregado' : '✗ ERRO'
+        });
+        
+        // Q5: Hierarquia Viária
+        const q5Map = document.querySelector('iframe[src*="q5_hierarquia"]');
+        console.log('Q5 - Hierarquia Viária:', q5Map ? '✓ Carregado' : '✗ ERRO');
+        
+        // Q6: Disparidades Regionais
+        const q6Map = document.querySelector('iframe[src*="q6_disparidades"]');
+        console.log('Q6 - Disparidades Regionais:', q6Map ? '✓ Carregado' : '✗ ERRO');
+        
+        // Verificar carregamento de iframes após 2 segundos
+        setTimeout(() => {
+            console.log('\n=== VERIFICAÇÃO DE IFRAMES CARREGADOS ===');
+            document.querySelectorAll('iframe').forEach((iframe, idx) => {
+                try {
+                    const loaded = iframe.contentWindow && iframe.contentWindow.document.readyState === 'complete';
+                    console.log(`Iframe ${idx + 1} (${iframe.src.split('/').pop()}): ${loaded ? '✓ Completo' : '⏳ Carregando...'}`);
+                } catch (e) {
+                    console.log(`Iframe ${idx + 1}: Sem acesso (CORS ou erro)`);
+                }
+            });
+        }, 2000);
+
+        // ============================================
+        // FIX: inputs do Leaflet LayerControl sem id/name
+        // (Lighthouse/Chrome: "A form field element should have an id or name attribute")
+        // ============================================
+        function fixLeafletLayerControlInputsInIframe(iframe, iframeIdx) {
+            try {
+                const doc = iframe.contentDocument;
+                if (!doc) return;
+
+                const controls = doc.querySelectorAll('.leaflet-control-layers');
+                if (!controls.length) return;
+
+                const inputs = doc.querySelectorAll('.leaflet-control-layers input');
+                if (!inputs.length) return;
+
+                inputs.forEach((input, i) => {
+                    if (!input) return;
+                    const type = (input.getAttribute('type') || input.type || '').toLowerCase();
+
+                    // id
+                    if (!input.id) {
+                        input.id = `leaflet-layer-${iframeIdx}-${i}`;
+                    }
+
+                    // name (mantém agrupamento de radios por iframe)
+                    if (!input.name) {
+                        if (type === 'radio') {
+                            input.name = `leaflet-base-layers-${iframeIdx}`;
+                        } else {
+                            input.name = `leaflet-overlays-${iframeIdx}`;
+                        }
+                    }
+                });
+            } catch (e) {
+                // Sem acesso (CORS/arquivo://) ou iframe ainda não pronto
+            }
+        }
+
+        function fixAllLeafletLayerControls() {
+            document.querySelectorAll('iframe').forEach((iframe, idx) => {
+                if (!iframe) return;
+                fixLeafletLayerControlInputsInIframe(iframe, idx);
+            });
+        }
+
+        // Rodar após load de cada iframe e também em timeouts (lazy load)
+        document.querySelectorAll('iframe').forEach((iframe, idx) => {
+            if (!iframe) return;
+            iframe.addEventListener('load', () => {
+                setTimeout(() => fixLeafletLayerControlInputsInIframe(iframe, idx), 50);
+                setTimeout(() => fixLeafletLayerControlInputsInIframe(iframe, idx), 400);
+            });
+        });
+        setTimeout(fixAllLeafletLayerControls, 600);
+        setTimeout(fixAllLeafletLayerControls, 2500);
+        
+        console.log('==========================================');
     </script>
 </body>
 </html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo - Mapas | Malha viária DER — Uma análise exploratória</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Tabs de granularidade */
+        .granularity-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 70px;
+            background: white;
+            padding: 1rem 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .granularity-tab {
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            background: white;
+        }
+        .granularity-tab:hover, .granularity-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Seções de mapas */
+        .maps-section { display: none; }
+        .maps-section.active { display: block; }
+        
+        /* Grid de mapas */
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Card de mapa */
+        .map-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition-medium);
+        }
+        .map-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+        }
+        .map-card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .map-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        .map-card-header p {
+            margin: 0.3rem 0 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        .map-card-header .questao-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .map-frame {
+            width: 100%;
+            height: 420px;
+            border: none;
+        }
+        .map-card-footer {
+            padding: 1rem 1.5rem;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .map-fullscreen {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .map-fullscreen:hover { color: var(--primary-color); }
+        
+        /* Info cards */
+        .granularity-info {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .granularity-info .icon {
+            font-size: 3rem;
+        }
+        .granularity-info h3 {
+            margin: 0 0 0.5rem;
+        }
+        .granularity-info p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        /* Legend */
+        .legend-box {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+        .legend-box h4 {
+            margin: 0 0 1rem;
+            color: var(--dark-color);
+        }
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .legend-line {
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .map-grid { grid-template-columns: 1fr; }
+            .granularity-info { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Malha viária DER</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="discussao.html">Discussão</a></li>
+            <li><a href="conclusao.html">Conclusão</a></li>
+            <li><a href="anexo-mapas.html" class="active">Anexo (Mapas)</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 35vh;">
+        <div class="hero-content">
+            <span class="badge">📎 Anexo</span>
+            <h1>Galeria de Mapas</h1>
+            <p class="subtitle">Visualizações em todas as granularidades espaciais</p>
+        </div>
+    </section>
+
+    <!-- Tabs de Granularidade -->
+    <div class="granularity-tabs">
+        <button class="granularity-tab active" onclick="showMaps('municipios')">📍 Municípios (645)</button>
+        <button class="granularity-tab" onclick="showMaps('rg-imediatas')">🗺️ RG Imediatas (53)</button>
+        <button class="granularity-tab" onclick="showMaps('rg-intermediarias')">🌐 RG Intermediárias (11)</button>
+        <button class="granularity-tab" onclick="showMaps('zee')">🌿 ZEE (16 RA + 9 Grupos)</button>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- MUNICÍPIOS (645) -->
+    <!-- ====================================================================== -->
+    <section id="maps-municipios" class="maps-section active section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="granularity-info">
+                <div class="icon">📍</div>
+                <div>
+                    <h3>Municípios do Estado de São Paulo</h3>
+                    <p>645 unidades municipais | Maior detalhamento espacial disponível</p>
+                </div>
+            </div>
+
+            <!-- Legenda da Malha Viária -->
+            <div class="legend-box">
+                <h4>🛣️ Legenda da Malha Viária (camada toggle em todos os mapas)</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #dc2626; height: 4px;"></div>
+                        <span>SP (Eixo Principal)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #f97316; height: 3px;"></div>
+                        <span>SPA (Acessos)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #eab308; height: 2px;"></div>
+                        <span>SPI (Interligações)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #2563eb; height: 4px;"></div>
+                        <span>BR (Federais)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-grid">
+                <!-- Q1: Densidade por Área -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📐 Densidade por Área</h3>
+                            <p>km de rodovia / km² de território</p>
+                        </div>
+                        <span class="questao-badge">Q1</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q1_densidade_area_mun.html" title="Mapa: Densidade por Área - Municípios"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q1_densidade_area_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q1: Extensão Total -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📏 Extensão Total</h3>
+                            <p>Quilômetros de rodovias por município</p>
+                        </div>
+                        <span class="questao-badge">Q1</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q1_extensao_mun.html" title="Mapa: Extensão Total - Municípios"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q1_extensao_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q2: Concessão -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🏢 Proporção Concessionada</h3>
+                            <p>% de rodovias sob regime de concessão</p>
+                        </div>
+                        <span class="questao-badge" style="background: #27ae60;">Q2</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q2_concessao_mun.html" title="Mapa: Regime de Concessão"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q2_concessao_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q3: Urbano -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🏙️ Proporção Urbana</h3>
+                            <p>% de rodovias em área urbanizada</p>
+                        </div>
+                        <span class="questao-badge" style="background: #e74c3c;">Q3</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q3_urbano_mun.html" title="Mapa: Classificação Urbano vs Rural"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q3_urbano_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q4: Acessibilidade -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>👥 Densidade por População</h3>
+                            <p>km de rodovia / 1.000 habitantes</p>
+                        </div>
+                        <span class="questao-badge" style="background: #8e44ad;">Q4</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q4_denspop_mun.html" title="Mapa: Densidade por População"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q4_denspop_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q5: Hierarquia SP -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🛣️ Proporção de Rodovias SP</h3>
+                            <p>% de eixos principais sobre o total</p>
+                        </div>
+                        <span class="questao-badge" style="background: #f39c12;">Q5</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q5_hierarquia_sp_mun.html" title="Mapa: Hierarquia Viária - Rodovias SP"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q5_hierarquia_sp_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q5: Hierarquia SPA -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🔗 Rodovias de Acesso (SPA)</h3>
+                            <p>Extensão em km de acessos por município</p>
+                        </div>
+                        <span class="questao-badge" style="background: #f39c12;">Q5</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q5_hierarquia_spa_mun.html" title="Mapa: Hierarquia Viária - Rodovias SPA"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q5_hierarquia_spa_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Q6: Disparidades -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📊 Disparidade Regional</h3>
+                            <p>Desvio em relação à média estadual</p>
+                        </div>
+                        <span class="questao-badge" style="background: #16a085;">Q6</span>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q6_disparidades_mun.html" title="Mapa: Disparidades Regionais - Municípios"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q6_disparidades_mun.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- RG IMEDIATAS (53) -->
+    <!-- ====================================================================== -->
+    <section id="maps-rg-imediatas" class="maps-section section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="granularity-info" style="background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);">
+                <div class="icon">🗺️</div>
+                <div>
+                    <h3>Regiões Geográficas Imediatas</h3>
+                    <p>53 unidades | Regionalização IBGE 2017 - nível microrregional</p>
+                </div>
+            </div>
+
+            <div class="map-grid">
+                <!-- Extensão -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📏 Extensão Total</h3>
+                            <p>Quilômetros de rodovias por RG Imediata</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_extensao_rgi.html" title="Mapa: Extensão - Regiões Geográficas Imediatas"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_extensao_rgi.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Densidade -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📐 Densidade por Área</h3>
+                            <p>km de rodovia / km² de território</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_densidade_rgi.html" title="Mapa: Densidade - Regiões Geográficas Imediatas"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_densidade_rgi.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- RG INTERMEDIÁRIAS (11) -->
+    <!-- ====================================================================== -->
+    <section id="maps-rg-intermediarias" class="maps-section section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="granularity-info" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+                <div class="icon">🌐</div>
+                <div>
+                    <h3>Regiões Geográficas Intermediárias</h3>
+                    <p>11 macrorregiões | Regionalização IBGE 2017 - nível intermediário</p>
+                </div>
+            </div>
+
+            <div class="map-grid">
+                <!-- Extensão -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📏 Extensão Total</h3>
+                            <p>Quilômetros de rodovias por RG Intermediária</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_extensao_rgint.html" title="Mapa: Extensão - Regiões Geográficas Intermediárias"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_extensao_rgint.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Densidade -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📐 Densidade por Área</h3>
+                            <p>km de rodovia / km² de território</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_densidade_rgint.html" title="Mapa: Densidade - Regiões Geográficas Intermediárias"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_densidade_rgint.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Disparidades -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📊 Disparidades Regionais</h3>
+                            <p>Comparativo macrorregional</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_q6_disparidades_rgint.html" title="Mapa: Disparidades Regionais - Regiões Intermediárias"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_q6_disparidades_rgint.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- ZEE (Regiões Administrativas + Grupos) -->
+    <!-- ====================================================================== -->
+    <section id="maps-zee" class="maps-section section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="granularity-info" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+                <div class="icon">🌿</div>
+                <div>
+                    <h3>Zoneamento Ecológico-Econômico (ZEE)</h3>
+                    <p>16 Regiões Administrativas + 9 Grupos de Análise Integrada</p>
+                </div>
+            </div>
+
+            <div class="map-grid">
+                <!-- RA Densidade -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🏛️ Regiões Administrativas</h3>
+                            <p>Densidade por área (16 RAs)</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_densidade_ra.html" title="Mapa: Densidade - Regiões Administrativas"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_densidade_ra.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Grupos ZEE -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>🌿 Grupos ZEE</h3>
+                            <p>Densidade por área (9 grupos)</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_anexo_densidade_zee.html" title="Mapa: Densidade - Zoneamento Ecológico-Econômico"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_anexo_densidade_zee.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- RA Extensão -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📏 RA - Extensão por Área</h3>
+                            <p>Mapa de extensão e densidade</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_ra_dens_area.html" title="Mapa: Densidade por Área - Regiões Administrativas"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_ra_dens_area.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+
+                <!-- Grupos Extensão -->
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div>
+                            <h3>📏 Grupos ZEE - Extensão</h3>
+                            <p>Extensão por grupo de análise</p>
+                        </div>
+                    </div>
+                    <iframe class="map-frame" src="mapas/mapa_zee_extensao.html" title="Mapa: Extensão - Zoneamento Ecológico-Econômico"></iframe>
+                    <div class="map-card-footer">
+                        <a href="mapas/mapa_zee_extensao.html" target="_blank" class="map-fullscreen">🔍 Tela cheia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <section class="section" style="background: white; text-align: center;">
+        <div class="container">
+            <a href="resultados.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Resultados
+            </a>
+            <a href="discussao.html" class="btn btn-primary">
+                Discussão →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Janeiro 2026 | Análise Geoespacial - Malha viária DER — Uma análise exploratória</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para alternar mapas -->
+    <script>
+        function showMaps(sectionId) {
+            // Esconder todas as seções
+            document.querySelectorAll('.maps-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar a seção selecionada
+            document.getElementById('maps-' + sectionId).classList.add('active');
+            
+            // Atualizar tabs
+            document.querySelectorAll('.granularity-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll suave para o conteúdo
+            document.getElementById('maps-' + sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

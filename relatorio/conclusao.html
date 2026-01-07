@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusão | Malha viária DER — Uma análise exploratória</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .conclusion-section {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* Tópico principal */
+        .topic-card {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+        .topic-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-fast);
+        }
+        .topic-header:hover {
+            filter: brightness(1.1);
+        }
+        .topic-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .topic-header .arrow {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .topic-card.open .arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* Subtópicos */
+        .topic-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .topic-card.open .topic-content {
+            max-height: 2000px;
+        }
+        .subtopic-list {
+            padding: 1.5rem 2rem;
+        }
+        .subtopic {
+            border-left: 3px solid #e9ecef;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s ease;
+        }
+        .subtopic:hover {
+            border-color: var(--primary-color);
+        }
+        .subtopic:last-child {
+            margin-bottom: 0;
+        }
+        .subtopic h4 {
+            color: var(--primary-color);
+            margin: 0 0 0.5rem;
+            font-size: 1.05rem;
+        }
+        .subtopic p {
+            color: #555;
+            margin: 0;
+            line-height: 1.7;
+        }
+        .subtopic .stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .subtopic .stat-pill {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        /* Síntese final */
+        .synthesis-box {
+            background: linear-gradient(135deg, #1a5276 0%, #154360 100%);
+            color: white;
+            padding: 2.5rem 3rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+        }
+        .synthesis-box h2 {
+            margin: 0 0 1.5rem;
+            font-size: 1.5rem;
+        }
+        .synthesis-box p {
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+        .synthesis-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Recomendações */
+        .recommendations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .rec-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .rec-card h4 {
+            margin: 0 0 0.8rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .rec-card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        /* Próximos passos */
+        .next-steps {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+        .next-steps h3 {
+            margin: 0 0 1.5rem;
+            color: var(--primary-color);
+        }
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            margin: 0 0 0.3rem;
+            font-size: 1rem;
+            color: var(--dark-color);
+        }
+        .step-content p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Malha viária DER</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="discussao.html">Discussão</a></li>
+            <li><a href="conclusao.html" class="active">Conclusão</a></li>
+            <li><a href="anexo-mapas.html">Anexo (Mapas)</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 40vh;">
+        <div class="hero-content">
+            <span class="badge">✅ Seção 08</span>
+            <h1>Conclusão</h1>
+            <p class="subtitle">Síntese dos achados e recomendações</p>
+        </div>
+    </section>
+
+    <!-- Conclusões por Questão -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Principais Conclusões</h2>
+                <p class="text-muted">Respostas às 6 questões norteadoras da análise</p>
+            </div>
+
+            <div class="conclusion-section">
+
+                <!-- Tópico 1: Distribuição Espacial -->
+                <div class="topic-card open">
+                    <div class="topic-header" onclick="toggleTopic(this)">
+                        <h3>📍 1. Distribuição Espacial</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>1.1 Padrão de Concentração</h4>
+                                <p>
+                                    A malha rodoviária estadual apresenta concentração marcante no eixo 
+                                    Campinas-São Paulo-Vale do Paraíba, com densidade até 3x superior às 
+                                    regiões do Oeste Paulista. Este padrão reflete o histórico de 
+                                    industrialização do estado e demandas logísticas consolidadas.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill">📈 RMSP: 0,169 km/km²</span>
+                                    <span class="stat-pill">📉 Araçatuba: 0,056 km/km²</span>
+                                </div>
+                            </div>
+                            <div class="subtopic">
+                                <h4>1.2 Extensão por Região</h4>
+                                <p>
+                                    Sorocaba lidera em extensão total (3.752 km), seguida por Campinas 
+                                    (3.417 km). A extensão não correlaciona diretamente com densidade, 
+                                    dado que regiões extensas territorialmente podem ter baixa densidade 
+                                    mesmo com quilometragem significativa.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill">🔝 1ª Sorocaba: 3.752 km</span>
+                                    <span class="stat-pill">🔝 2ª Campinas: 3.417 km</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 2: Concessões -->
+                <div class="topic-card">
+                    <div class="topic-header" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);" onclick="toggleTopic(this)">
+                        <h3>🏢 2. Regime de Concessões</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>2.1 Divisão Administrativa</h4>
+                                <p>
+                                    O estado opera com modelo híbrido: 42,8% da malha (9.245 km) está 
+                                    concessionada, enquanto 57,2% (12.341 km) permanece sob gestão 
+                                    direta do DER/SP. Esta divisão reflete estratégia de concessionar 
+                                    eixos de alta demanda para atrair investimentos privados.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill">🏢 Concessionada: 42,8%</span>
+                                    <span class="stat-pill">🏛️ DER/SP: 57,2%</span>
+                                </div>
+                            </div>
+                            <div class="subtopic">
+                                <h4>2.2 Distribuição Geográfica</h4>
+                                <p>
+                                    Concessões concentram-se em eixos radiais a partir da capital 
+                                    (Anhanguera, Bandeirantes, Imigrantes, Dutra), criando assimetria 
+                                    na qualidade de serviço entre regiões metropolitanas e interior.
+                                </p>
+                            </div>
+                            <div class="subtopic">
+                                <h4>2.3 Implicações</h4>
+                                <p>
+                                    O modelo vigente demanda políticas compensatórias para regiões 
+                                    menos atrativas ao capital privado, garantindo padrão mínimo de 
+                                    manutenção e expansão em rodovias sob gestão pública direta.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 3: Urbano vs Rural -->
+                <div class="topic-card">
+                    <div class="topic-header" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);" onclick="toggleTopic(this)">
+                        <h3>🏙️ 3. Contexto Urbano-Rural</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>3.1 Classificação por Localização</h4>
+                                <p>
+                                    A classificação via manchas urbanas IBGE revelou que 12,1% da malha 
+                                    está em contexto predominantemente urbano, 20,6% em áreas mistas e 
+                                    67,3% em zonas rurais. Esta distribuição reflete a função primária 
+                                    de interligação regional das rodovias estaduais.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill">🏙️ Urbano: 12,1%</span>
+                                    <span class="stat-pill">🏘️ Misto: 20,6%</span>
+                                    <span class="stat-pill">🌾 Rural: 67,3%</span>
+                                </div>
+                            </div>
+                            <div class="subtopic">
+                                <h4>3.2 Discrepância Metodológica</h4>
+                                <p>
+                                    O campo "PerimetroU" do DER subestima em 5,5x a extensão urbanizada 
+                                    quando comparado à classificação por manchas IBGE. Esta descoberta 
+                                    tem implicações para políticas de velocidade, fiscalização e 
+                                    segurança viária em trechos urbanos não identificados.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 4: Acessibilidade -->
+                <div class="topic-card">
+                    <div class="topic-header" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);" onclick="toggleTopic(this)">
+                        <h3>👥 4. Acessibilidade Viária</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>4.1 Inversão Paradoxal</h4>
+                                <p>
+                                    Municípios com maior densidade per capita (Iporanga: 17,2 km/1000 hab) 
+                                    são aqueles com menor população e dinamismo econômico. A capital 
+                                    paulista apresenta apenas 0,007 km/1000 hab, demonstrando dependência 
+                                    de infraestrutura multimodal para mobilidade.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill">🔝 Iporanga: 17,2 km/1000hab</span>
+                                    <span class="stat-pill">📉 São Paulo: 0,007 km/1000hab</span>
+                                </div>
+                            </div>
+                            <div class="subtopic">
+                                <h4>4.2 Limitações do Indicador</h4>
+                                <p>
+                                    A densidade por população é métrica útil mas insuficiente para 
+                                    avaliar acessibilidade real. Alta disponibilidade não garante 
+                                    conectividade eficiente, qualidade de pavimento ou tempo de 
+                                    deslocamento competitivo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 5: Hierarquia -->
+                <div class="topic-card">
+                    <div class="topic-header" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);" onclick="toggleTopic(this)">
+                        <h3>🛣️ 5. Hierarquia Viária</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>5.1 Estrutura Hierárquica</h4>
+                                <p>
+                                    As rodovias SP (eixos principais) representam 81,7% da malha, 
+                                    demonstrando estrutura coesa de gestão estadual. SPAs (acessos) 
+                                    complementam com 12,1%, enquanto BRs federais representam 5%.
+                                </p>
+                                <div class="stats">
+                                    <span class="stat-pill" style="background:#dc2626;color:white;">SP: 81,7%</span>
+                                    <span class="stat-pill" style="background:#f97316;color:white;">SPA: 12,1%</span>
+                                    <span class="stat-pill" style="background:#2563eb;color:white;">BR: 5%</span>
+                                </div>
+                            </div>
+                            <div class="subtopic">
+                                <h4>5.2 Lacuna de Interligações</h4>
+                                <p>
+                                    A baixa participação de SPIs (1,2%) indica possíveis lacunas de 
+                                    conectividade lateral entre eixos principais. Interligações são 
+                                    cruciais para redundância da rede e distribuição de fluxos.
+                                </p>
+                            </div>
+                            <div class="subtopic">
+                                <h4>5.3 Qualidade da Pista</h4>
+                                <p>
+                                    31% da malha possui pista dupla, indicando investimentos em 
+                                    capacidade. Ainda há 6,8% em fase de implantação ou planejamento, 
+                                    sinalizando expansão contínua do sistema.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 6: Disparidades -->
+                <div class="topic-card">
+                    <div class="topic-header" style="background: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);" onclick="toggleTopic(this)">
+                        <h3>📊 6. Disparidades Regionais</h3>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="topic-content">
+                        <div class="subtopic-list">
+                            <div class="subtopic">
+                                <h4>6.1 Desvio da Média</h4>
+                                <p>
+                                    A média estadual de densidade (0,087 km/km²) mascara disparidades 
+                                    significativas. Campinas e São Paulo superam a média em 50-70%, 
+                                    enquanto Araçatuba e Presidente Prudente ficam 35% abaixo.
+                                </p>
+                            </div>
+                            <div class="subtopic">
+                                <h4>6.2 Análise ZEE</h4>
+                                <p>
+                                    O recorte por Grupos ZEE evidencia que o Grupo 08 (RMSP) apresenta 
+                                    maior densidade mas enfrenta saturação, enquanto Grupos do interior 
+                                    possuem margem para expansão alinhada ao desenvolvimento sustentável.
+                                </p>
+                            </div>
+                            <div class="subtopic">
+                                <h4>6.3 Reequilíbrio Necessário</h4>
+                                <p>
+                                    Políticas de investimento devem considerar não apenas demandas 
+                                    atuais, mas potencial de desenvolvimento regional. O ZEE oferece 
+                                    framework adequado para direcionar recursos de forma equilibrada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Síntese Final -->
+                <div class="synthesis-box">
+                    <h2>📌 Síntese Geral</h2>
+                    <p>
+                        A análise da densidade de malha rodoviária do Estado de São Paulo revela um 
+                        sistema maduro mas desigual, produto de décadas de investimentos orientados 
+                        por demandas econômicas localizadas. Com <strong>21.587 km</strong> de 
+                        extensão distribuídos em <strong>645 municípios</strong>, a malha estadual 
+                        apresenta densidade média de <strong>0,087 km/km²</strong>, com variações 
+                        significativas entre regiões.
+                    </p>
+                    <p>
+                        O modelo de concessões, embora eficiente para eixos de alta demanda, 
+                        aprofunda assimetrias regionais que demandam atenção de políticas públicas. 
+                        A classificação urbano-rural revelou subestimação sistemática de trechos 
+                        urbanos nos registros administrativos, com implicações para gestão de 
+                        tráfego e segurança viária.
+                    </p>
+                    <p>
+                        As 6 questões norteadoras foram respondidas de forma objetiva, gerando 
+                        base analítica para tomada de decisão em planejamento de transportes, 
+                        investimentos em infraestrutura e políticas de desenvolvimento regional.
+                    </p>
+
+                    <!-- Recomendações -->
+                    <div class="recommendations">
+                        <div class="rec-card">
+                            <h4>📋 Curto Prazo</h4>
+                            <p>Atualizar classificação urbana nos registros DER; priorizar manutenção em regiões de baixa densidade.</p>
+                        </div>
+                        <div class="rec-card">
+                            <h4>📐 Médio Prazo</h4>
+                            <p>Expandir SPIs para melhorar conectividade lateral; revisar contratos de concessão com metas regionais.</p>
+                        </div>
+                        <div class="rec-card">
+                            <h4>🌱 Longo Prazo</h4>
+                            <p>Alinhar expansão da malha ao ZEE; desenvolver indicadores multimodais de acessibilidade.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Próximos Passos -->
+                <div class="next-steps">
+                    <h3>🚀 Próximos Passos</h3>
+                    
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Validação com Gestores</h4>
+                            <p>Apresentar resultados às equipes técnicas do DER/SP e ARTESP para validação e feedback.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Integração de Dados de Tráfego</h4>
+                            <p>Incorporar dados de contagem veicular para análise de capacidade e demanda por trecho.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Análise Multimodal</h4>
+                            <p>Expandir estudo para incluir ferrovias, hidrovias e aeroportos na matriz de acessibilidade.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Monitoramento Contínuo</h4>
+                            <p>Estabelecer pipeline de atualização automática com novos dados do DER e IBGE.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação Final -->
+    <section class="section" style="background: white; text-align: center;">
+        <div class="container">
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">
+                Análise concluída • Janeiro 2026
+            </p>
+            <a href="discussao.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Discussão
+            </a>
+            <a href="index.html" class="btn btn-primary">
+                🏠 Início
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Janeiro 2026 | Análise Geoespacial - Malha viária DER — Uma análise exploratória</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para expandir/colapsar tópicos -->
+    <script>
+        function toggleTopic(header) {
+            const card = header.parentElement;
+            card.classList.toggle('open');
+        }
+        
+        // Abrir todos os cards ao carregar (opcional - remover para manter colapsados)
+        // document.querySelectorAll('.topic-card').forEach(card => card.classList.add('open'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussão | Malha viária DER — Uma análise exploratória</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .discussion-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .discussion-block {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-soft);
+            border-left: 5px solid var(--primary-color);
+        }
+        .discussion-block h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .discussion-block p {
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        .discussion-block p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight-stat {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        .highlight-stat strong {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+        
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .comparison-item {
+            background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .comparison-item.negative {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        .comparison-item h4 {
+            margin: 0 0 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .comparison-item .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .key-finding {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        .key-finding h4 {
+            margin: 0 0 0.8rem;
+            font-size: 1.1rem;
+        }
+        .key-finding p {
+            margin: 0;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-box { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Malha viária DER</span>
+        </div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">Introdução</a></li>
+            <li><a href="objetivos.html">Objetivos</a></li>
+            <li><a href="dados.html">Dados</a></li>
+            <li><a href="metodologia.html">Metodologia</a></li>
+            <li><a href="resultados.html">Resultados</a></li>
+            <li><a href="discussao.html" class="active">Discussão</a></li>
+            <li><a href="conclusao.html">Conclusão</a></li>
+            <li><a href="anexo-mapas.html">Anexo (Mapas)</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 40vh;">
+        <div class="hero-content">
+            <span class="badge">💬 Seção 07</span>
+            <h1>Discussão</h1>
+            <p class="subtitle">Análise crítica dos resultados e suas implicações</p>
+        </div>
+    </section>
+
+    <!-- Discussão -->
+    <section class="section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container">
+            <div class="discussion-section">
+
+                <!-- Bloco 1: Distribuição Espacial -->
+                <div class="discussion-block" style="border-left-color: #1a5276;">
+                    <h3>📍 Assimetria na Distribuição Territorial</h3>
+                    <p>
+                        A análise revela uma <strong>concentração desigual</strong> da infraestrutura rodoviária estadual. 
+                        Enquanto a Região Metropolitana de São Paulo apresenta densidade de <span class="highlight-stat"><strong>0,169 km/km²</strong></span>, 
+                        regiões como Araçatuba e Presidente Prudente operam com densidades inferiores a <strong>0,06 km/km²</strong> — 
+                        uma diferença de quase <strong>3 vezes</strong>. Este padrão reflete o histórico de desenvolvimento 
+                        econômico do estado, com investimentos concentrados no vetor Campinas-São Paulo-Vale do Paraíba.
+                    </p>
+                    <p>
+                        A correlação entre densidade viária e dinamismo econômico é evidente: municípios do Oeste Paulista, 
+                        apesar de extensas áreas territoriais, possuem malha subdimensionada para suas demandas agroindustriais. 
+                        A produção de commodities nestas regiões depende de escoamento eficiente, e a carência de infraestrutura 
+                        impacta diretamente custos logísticos e competitividade.
+                    </p>
+                </div>
+
+                <!-- Bloco 2: Modelo de Concessões -->
+                <div class="discussion-block" style="border-left-color: #27ae60;">
+                    <h3>🏢 O Paradoxo das Concessões</h3>
+                    <p>
+                        O modelo de concessões paulista, com <span class="highlight-stat"><strong>42,8%</strong></span> 
+                        da malha sob gestão privada, apresenta um paradoxo estrutural: as rodovias concessionadas 
+                        concentram-se nos eixos de maior demanda e arrecadação potencial, criando um <strong>ciclo 
+                        de concentração</strong> que perpetua as desigualdades regionais.
+                    </p>
+                    
+                    <div class="comparison-box">
+                        <div class="comparison-item">
+                            <h4>Regiões com Alta Concessão</h4>
+                            <div class="value">Campinas, RMSP</div>
+                        </div>
+                        <div class="comparison-item negative">
+                            <h4>Regiões com Baixa Concessão</h4>
+                            <div class="value">Oeste Paulista</div>
+                        </div>
+                    </div>
+                    
+                    <p>
+                        Enquanto regiões metropolitanas contam com infraestrutura de alto padrão (pista dupla, pedágio 
+                        eletrônico, serviços de apoio), o interior depende predominantemente da gestão direta do DER/SP, 
+                        com recursos mais limitados para manutenção e expansão. Esta dualidade estrutural demanda 
+                        políticas públicas compensatórias para regiões menos atrativas ao capital privado.
+                    </p>
+                </div>
+
+                <!-- Bloco 3: Contexto Urbano-Rural -->
+                <div class="discussion-block" style="border-left-color: #e74c3c;">
+                    <h3>🏙️ Rodovias e o Tecido Urbano</h3>
+                    <p>
+                        A descoberta de que <span class="highlight-stat"><strong>32,7%</strong></span> da malha 
+                        atravessa contextos urbanos ou mistos (contra a percepção de malha predominantemente rural) 
+                        tem implicações significativas para o planejamento. Rodovias em contexto urbano enfrentam 
+                        conflitos de uso — fluxo de longa distância vs. mobilidade local — que demandam soluções 
+                        específicas de engenharia e regulamentação.
+                    </p>
+                    
+                    <div class="key-finding">
+                        <h4>🔍 Achado Metodológico</h4>
+                        <p>
+                            A classificação por manchas urbanas do IBGE identificou <strong>5,5 vezes mais extensão</strong> 
+                            em áreas urbanas do que o campo "PerimetroU" do DER. Esta discrepância sugere que os 
+                            registros administrativos subestimam significativamente o caráter urbano de trechos 
+                            rodoviários, o que pode impactar políticas de gestão, velocidade regulamentar e fiscalização.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bloco 4: Acessibilidade -->
+                <div class="discussion-block" style="border-left-color: #8e44ad;">
+                    <h3>👥 O Dilema da Acessibilidade</h3>
+                    <p>
+                        O indicador de densidade por população revela uma <strong>inversão paradoxal</strong>: 
+                        municípios com maior "acessibilidade" per capita (como Iporanga com 17,2 km/1000 hab) 
+                        são justamente aqueles com menor dinamismo econômico e populacional. Este achado evidencia 
+                        a limitação do indicador como proxy de qualidade de acesso — alta disponibilidade por 
+                        habitante não significa conectividade eficiente ou qualidade de serviço.
+                    </p>
+                    <p>
+                        Por outro lado, a capital paulista apresenta densidade por população de apenas 
+                        <strong>0,007 km/1000 hab</strong>, refletindo a dependência de outros modais (metrô, 
+                        trem, ônibus) para absorver demandas de mobilidade. A análise multimodal é essencial 
+                        para compreender a real acessibilidade de cada território.
+                    </p>
+                </div>
+
+                <!-- Bloco 5: Hierarquia -->
+                <div class="discussion-block" style="border-left-color: #f39c12;">
+                    <h3>🛣️ Estrutura Hierárquica da Malha</h3>
+                    <p>
+                        O predomínio de rodovias SP (81,7%) sobre as demais categorias indica uma <strong>estrutura 
+                        coesa</strong> de gestão estadual. Contudo, a baixa participação de SPIs (1,2%) sugere 
+                        possíveis lacunas de conectividade entre eixos principais. Interligações são fundamentais 
+                        para criar redundância na rede, permitindo rotas alternativas em casos de interdição 
+                        e distribuindo fluxos de forma mais equilibrada.
+                    </p>
+                    <p>
+                        As rodovias federais (BR), com 5% da extensão no estado, cumprem função estratégica de 
+                        conexão interestadual, mas sua gestão compartilhada (DNIT/DER) pode gerar conflitos de 
+                        prioridade e investimento. A BR-116 (Regis Bittencourt), por exemplo, é historicamente 
+                        apontada como gargalo logístico entre São Paulo e o Sul do país.
+                    </p>
+                </div>
+
+                <!-- Bloco 6: Disparidades -->
+                <div class="discussion-block" style="border-left-color: #16a085;">
+                    <h3>📊 Implicações para Políticas Públicas</h3>
+                    <p>
+                        As disparidades regionais identificadas — com desvios de até <strong>-35%</strong> abaixo 
+                        da média estadual em regiões do Oeste — demandam políticas de <strong>reequilíbrio 
+                        territorial</strong>. O Zoneamento Ecológico-Econômico (ZEE) oferece framework adequado 
+                        para direcionar investimentos, considerando vocações regionais e sustentabilidade ambiental.
+                    </p>
+                    <p>
+                        A análise por Grupos ZEE revela que o Grupo 08 (RMSP), apesar da maior densidade, 
+                        enfrenta saturação de capacidade, enquanto Grupos 02 e 03 (interior) possuem margem 
+                        para expansão. O desafio é equilibrar demandas de manutenção da infraestrutura existente 
+                        com investimentos em novas conexões que reduzam assimetrias históricas.
+                    </p>
+                    
+                    <div class="key-finding" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white;">
+                        <h4 style="color: white;">⚡ Consideração Final</h4>
+                        <p style="color: rgba(255,255,255,0.95);">
+                            A malha rodoviária estadual é produto de décadas de investimentos orientados por 
+                            demandas econômicas de cada período. Reorientar esta lógica para um modelo de 
+                            <strong style="color: white;">desenvolvimento territorial equilibrado</strong> exige visão de longo prazo, 
+                            instrumentos de financiamento inovadores e coordenação entre esferas de governo.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <section class="section" style="background: white; text-align: center;">
+        <div class="container">
+            <a href="anexo-mapas.html" class="btn btn-outline" style="margin-right: 1rem;">
+                ← Mapas
+            </a>
+            <a href="conclusao.html" class="btn btn-primary">
+                Conclusão →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Janeiro 2026 | Análise Geoespacial - Malha viária DER — Uma análise exploratória</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
