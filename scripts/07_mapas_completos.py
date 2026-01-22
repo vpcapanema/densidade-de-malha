@@ -806,11 +806,11 @@ def gerar_mapas_distribuicao(municipios, malha):
     # Densidade por Área
     criar_mapa_coropletico(
         municipios, 'Dens_Area_Total', 'NM_MUN',
-        'Densidade por Área', 'km de rodovia / km² de território',
+        'Densidade por Área', 'km de rodovia / 10.000 km² de território',
         'mapa_q1_densidade_area_mun',
         malha=malha,
         colormap_cores=['#f7fbff', '#6baed6', '#2171b5', '#08306b'],
-        caption='Densidade (km/km²)'
+        caption='Densidade (km/10000km²)'
     )
 
 def gerar_mapas_concessao(municipios, malha):
@@ -1253,12 +1253,12 @@ def gerar_mapas_acessibilidade(municipios, malha):
     )
     layer_ext.add_to(m)
     
-    # ===== Camada 2: Densidade por Área (km/km²) =====
+    # ===== Camada 2: Densidade por Área (km/10000km²) =====
     colormap_area = cm.LinearColormap(
         colors=['#e8f5e9', '#81c784', '#43a047', '#1b5e20'],
         vmin=0,
         vmax=max_dens_area if max_dens_area > 0 else 1,
-        caption='Densidade por Área (km/km²)'
+        caption='Densidade por Área (km/10000km²)'
     )
     
     def style_area(feature):
@@ -1272,13 +1272,13 @@ def gerar_mapas_acessibilidade(municipios, malha):
     
     tooltip_area = folium.GeoJsonTooltip(
         fields=['NM_MUN', 'Dens_Area_Total', 'Area_km2', 'Ext_Total'],
-        aliases=['Município:', 'Densidade (km/km²):', 'Área (km²):', 'Extensão (km):'],
+        aliases=['Município:', 'Densidade (km/10000km²):', 'Área (km²):', 'Extensão (km):'],
         localize=True
     )
     
     layer_area = folium.GeoJson(
         gdf,
-        name='🟢 Densidade por Área (km/km²)',
+        name='🟢 Densidade por Área (km/10000km²)',
         style_function=style_area,
         highlight_function=lambda x: {'weight': 2, 'color': '#1b5e20'},
         tooltip=tooltip_area,
@@ -1286,12 +1286,12 @@ def gerar_mapas_acessibilidade(municipios, malha):
     )
     layer_area.add_to(m)
     
-    # ===== Camada 3: Densidade por População (km/1000hab) =====
+    # ===== Camada 3: Densidade por População (km/10.000hab) =====
     colormap_pop = cm.LinearColormap(
         colors=['#fff7ec', '#fc8d59', '#d7301f', '#7f0000'],
         vmin=0,
         vmax=max_dens_pop if max_dens_pop > 0 else 1,
-        caption='Disponibilidade por Habitante (km/1000hab)'
+        caption='Disponibilidade por Habitante (km/10.000hab)'
     )
     
     def style_pop(feature):
@@ -1305,13 +1305,13 @@ def gerar_mapas_acessibilidade(municipios, malha):
     
     tooltip_pop = folium.GeoJsonTooltip(
         fields=['NM_MUN', 'Dens_Pop_Total', 'Populacao', 'Ext_Total'],
-        aliases=['Município:', 'km/1000hab:', 'População:', 'Extensão (km):'],
+        aliases=['Município:', 'km/10.000hab:', 'População:', 'Extensão (km):'],
         localize=True
     )
     
     layer_pop = folium.GeoJson(
         gdf,
-        name='🟠 Disponibilidade por Habitante (km/1000hab)',
+        name='🟠 Disponibilidade por Habitante (km/10.000hab)',
         style_function=style_pop,
         highlight_function=lambda x: {'weight': 2, 'color': '#d35400'},
         tooltip=tooltip_pop,
@@ -1346,7 +1346,7 @@ def gerar_mapas_acessibilidade(municipios, malha):
         background: white; padding: 8px 12px; border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2); font-family: Arial; font-size: 9px;
         max-width: 160px; display: none;">
-        <div style="font-weight: bold; margin-bottom: 8px; color: #1b5e20;">🟢 Densidade (km/km²)</div>
+        <div style="font-weight: bold; margin-bottom: 8px; color: #1b5e20;">🟢 Densidade (km/10000km²)</div>
         <div style="display: flex; align-items: center; height: 15px; margin-bottom: 5px;">
             <div style="flex: 1; height: 100%; background: linear-gradient(to right, #e8f5e9, #81c784, #43a047, #1b5e20);"></div>
         </div>
@@ -1359,7 +1359,7 @@ def gerar_mapas_acessibilidade(municipios, malha):
         background: white; padding: 8px 12px; border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2); font-family: Arial; font-size: 9px;
         max-width: 160px; display: none;">
-        <div style="font-weight: bold; margin-bottom: 8px; color: #d7301f;">🟠 Disponibilidade (km/1000hab)</div>
+        <div style="font-weight: bold; margin-bottom: 8px; color: #d7301f;">🟠 Disponibilidade (km/10.000hab)</div>
         <div style="display: flex; align-items: center; height: 15px; margin-bottom: 5px;">
             <div style="flex: 1; height: 100%; background: linear-gradient(to right, #fff7ec, #fc8d59, #d7301f, #7f0000);"></div>
         </div>
@@ -1423,20 +1423,20 @@ def gerar_mapas_acessibilidade(municipios, malha):
     
     criar_mapa_coropletico(
         municipios, 'Dens_Area_Total', 'NM_MUN',
-        'Densidade por Área', 'km de rodovia por km² de território',
+        'Densidade por Área', 'km de rodovia por 10.000 km² de território',
         'mapa_q4_densidade_area_mun',
         malha=malha,
         colormap_cores=['#e8f5e9', '#81c784', '#43a047', '#1b5e20'],
-        caption='Densidade (km/km²)'
+        caption='Densidade (km/10000km²)'
     )
     
     criar_mapa_coropletico(
         municipios, 'Dens_Pop_Total', 'NM_MUN',
-        'Disponibilidade por Habitante', 'km de rodovia por 1.000 habitantes',
+        'Disponibilidade por Habitante', 'km de rodovia por 10.000 habitantes',
         'mapa_q4_denspop_mun',
         malha=malha,
         colormap_cores=['#fff7ec', '#fc8d59', '#d7301f', '#7f0000'],
-        caption='km/1.000 hab'
+        caption='km/10.000hab'
     )
 
     # População por km de rodovia (hab/km)
@@ -1493,7 +1493,7 @@ def gerar_mapas_disparidades(municipios, rg_intermediarias, malha):
     # Criar mapa com escala divergente
     print(f"   Gerando mapa: Desvio da Média Estadual...")
     
-    m = criar_mapa_base('Disparidade Regional', f'Desvio em relação à média estadual ({media_estadual:.3f} km/km²)')
+    m = criar_mapa_base('Disparidade Regional', f'Desvio em relação à média estadual ({media_estadual:.3f} km/10000km²)')
     
     # Colormap divergente
     vmin = gdf['Desvio_Media'].quantile(0.05)
@@ -1582,7 +1582,7 @@ def gerar_mapas_disparidades(municipios, rg_intermediarias, malha):
             'mapa_q6_disparidades_rgint',
             malha=malha,
             colormap_cores=['#f7fbff', '#6baed6', '#2171b5', '#08306b'],
-            caption='Densidade (km/km²)'
+            caption='Densidade (km/10000km²)'
         )
 
 # =============================================================================
@@ -1606,11 +1606,11 @@ def gerar_mapas_anexo(municipios, rg_imediatas, rg_intermediarias, ra, zee, malh
     
     criar_mapa_coropletico(municipios, 'Dens_Area_Total', col_mun,
         'Densidade por Área - Municípios', '645 municípios',
-        'mapa_anexo_densidade_mun', malha, caption='Densidade (km/km²)')
+        'mapa_anexo_densidade_mun', malha, caption='Densidade (km/10000km²)')
     
     criar_mapa_coropletico(municipios, 'Dens_Pop_Total', col_mun,
         'Densidade por População - Municípios', '645 municípios',
-        'mapa_anexo_denspop_mun', malha, caption='km/1000 hab')
+        'mapa_anexo_denspop_mun', malha, caption='km/10.000hab')
     
     # --- RG IMEDIATAS ---
     if rg_imediatas is not None and col_rgi:
@@ -1621,7 +1621,7 @@ def gerar_mapas_anexo(municipios, rg_imediatas, rg_intermediarias, ra, zee, malh
         
         criar_mapa_coropletico(rg_imediatas, 'Dens_Area_Total', col_rgi,
             'Densidade por Área - RG Imediatas', '53 regiões',
-            'mapa_anexo_densidade_rgi', malha, caption='Densidade (km/km²)')
+            'mapa_anexo_densidade_rgi', malha, caption='Densidade (km/10000km²)')
     
     # --- RG INTERMEDIÁRIAS ---
     if rg_intermediarias is not None and col_rgint:
@@ -1632,7 +1632,7 @@ def gerar_mapas_anexo(municipios, rg_imediatas, rg_intermediarias, ra, zee, malh
         
         criar_mapa_coropletico(rg_intermediarias, 'Dens_Area_Total', col_rgint,
             'Densidade por Área - RG Intermediárias', '11 macrorregiões',
-            'mapa_anexo_densidade_rgint', malha, caption='Densidade (km/km²)')
+            'mapa_anexo_densidade_rgint', malha, caption='Densidade (km/10000km²)')
     
     # --- REGIÕES ADMINISTRATIVAS (ZEE) ---
     if ra is not None:
@@ -1640,7 +1640,7 @@ def gerar_mapas_anexo(municipios, rg_imediatas, rg_intermediarias, ra, zee, malh
         col_ra = 'Nome' if 'Nome' in ra.columns else [c for c in ra.columns if 'Nome' in c or 'NM_' in c][0]
         criar_mapa_coropletico(ra, 'Dens_Area_Total', col_ra,
             'Densidade por Área - Regiões Administrativas', '16 regiões do ZEE',
-            'mapa_anexo_densidade_ra', malha, caption='Densidade (km/km²)')
+            'mapa_anexo_densidade_ra', malha, caption='Densidade (km/10000km²)')
     
     # --- GRUPOS ZEE ---
     if zee is not None:
@@ -1648,7 +1648,7 @@ def gerar_mapas_anexo(municipios, rg_imediatas, rg_intermediarias, ra, zee, malh
         col_zee = 'Nome' if 'Nome' in zee.columns else [c for c in zee.columns if 'Nome' in c or 'grupo' in c.lower()][0]
         criar_mapa_coropletico(zee, 'Dens_Area_Total', col_zee,
             'Densidade por Área - Grupos ZEE', '9 unidades de análise integrada',
-            'mapa_anexo_densidade_zee', malha, caption='Densidade (km/km²)')
+            'mapa_anexo_densidade_zee', malha, caption='Densidade (km/10000km²)')
 
 # =============================================================================
 # FUNÇÃO PRINCIPAL

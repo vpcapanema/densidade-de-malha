@@ -472,16 +472,16 @@ def calcular_densidades(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     # Identificar colunas de extensão
     ext_cols = [c for c in gdf.columns if c.startswith('Ext_')]
     
-    # Densidade por área (km de rodovia / km² de território)
+    # Densidade por área (km de rodovia / 10000 km² de território)
     for col in ext_cols:
         col_dens = col.replace('Ext_', 'Dens_Area_')
-        gdf[col_dens] = gdf[col] / gdf['Area_km2']
+        gdf[col_dens] = (gdf[col] / gdf['Area_km2']) * 10000
     
-    # Densidade por população (km de rodovia / 1000 habitantes)
+    # Densidade por população (km de rodovia / 10.000 habitantes)
     if 'Populacao' in gdf.columns:
         for col in ext_cols:
             col_dens = col.replace('Ext_', 'Dens_Pop_')
-            gdf[col_dens] = (gdf[col] / gdf['Populacao']) * 1000
+            gdf[col_dens] = (gdf[col] / gdf['Populacao']) * 10000
             # Substituir inf por NaN
             gdf[col_dens] = gdf[col_dens].replace([np.inf, -np.inf], np.nan)
     

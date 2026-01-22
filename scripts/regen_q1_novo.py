@@ -57,7 +57,7 @@ mapas.criar_mapa_coropletico(
     output_name='mapa_q1_densidade_area_mun',
     malha=malha,
     colormap_cores=['#f7fbff', '#6baed6', '#2171b5', '#08306b'],
-    caption='Densidade (km/km²)'
+    caption='Densidade (km/10000km²)'
 )
 
 print("\n✅ Mapas Q1 regenerados com sucesso!")

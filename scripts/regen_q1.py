@@ -33,10 +33,10 @@ mapas.criar_mapa_coropletico(
 
 mapas.criar_mapa_coropletico(
     municipios, 'Dens_Area_Total', 'NM_MUN',
-    'Densidade por Área', 'km de rodovia / km² de território',
+    'Densidade por Área', 'km de rodovia / 10.000 km² de território',
     'mapa_q1_densidade_area_mun',
     malha=malha,  # Incluir malha viária
     colormap_cores=['#f7fbff', '#6baed6', '#2171b5', '#08306b'],
-    caption='Densidade (km/km²)'
+    caption='Densidade (km/10000km²)'
 )
 print("\n✅ Mapas Q1 regenerados!")

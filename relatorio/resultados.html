@@ -331,8 +331,8 @@
                     <div class="metric-label">km médios por município</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">0,089</div>
-                    <div class="metric-label">km/km² densidade média</div>
+                    <div class="metric-value">0,889</div>
+                    <div class="metric-label">km/10000km² densidade média</div>
                 </div>
             </div>
         </div>
@@ -447,13 +447,13 @@
                     </div>
                 </div>
                 <div class="chart-panel" style="border: none; padding: 0;">
-                    <h3 style="font-size: 0.9rem;">📊 Densidade por Área (km/km²)</h3>
+                    <h3 style="font-size: 0.9rem;">📊 Densidade por Área (km/10000km²)</h3>
                     <div class="chart-wrapper" style="min-height: 280px;">
                         <canvas id="chartDensArea"></canvas>
                     </div>
                 </div>
                 <div class="chart-panel" style="border: none; padding: 0;">
-                    <h3 style="font-size: 0.9rem;">📊 Disponibilidade (km/1000hab)</h3>
+                    <h3 style="font-size: 0.9rem;">📊 Disponibilidade (km/10.000hab)</h3>
                     <div class="chart-wrapper" style="min-height: 280px;">
                         <canvas id="chartDensPop"></canvas>
                     </div>
@@ -471,18 +471,18 @@
                     </div>
                 </div>
                 <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
-                    <h3 style="font-size: 0.9rem;">🗺️ Densidade por Área (km/km²)</h3>
+                    <h3 style="font-size: 0.9rem;">🗺️ Densidade por Área (km/10000km²)</h3>
                     <div class="map-wrapper" style="min-height: 360px; height: 360px;">
-                        <iframe src="mapas/mapa_q4_densidade_area_mun.html" loading="lazy" title="Mapa interativo: Q4 - Densidade por Área (km/km²)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                        <iframe src="mapas/mapa_q4_densidade_area_mun.html" loading="lazy" title="Mapa interativo: Q4 - Densidade por Área (km/10000km²)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
                     </div>
                     <div class="map-actions">
                         <a href="mapas/mapa_q4_densidade_area_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
                     </div>
                 </div>
                 <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
-                    <h3 style="font-size: 0.9rem;">🗺️ Disponibilidade (km/1000hab)</h3>
+                    <h3 style="font-size: 0.9rem;">🗺️ Disponibilidade (km/10.000hab)</h3>
                     <div class="map-wrapper" style="min-height: 360px; height: 360px;">
-                        <iframe src="mapas/mapa_q4_denspop_mun.html" loading="lazy" title="Mapa interativo: Q4 - Disponibilidade por Habitante (km/1000hab)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                        <iframe src="mapas/mapa_q4_denspop_mun.html" loading="lazy" title="Mapa interativo: Q4 - Disponibilidade por Habitante (km/10.000hab)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
                     </div>
                     <div class="map-actions">
                         <a href="mapas/mapa_q4_denspop_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
@@ -495,26 +495,26 @@
                     <div class="metric-label">km de extensão total</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" style="color: #1b5e20;">0,089</div>
-                    <div class="metric-label">km/km² (média estadual)</div>
+                    <div class="metric-value" style="color: #1b5e20;">0,889</div>
+                    <div class="metric-label">km/10000km² (média estadual)</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value" style="color: #d7301f;">0,48</div>
-                    <div class="metric-label">km/1000hab (média estadual)</div>
+                    <div class="metric-value" style="color: #d7301f;">4,8</div>
+                    <div class="metric-label">km/10.000hab (média estadual)</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">1,35</div>
-                    <div class="metric-label">km/km² (máximo)</div>
+                    <div class="metric-value">13,5</div>
+                    <div class="metric-label">km/10000km² (máximo)</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">17,2</div>
-                    <div class="metric-label">km/1000hab (máximo)</div>
+                    <div class="metric-value">172</div>
+                    <div class="metric-label">km/10.000hab (máximo)</div>
                 </div>
             </div>
             <div class="questao-notes">
                 <strong>⚠️ Interpretação:</strong> A extensão total (km) mostra a quantidade absoluta de infraestrutura. 
-                A densidade por área (km/km²) indica cobertura territorial. 
-                A densidade por população (km/1000hab) é maior em municípios rurais com baixa população - 
+                A densidade por área (km/10000km²) indica cobertura territorial. 
+                A densidade por população (km/10.000hab) é maior em municípios rurais com baixa população - 
                 isso significa que poucos habitantes "compartilham" a malha existente.
             </div>
         </div>
@@ -797,7 +797,7 @@
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: 'Densidade (km/km²)',
+                        text: 'Densidade (km/10000km²)',
                         font: { size: 12 }
                     }
                 },
@@ -830,7 +830,7 @@
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: 'Disponibilidade (km/1000hab)',
+                        text: 'Disponibilidade (km/10.000hab)',
                         font: { size: 12 }
                     }
                 },
