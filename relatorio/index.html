@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malha viária DER — Uma análise exploratória | São Paulo</title>
+    <title>Modal Rodoviário: Uma Análise Exploratória da Malha Rodoviária do Estado de São Paulo</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,12 +14,12 @@
 <body>
     <!-- Navegação -->
     <nav class="navbar">
-        <div class="navbar-brand">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="http://127.0.0.1:8010/plataforma" class="navbar-brand" style="text-decoration: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3ec26e" stroke-width="2">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
-            <span>Malha viária DER</span>
-        </div>
+            <span style="color: white;">SIGMA-PLI</span>
+        </a>
         <ul class="navbar-menu">
             <li><a href="index.html" class="active">Introdução</a></li>
             <li><a href="objetivos.html">Objetivos</a></li>
@@ -36,8 +36,8 @@
     <section class="hero">
         <div class="hero-content">
             <span class="badge">📊 Análise Geoespacial 2025</span>
-            <h1>Malha viária DER</h1>
-            <p class="subtitle">Uma análise exploratória — Estado de São Paulo</p>
+            <h1>Modal Rodoviário</h1>
+            <p class="subtitle">Uma Análise Exploratória da Malha Rodoviária do Estado de São Paulo</p>
             <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto 2rem;">
                 Análise espacial da infraestrutura rodoviária estadual paulista,
                 com indicadores de densidade por área e população, classificados
@@ -94,6 +94,13 @@
                     <li>Rodovias sob regime de concessão</li>
                     <li>Rodovias administradas diretamente pelo DER</li>
                 </ul>
+
+                <div class="highlight-box" style="background: #fff3cd; border-left: 4px solid #ffc107; margin-bottom: 2rem;">
+                    <p style="margin: 0; color: #856404;">
+                        <strong>⚠️ Importante:</strong> Este estudo não considera rodovias municipais em sua análise.
+                        O foco é exclusivamente nas rodovias sob jurisdição estadual e federal delegadas ao DER/SP.
+                    </p>
+                </div>
 
                 <p>
                     A análise contempla diferentes recortes territoriais — municipal, Regiões Geográficas

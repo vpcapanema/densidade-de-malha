@@ -116,14 +116,15 @@ a:hover {
     font-size: 0.95rem;
 }
 
-.navbar-menu a:hover,
-.navbar-menu a.active {
+.navbar-menu a:hover {
     background: rgba(255,255,255,0.15);
     color: white;
+    box-shadow: 0 0 15px #3ec26e, 0 0 25px rgba(62, 194, 110, 0.5);
 }
 
 .navbar-menu a.active {
     background: var(--secondary-color);
+    color: white;
 }
 
 /* Hero Section */
