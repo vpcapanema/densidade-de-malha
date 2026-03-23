@@ -438,54 +438,62 @@
         </div>
         
         <div class="questao-container">
-            <!-- Primeira linha: 3 gráficos -->
+            <!-- Layout em 3 colunas: cada coluna tem gráfico + mapa -->
             <div class="q4-charts-grid" style="border-bottom: var(--borda);">
-                <div class="chart-panel" style="border: none; padding: 0;">
-                    <h3 style="font-size: 0.9rem;">📊 Extensão Total (km)</h3>
-                    <div class="chart-wrapper" style="min-height: 280px;">
-                        <canvas id="chartExtensao"></canvas>
+                <!-- Coluna 1: Extensão Total -->
+                <div style="display: flex; flex-direction: column; border-right: var(--borda);">
+                    <div class="chart-panel" style="border: none; padding: 1.5rem; padding-bottom: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">📊 Extensão Total (km)</h3>
+                        <div class="chart-wrapper" style="min-height: 240px;">
+                            <canvas id="chartExtensao"></canvas>
+                        </div>
+                    </div>
+                    <div class="map-panel" style="border: none; border-top: var(--borda); padding: 1.5rem; padding-top: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">🗺️ Extensão Total (km)</h3>
+                        <div class="map-wrapper" style="min-height: 320px; height: 320px;">
+                            <iframe src="mapas/mapa_q4_extensao_mun.html" loading="lazy" title="Mapa interativo: Q4 - Extensão Total (km)" style="width: 100%; height: 100%; border: 0; display: block; border-radius: 8px;"></iframe>
+                        </div>
+                        <div class="map-actions" style="margin-top: 0.5rem;">
+                            <a href="mapas/mapa_q4_extensao_mun.html" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">🔍 Tela cheia</a>
+                        </div>
                     </div>
                 </div>
-                <div class="chart-panel" style="border: none; padding: 0;">
-                    <h3 style="font-size: 0.9rem;">📊 Densidade por Área (km/10000km²)</h3>
-                    <div class="chart-wrapper" style="min-height: 280px;">
-                        <canvas id="chartDensArea"></canvas>
+                
+                <!-- Coluna 2: Densidade por Área -->
+                <div style="display: flex; flex-direction: column; border-right: var(--borda);">
+                    <div class="chart-panel" style="border: none; padding: 1.5rem; padding-bottom: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">📊 Densidade por Área (km/10000km²)</h3>
+                        <div class="chart-wrapper" style="min-height: 240px;">
+                            <canvas id="chartDensArea"></canvas>
+                        </div>
+                    </div>
+                    <div class="map-panel" style="border: none; border-top: var(--borda); padding: 1.5rem; padding-top: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">🗺️ Densidade por Área (km/10000km²)</h3>
+                        <div class="map-wrapper" style="min-height: 320px; height: 320px;">
+                            <iframe src="mapas/mapa_q4_densidade_area_mun.html" loading="lazy" title="Mapa interativo: Q4 - Densidade por Área (km/10000km²)" style="width: 100%; height: 100%; border: 0; display: block; border-radius: 8px;"></iframe>
+                        </div>
+                        <div class="map-actions" style="margin-top: 0.5rem;">
+                            <a href="mapas/mapa_q4_densidade_area_mun.html" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">🔍 Tela cheia</a>
+                        </div>
                     </div>
                 </div>
-                <div class="chart-panel" style="border: none; padding: 0;">
-                    <h3 style="font-size: 0.9rem;">📊 Disponibilidade (km/10.000hab)</h3>
-                    <div class="chart-wrapper" style="min-height: 280px;">
-                        <canvas id="chartDensPop"></canvas>
+                
+                <!-- Coluna 3: Disponibilidade -->
+                <div style="display: flex; flex-direction: column;">
+                    <div class="chart-panel" style="border: none; padding: 1.5rem; padding-bottom: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">📊 Disponibilidade (km/10.000hab)</h3>
+                        <div class="chart-wrapper" style="min-height: 240px;">
+                            <canvas id="chartDensPop"></canvas>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Segunda linha: 3 mapas (um por gráfico) -->
-            <div class="q4-charts-grid" style="border-bottom: var(--borda);">
-                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
-                    <h3 style="font-size: 0.9rem;">🗺️ Extensão Total (km)</h3>
-                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
-                        <iframe src="mapas/mapa_q4_extensao_mun.html" loading="lazy" title="Mapa interativo: Q4 - Extensão Total (km)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
-                    </div>
-                    <div class="map-actions">
-                        <a href="mapas/mapa_q4_extensao_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
-                    </div>
-                </div>
-                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
-                    <h3 style="font-size: 0.9rem;">🗺️ Densidade por Área (km/10000km²)</h3>
-                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
-                        <iframe src="mapas/mapa_q4_densidade_area_mun.html" loading="lazy" title="Mapa interativo: Q4 - Densidade por Área (km/10000km²)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
-                    </div>
-                    <div class="map-actions">
-                        <a href="mapas/mapa_q4_densidade_area_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
-                    </div>
-                </div>
-                <div class="map-panel" style="border: var(--borda); border-radius: 10px; overflow: hidden;">
-                    <h3 style="font-size: 0.9rem;">🗺️ Disponibilidade (km/10.000hab)</h3>
-                    <div class="map-wrapper" style="min-height: 360px; height: 360px;">
-                        <iframe src="mapas/mapa_q4_denspop_mun.html" loading="lazy" title="Mapa interativo: Q4 - Disponibilidade por Habitante (km/10.000hab)" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
-                    </div>
-                    <div class="map-actions">
-                        <a href="mapas/mapa_q4_denspop_mun.html" target="_blank" class="btn btn-outline">🔍 Tela cheia</a>
+                    <div class="map-panel" style="border: none; border-top: var(--borda); padding: 1.5rem; padding-top: 0.75rem;">
+                        <h3 style="font-size: 0.9rem;">🗺️ Disponibilidade (km/10.000hab)</h3>
+                        <div class="map-wrapper" style="min-height: 320px; height: 320px;">
+                            <iframe src="mapas/mapa_q4_denspop_mun.html" loading="lazy" title="Mapa interativo: Q4 - Disponibilidade por Habitante (km/10.000hab)" style="width: 100%; height: 100%; border: 0; display: block; border-radius: 8px;"></iframe>
+                        </div>
+                        <div class="map-actions" style="margin-top: 0.5rem;">
+                            <a href="mapas/mapa_q4_denspop_mun.html" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">🔍 Tela cheia</a>
+                        </div>
                     </div>
                 </div>
             </div>
