@@ -1,0 +1,54 @@
+
+Olá, Sandra!
+Aqui está tudo certo, espero que contigo também.
+
+Procedemos internamente com um processo de revisão, que contou não apenas comigo. Seguem os comentários consolidados acerca do produto:
+
+Comentários gerais:
+Em diversos momentos aparecem mapas com informações sobre o Sistema Rodoviário Estadual , como localização das vias, tipo e extensão, e em todos os casos, são informadas referências diversas, porém em nenhum deles aparece o DER/SP. Ressaltamos que, mesmo os órgãos citados, obtêm os dados junto ao DER/SP; inclusive, ao próprio SNV entregamos dados da malha por meio de processos formais. A fonte oficial do dado é o DER/SP, que não foi referenciada. Solicita-se a correção.
+Ao tratar da caracterização da infraestrutura em escala macro, sentimos falta de um indicador importante: a densidade de malha. Consideramos fundamental que esse estudo seja realizado e que o indicador de densidade de malha seja apresentado tanto por área quanto por população, de modo a permitir uma melhor compreensão de possíveis gargalos. Esse ponto é extremamente relevante, especialmente para a identificação de déficits de infraestrutura. Quanto à granulometria desse indicador, entendemos que pode ser adotada aquela já utilizada em outros produtos, com base em divisões administrativas existentes; entretanto, é importante adicionar também a escala municipal, o que permitirá identificar gargalos associados aos aglomerados urbanos. Sugerimos que esse tema seja incluído no item 1.2 – Modal Rodoviário no Estado de São Paulo, embora possa ser alocado em outro ponto igualmente adequado do documento. Ressaltamos que essa análise é imprescindível em um documento dessa natureza.
+O termo “Rodovias Estaduais não concessionadas”, sob um olhar até mesmo conceitual, pressupõe que a concessão precede a não concessão. Na prática, todas se referem a rodovias estaduais que compõem o Sistema Rodoviário Estadual (SRE). Esse sistema inclui tanto rodovias cuja implantação e manutenção são realizadas diretamente pelo poder público, Rodovias Estaduais de Administração Pública, quanto aquelas cuja administração é concedida à iniciativa privada, Rodovias Estaduais de Administração Concedida.
+A página de Dados Abertos do DER dispõe de diversos dados e informações tratadas sobre segurança viária (https://www.der.sp.gov.br/WebSite/Servicos/ConjuntoDados.aspx?tema=Seguranca_Viaria&conjunto=), incluindo dados de sinistros, com fontes nas operações do DER e em Boletins de Ocorrência elaborados pela PMRv-SP. Além disso, o DER participa de comissões sobre o tema junto ao Detran e mantém integrações de informações com o Infosiga. O tratamento realizado pelo DER, com endereçamentos focados no meio rodoviário, é mais adequado ao tipo de análise a que se propõe este documento. Ademais, a forma de análise com os dados disponível na página permite apresentar dados por rodovia, por trecho de rodovia e de diversas outras maneiras. A informação agregada apenas por município pouco contribui para o entendimento do contexto rodoviário e das rodovias especificamente tratadas.
+Alguns termos em inglês carecem de tradução ou, ao menos, de uma explicação entre parênteses, como, por exemplo: dwell time, first/last mile, cross-docking, entre outros.
+Em relação ao termo free-flow, sugerimos utilizar a expressão “livre passagem”, conforme instituído pela Portaria SENATRAN nº 442, de 10 de junho de 2025 (em anexo).
+Atualizar as informações sobre o Rodoanel, considerando que parte do empreendimento foi recentemente entregue.
+
+Item 1.5.2 – Rodovias Estaduais não concessionadas em São Paulo
+Utilizar os dados disponíveis em
+https://www.der.sp.gov.br/WebSite/Servicos/ConjuntoDados.aspx?tema=Sistema_Rodoviario_Estadual&conjunto=
+e elaborar um balanço mais geral da extensão total da malha ainda na introdução do item.
+Abordar também os investimentos históricos realizados ao longo dos anos na malha rodoviária. Tanto os Planos Plurianuais (PPA) quanto as Leis Orçamentárias Anuais (LOA) apresentam valores e extensões totais que devem ser relatados neste item.
+Destaca-se que mesmo as rodovias estaduais de administração pública contam com programa de “Operação, conservação e segurança da infraestrutura de transporte estadual”, que incluem o produto “Operação e segurança”. Trata-se de um diferencial do Estado de São Paulo, que garante maior capacidade de enfrentamento da sinistralidade e melhor prestação de serviços à população.
+Ressaltamos a importância de apresentar os números dos PPAs e das LOAs, pois eles evidenciam a elevada capacidade de investimento distribuído do Estado.
+PPAs: https://portal.fazenda.sp.gov.br/servicos/planejamento/Paginas/ppa.aspx
+LOAs: https://portal.fazenda.sp.gov.br/servicos/orcamento/Paginas/loa.aspx
+Quanto aos itens de rodovias, solicitamos a inclusão de duas rodovias relevantes: SP-304 e SP-310.
+Na descrição das rodovias estaduais de administração pública, solicitamos a inclusão de mapas e balanços de sinistralidade. Os itens atualmente apresentados estão muito sucintos e podem contemplar um conjunto maior de informações.
+
+Item 1.6 – Rodovias Municipais
+Inserir os investimentos históricos realizados pelo Governo do Estado por meio do DER/SP, também passíveis de verificação nos PPAs e LOAs. No programa “Melhorias na infraestrutura de transporte estadual”, há produto específico para “Estradas municipais”, com informações de extensão e valores totais. É importante apresentar esse contexto, que evidencia novamente a capacidade do Governo do Estado de aplicar recursos em larga escala, inclusive em regiões mais isoladas.
+Existem bases de dados, além do OSM, que indicam valores de extensão total da malha municipal significativamente superiores aos mencionados no texto. Bases como as disponibilizadas pelo próprio DER apresentam valores mais elevados, e as bases do programa Rotas Rurais indicam números ainda superiores. Reiteramos a solicitação de envio de ofício à Secretaria de Agricultura e Abastecimento para obtenção dessas informações, uma vez que os dados do programa Rotas Rurais (https://arcgisrurais.agricultura.sp.gov.br/portal/apps/sites/#/iea-rotas-rurais) podem subsidiar de forma mais abrangente e precisa a caracterização da malha rodoviária municipal.
+
+Item – Análise SWOT
+Forças
+Acrescentar: capacidade de investimento em larga escala; unidades de administração de infraestrutura distribuídas por todo o Estado.
+Fraquezas
+Fundamentar a questão da “exposição a roubos de carga”, tema que não aparece em nenhum momento do texto.
+Acrescentar: municípios ainda não atendidos pelo SRE.
+Incluir a questão das emissões de GEE, considerando que o setor é responsável por parcela significativa dessas emissões, tanto na implantação quanto na operação.
+Acrescentar: dificuldades na resolução de problemas entre diferentes entes e agentes (federal, estadual, municipal, federal concedido, estadual concedido).
+Oportunidades
+Sobre descarbonização, entendemos que a emissão de GEE configura mais um problema a ser enfrentado do que propriamente uma oportunidade. Uma reformulação do item pode contribuir para uma melhor descrição das oportunidades relacionadas ao tema.
+Acrescentar: expansão do SRE por meio da estadualização de trechos municipais.
+Ameaças
+O termo “frota descarbonizada” é ambíguo. Refere-se especificamente à frota elétrica? Em alguns contextos, veículos a etanol podem emitir menos GEE do que veículos elétricos. Sugere-se especificação.
+O envelhecimento da frota também se relaciona às ameaças associadas às emissões de GEE.
+
+Anexo 1A e/ou 1D
+Nos Dados Abertos do DER há uma tabela com o detalhamento da evolução da malha do Sistema Rodoviário Estadual, ano a ano, desde 2014 (https://www.der.sp.gov.br/WebSite/Servicos/ConjuntoDados.aspx?tema=Sistema_Rodoviario_Estadual&conjunto=). Além disso, encaminhamos também uma tabela com dados de 1988 a 2013, intitulada “DERSP_EvolucaoMalha”. Esses dados permitem um entendimento mais abrangente e preciso sobre a evolução da malha.
+
+Entendemos que o documento pode ser significativamente aprimorado com base nos dados disponibilizados publicamente pelo DER/SP por meio da página de Dados Abertos porém, permanecemos à disposição para o levantamento de informações complementares que se façam necessárias.
+
+Ademais, desejo boas festas à todos e que aproveitem os bons momentos com os de vocês!
+
+Com os melhores cumprimentos
