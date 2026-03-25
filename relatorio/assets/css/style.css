@@ -27,6 +27,8 @@
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
     --transition-slow: 0.5s ease;
+    --relatorio-header-height: 0px;
+    --relatorio-sidebar-width: 0px;
 }
 
 html {
@@ -39,6 +41,19 @@ body {
     color: var(--text-color);
     background-color: #f8f9fa;
     overflow-x: hidden;
+}
+
+.cabecalho-injetado-host {
+    display: block;
+    position: relative;
+    z-index: 1000;
+    height: var(--relatorio-header-height);
+}
+
+@media (min-width: 961px) {
+    body.cabecalho-injetado-ativo {
+        padding-left: var(--relatorio-sidebar-width);
+    }
 }
 
 /* Tipografia */
@@ -73,18 +88,22 @@ a:hover {
 /* Navegação */
 .navbar {
     position: fixed;
-    top: 0;
+    top: var(--relatorio-header-height);
     left: 0;
-    right: 0;
-    z-index: 1000;
+    bottom: 0;
+    width: 290px;
+    z-index: 999;
     background: var(--gradient-dark);
-    padding: 1rem 2rem;
+    padding: 1.25rem 1rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
     box-shadow: var(--shadow-medium);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    overflow-y: auto;
 }
 
 .navbar-brand {
@@ -93,27 +112,32 @@ a:hover {
     gap: 0.8rem;
     color: white;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.05rem;
+    padding: 0.25rem 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .navbar-brand svg {
     width: 32px;
     height: 32px;
+    flex-shrink: 0;
 }
 
 .navbar-menu {
     display: flex;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 0.4rem;
     list-style: none;
 }
 
 .navbar-menu a {
+    display: block;
     color: rgba(255,255,255,0.85);
-    padding: 0.6rem 1.2rem;
-    border-radius: 25px;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
     transition: var(--transition-medium);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.96rem;
 }
 
 .navbar-menu a:hover {
@@ -136,7 +160,7 @@ a:hover {
     background: var(--gradient-primary);
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
+    padding-top: 2rem;
 }
 
 .hero::before {
@@ -505,14 +529,20 @@ tbody tr:last-child {
 /* Responsivo */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        gap: 1rem;
+        position: relative;
+        top: 0;
+        bottom: auto;
+        width: 100%;
         padding: 1rem;
+        border-radius: 0;
     }
     
     .navbar-menu {
-        flex-wrap: wrap;
-        justify-content: center;
+        width: 100%;
+    }
+
+    body.cabecalho-injetado-ativo {
+        padding-left: 0;
     }
     
     .hero h1 {
