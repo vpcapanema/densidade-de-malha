@@ -17,6 +17,7 @@ import geopandas as gpd
 import pandas as pd
 import numpy as np
 import folium
+from basemap_openfreemap import OpenFreeMapLayer
 from folium import plugins
 import branca.colormap as cm
 from pathlib import Path
@@ -605,8 +606,8 @@ def criar_mapa_base(titulo, subtitulo="", full_height: bool = False):
     m.get_root().html.add_child(folium.Element(html_lang))
     
     # Camadas base
-    folium.TileLayer('cartodbpositron', name='Fundo Claro').add_to(m)
-    folium.TileLayer('cartodbdark_matter', name='Fundo Escuro').add_to(m)
+    OpenFreeMapLayer('positron', name='Fundo Claro').add_to(m)
+    OpenFreeMapLayer('dark', name='Fundo Escuro', show=False).add_to(m)
     
     # Título
     extra_height_css = ""

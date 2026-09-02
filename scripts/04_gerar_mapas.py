@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 import folium
+from basemap_openfreemap import OpenFreeMapLayer
 from folium import plugins
 import geopandas as gpd
 import pandas as pd
@@ -74,8 +75,8 @@ def criar_mapa_densidade_area(gdf: gpd.GeoDataFrame, col_nome: str, titulo: str,
     )
     
     # Adicionar camadas base
-    folium.TileLayer('cartodbpositron', name='Claro').add_to(m)
-    folium.TileLayer('cartodbdark_matter', name='Escuro').add_to(m)
+    OpenFreeMapLayer('positron', name='Claro').add_to(m)
+    OpenFreeMapLayer('dark', name='Escuro', show=False).add_to(m)
     
     # Colormap
     vmin = gdf[col_dens].quantile(0.05)
@@ -182,8 +183,8 @@ def criar_mapa_extensao(gdf: gpd.GeoDataFrame, col_nome: str, titulo: str, outpu
     
     # Criar mapa
     m = folium.Map(location=SP_CENTER, zoom_start=SP_ZOOM, tiles=None)
-    folium.TileLayer('cartodbpositron', name='Claro').add_to(m)
-    folium.TileLayer('cartodbdark_matter', name='Escuro').add_to(m)
+    OpenFreeMapLayer('positron', name='Claro').add_to(m)
+    OpenFreeMapLayer('dark', name='Escuro', show=False).add_to(m)
     
     # Colormap
     vmax = gdf[col_ext].quantile(0.95)
@@ -257,7 +258,7 @@ def criar_mapa_concessao(gdf: gpd.GeoDataFrame, col_nome: str, titulo: str, outp
         return
     
     m = folium.Map(location=SP_CENTER, zoom_start=SP_ZOOM, tiles=None)
-    folium.TileLayer('cartodbpositron', name='Claro').add_to(m)
+    OpenFreeMapLayer('positron', name='Claro').add_to(m)
     
     colormap = cm.LinearColormap(
         colors=['#27ae60', '#f1c40f', '#e74c3c'],
@@ -328,7 +329,7 @@ def criar_mapa_urbano_rural(gdf: gpd.GeoDataFrame, col_nome: str, titulo: str, o
         return
     
     m = folium.Map(location=SP_CENTER, zoom_start=SP_ZOOM, tiles=None)
-    folium.TileLayer('cartodbpositron', name='Claro').add_to(m)
+    OpenFreeMapLayer('positron', name='Claro').add_to(m)
     
     colormap = cm.LinearColormap(
         colors=['#27ae60', '#f1c40f', '#e74c3c', '#8e44ad'],

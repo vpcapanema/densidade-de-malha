@@ -8,6 +8,7 @@ Gera mapas de densidade de malha rodoviária para:
 
 import geopandas as gpd
 import folium
+from basemap_openfreemap import OpenFreeMapLayer
 from branca.colormap import LinearColormap
 import warnings
 warnings.filterwarnings('ignore')
@@ -32,7 +33,8 @@ def criar_mapa(gdf, col_valor, col_nome, titulo, arquivo, colormap_name='YlOrRd'
     """Cria um mapa Folium interativo"""
     
     # Criar mapa base
-    m = folium.Map(location=centro_sp, zoom_start=7, tiles='CartoDB positron')
+    m = folium.Map(location=centro_sp, zoom_start=7, tiles=None)
+    OpenFreeMapLayer('positron', name='Claro').add_to(m)
     
     # Calcular min/max para colormap
     vmin = gdf[col_valor].min()
@@ -142,7 +144,8 @@ criar_mapa(
 # 5. Gerar mapa combinado com ambas as camadas
 print("\n4. Gerando mapa combinado...")
 
-m_combo = folium.Map(location=centro_sp, zoom_start=7, tiles='CartoDB positron')
+m_combo = folium.Map(location=centro_sp, zoom_start=7, tiles=None)
+OpenFreeMapLayer('positron', name='Claro').add_to(m_combo)
 
 # Colormap para RA
 vmin_ra = ra['Dens_Area_Total'].min()
