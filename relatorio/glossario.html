@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glossário — Densidade de Malha</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+        body { font-family: 'Inter', sans-serif; }
+</style>
+<style>
+.glossary { --gl-primary:#1c3d59;--gl-accent:#3ec26e;--gl-text:#333;--gl-surface:white;--gl-border:#dee2e6;--gl-radius:8px; }
+
+/* Componentes do glossário: cores e fontes vêm do tema da aplicação. */
+body.glossary-page { display:block; width:auto; height:auto; min-height:100vh; overflow:auto; margin:0; padding:0; }
+.glossary { box-sizing:border-box; width:calc(100% - 2rem); max-width:1120px; margin:2rem auto; padding:0; line-height:1.65; color:var(--gl-text); }
+.glossary *, .glossary *::before, .glossary *::after { box-sizing:border-box; }
+.glossary .gl-heading { padding:1.5rem 0; margin:0 0 1.5rem; border-bottom:3px solid var(--gl-accent); background:none; text-align:left; }
+.glossary .gl-brand { margin:0 0 .5rem; color:var(--gl-primary); font-weight:700; letter-spacing:.04em; }
+.glossary h1 { color:var(--gl-primary); font-size:clamp(1.6rem,4vw,2.25rem); line-height:1.2; margin:.5rem 0 1rem; text-align:left; }
+.glossary h2 { color:var(--gl-primary); font-size:1.15rem; line-height:1.4; margin:0 0 1rem; padding:0; border:0; text-align:left; }
+.glossary a { color:var(--gl-primary); text-decoration:underline; text-underline-offset:3px; }
+.glossary .gl-layout { display:grid; grid-template-columns:260px minmax(0,1fr); gap:1.5rem; align-items:start; }
+.glossary .gl-sidebar { position:sticky; top:1rem; background:var(--gl-surface); border:1px solid var(--gl-border); border-radius:var(--gl-radius); padding:1rem; min-width:0; }
+.glossary .gl-search { margin:0 0 1rem; display:block; }
+.glossary label { display:block; font-weight:600; margin:0 0 .5rem; }
+.glossary input { display:block; width:100%; min-height:44px; padding:.6rem; font:inherit; border:1px solid var(--gl-border); border-radius:4px; background:var(--gl-surface); color:var(--gl-text); }
+.glossary button { min-height:44px; padding:.5rem .8rem; margin:.6rem 0; font:inherit; cursor:pointer; background:var(--gl-primary); color:white; border:0; border-radius:4px; }
+.glossary .gl-count { font-size:.9em; margin:0; }
+.glossary summary { cursor:pointer; font-weight:700; color:var(--gl-primary); padding:.5rem 0; }
+.glossary .gl-index { max-height:50vh; overflow:auto; background:none; position:static; display:block; padding:0; margin:0; }
+.glossary .gl-index a { display:block; padding:.3rem 0; font-size:.9em; }
+.glossary .gl-group { padding:1.4rem; margin:0 0 1.25rem; background:var(--gl-surface); border:1px solid var(--gl-border); border-top:3px solid var(--gl-accent); border-radius:var(--gl-radius); box-shadow:none; }
+.glossary dl { margin:0; }
+.glossary .gl-entry { padding:1rem 0; border-top:1px solid var(--gl-border); scroll-margin-top:1.5rem; overflow-wrap:anywhere; }
+.glossary dt { font-weight:700; margin:0 0 .4rem; }
+.glossary dd { margin:0; text-align:left; }
+.glossary .gl-entry:target { outline:2px solid var(--gl-primary); outline-offset:6px; }
+.glossary :focus-visible { outline:3px solid var(--gl-primary); outline-offset:3px; }
+.glossary [hidden] { display:none !important; }
+.glossary .gl-note { font-size:.9em; margin:1.5rem 0; }
+@media(max-width:760px) { .glossary .gl-layout { grid-template-columns:minmax(0,1fr); } .glossary .gl-sidebar { position:static; } .glossary .gl-index { max-height:180px; } .glossary .gl-group { padding:1rem; } }
+@media print { .glossary .gl-sidebar, .glossary .gl-back { display:none; } .glossary .gl-layout { display:block; } .glossary .gl-entry { break-inside:avoid; } }
+
+</style>
+</head>
+<body class="glossary-page">
+<main class="glossary" id="glossario">
+  <header class="gl-heading">
+    <p class="gl-brand">Densidade de Malha</p>
+    <a class="gl-back" href="index.html">← Voltar à aplicação</a>
+    <h1>Glossário técnico-conceitual</h1>
+    <p>Termos e conceitos para compreender e utilizar Densidade de Malha.</p>
+  </header>
+  <div class="gl-layout">
+    <aside class="gl-sidebar" aria-label="Consulta ao glossário">
+      <form class="gl-search" role="search" hidden>
+        <label for="gl-search">Buscar termo ou conceito</label>
+        <input id="gl-search" type="search" autocomplete="off" aria-controls="gl-content">
+        <button type="reset">Limpar busca</button>
+        <p class="gl-count" role="status" aria-live="polite"></p>
+      </form>
+      <details open><summary>Índice de termos</summary><nav class="gl-index" aria-label="Termos"><a data-term="termo-malha-rodoviaria" href="#termo-malha-rodoviaria">Malha rodoviária</a> <a data-term="termo-trecho" href="#termo-trecho">Trecho</a> <a data-term="termo-extensao-rodoviaria" href="#termo-extensao-rodoviaria">Extensão rodoviária</a> <a data-term="termo-jurisdicao" href="#termo-jurisdicao">Jurisdição</a> <a data-term="termo-concessao" href="#termo-concessao">Concessão</a> <a data-term="termo-administracao-direta" href="#termo-administracao-direta">Administração direta</a> <a data-term="termo-densidade-por-area" href="#termo-densidade-por-area">Densidade por área</a> <a data-term="termo-densidade-por-populacao" href="#termo-densidade-por-populacao">Densidade por população</a> <a data-term="termo-recorte-municipal" href="#termo-recorte-municipal">Recorte municipal</a> <a data-term="termo-regiao-geografica-imediata" href="#termo-regiao-geografica-imediata">Região Geográfica Imediata</a> <a data-term="termo-regiao-geografica-intermediaria" href="#termo-regiao-geografica-intermediaria">Região Geográfica Intermediária</a> <a data-term="termo-classificacao-urbano-rural" href="#termo-classificacao-urbano-rural">Classificação urbano-rural</a> <a data-term="termo-intersecao-espacial" href="#termo-intersecao-espacial">Interseção espacial</a> <a data-term="termo-sistema-de-referencia-espacial" href="#termo-sistema-de-referencia-espacial">Sistema de referência espacial</a> <a data-term="termo-cobertura-territorial" href="#termo-cobertura-territorial">Cobertura territorial</a></nav></details>
+    </aside>
+    <div id="gl-content">
+      <p class="gl-empty" hidden>Nenhum termo encontrado. Tente outra palavra ou limpe a busca.</p>
+      <section class="gl-group"><h2>Rede e território</h2><dl>
+<div class="gl-entry" id="termo-malha-rodoviaria" tabindex="-1"><dt><a href="#termo-malha-rodoviaria">Malha rodoviária</a></dt><dd>Conjunto de trechos de rodovias considerado no estudo. O recorte apresentado não inclui as rodovias municipais.</dd></div>
+<div class="gl-entry" id="termo-trecho" tabindex="-1"><dt><a href="#termo-trecho">Trecho</a></dt><dd>Segmento de rodovia utilizado como unidade de representação e análise da rede.</dd></div>
+<div class="gl-entry" id="termo-extensao-rodoviaria" tabindex="-1"><dt><a href="#termo-extensao-rodoviaria">Extensão rodoviária</a></dt><dd>Comprimento dos trechos considerados, expresso na unidade indicada, usualmente quilômetros.</dd></div>
+<div class="gl-entry" id="termo-jurisdicao" tabindex="-1"><dt><a href="#termo-jurisdicao">Jurisdição</a></dt><dd>Âmbito de responsabilidade sobre a rodovia, conforme a classificação da base.</dd></div>
+<div class="gl-entry" id="termo-concessao" tabindex="-1"><dt><a href="#termo-concessao">Concessão</a></dt><dd>Forma de administração da infraestrutura rodoviária por concessionária, conforme o enquadramento do trecho.</dd></div>
+<div class="gl-entry" id="termo-administracao-direta" tabindex="-1"><dt><a href="#termo-administracao-direta">Administração direta</a></dt><dd>Classificação dos trechos administrados diretamente pelo órgão responsável, em distinção aos concedidos.</dd></div>
+</dl></section><section class="gl-group"><h2>Indicadores de densidade</h2><dl>
+<div class="gl-entry" id="termo-densidade-por-area" tabindex="-1"><dt><a href="#termo-densidade-por-area">Densidade por área</a></dt><dd>Relação entre a extensão rodoviária e a área do território analisado. A escala deve ser lida com a unidade do indicador.</dd></div>
+<div class="gl-entry" id="termo-densidade-por-populacao" tabindex="-1"><dt><a href="#termo-densidade-por-populacao">Densidade por população</a></dt><dd>Relação entre a extensão da malha e a população do recorte, com o fator de escala indicado no estudo.</dd></div>
+<div class="gl-entry" id="termo-recorte-municipal" tabindex="-1"><dt><a href="#termo-recorte-municipal">Recorte municipal</a></dt><dd>Agregação dos trechos e indicadores segundo os limites dos municípios.</dd></div>
+<div class="gl-entry" id="termo-regiao-geografica-imediata" tabindex="-1"><dt><a href="#termo-regiao-geografica-imediata">Região Geográfica Imediata</a></dt><dd>Recorte regional do IBGE utilizado no estudo para agregar municípios e indicadores.</dd></div>
+<div class="gl-entry" id="termo-regiao-geografica-intermediaria" tabindex="-1"><dt><a href="#termo-regiao-geografica-intermediaria">Região Geográfica Intermediária</a></dt><dd>Recorte regional do IBGE que agrega regiões imediatas para uma leitura territorial mais ampla.</dd></div>
+<div class="gl-entry" id="termo-classificacao-urbano-rural" tabindex="-1"><dt><a href="#termo-classificacao-urbano-rural">Classificação urbano-rural</a></dt><dd>Distinção espacial empregada para analisar a distribuição dos trechos em contextos urbanos e rurais.</dd></div>
+</dl></section><section class="gl-group"><h2>Geoprocessamento</h2><dl>
+<div class="gl-entry" id="termo-intersecao-espacial" tabindex="-1"><dt><a href="#termo-intersecao-espacial">Interseção espacial</a></dt><dd>Operação utilizada para relacionar trechos da rede com os territórios que eles atravessam.</dd></div>
+<div class="gl-entry" id="termo-sistema-de-referencia-espacial" tabindex="-1"><dt><a href="#termo-sistema-de-referencia-espacial">Sistema de referência espacial</a></dt><dd>Referência que permite posicionar e medir geometrias. Sua escolha afeta cálculos de área e comprimento.</dd></div>
+<div class="gl-entry" id="termo-cobertura-territorial" tabindex="-1"><dt><a href="#termo-cobertura-territorial">Cobertura territorial</a></dt><dd>Distribuição da infraestrutura no espaço. A densidade da rede não mede, sozinha, sua qualidade operacional.</dd></div>
+</dl></section>
+      <p class="gl-note">As definições contextualizam os termos utilizados nesta aplicação. Leia os resultados junto dos filtros, unidades, períodos e regras apresentados em cada tela.</p>
+      <a href="#glossario">Voltar ao início ↑</a>
+    </div>
+  </div>
+</main>
+<script>
+
+(() => {
+  const root = document.querySelector('.glossary');
+  if (!root) return;
+  const form = root.querySelector('.gl-search');
+  const input = root.querySelector('#gl-search');
+  const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+  const entries = Array.from(root.querySelectorAll('.gl-entry'), element => ({ element, text: normalize(element.textContent), link: root.querySelector('[data-term="' + element.id + '"]') }));
+  const filter = () => {
+    const words = normalize(input.value).trim().split(/\s+/).filter(Boolean);
+    let visible = 0;
+    entries.forEach(({element, text, link}) => { const match = words.every(word => text.includes(word)); element.hidden = !match; link.hidden = !match; if(match) visible++; });
+    root.querySelectorAll('.gl-group').forEach(group => { group.hidden = !group.querySelector('.gl-entry:not([hidden])'); });
+    root.querySelector('.gl-count').textContent = visible + ' de ' + entries.length + ' termos';
+    root.querySelector('.gl-empty').hidden = visible !== 0;
+  };
+  const reveal = () => {
+    let id; try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (!target || !root.contains(target)) return;
+    if (target.closest('[hidden]')) { input.value = ''; filter(); }
+    target.scrollIntoView({block:'start'});
+  };
+  form.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('reset', event => { event.preventDefault(); input.value = ''; filter(); input.focus(); });
+  input.addEventListener('input', filter);
+  window.addEventListener('hashchange', reveal);
+  form.hidden = false; filter(); reveal();
+})();
+
+</script>
+</body>
+</html>
