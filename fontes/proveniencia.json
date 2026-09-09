@@ -1,0 +1,22 @@
+{
+  "municipios": {
+    "arquivo": "relatorio\\mapas\\mapa_densidade_municipios.html",
+    "sha256": "a14c5b8c3b7d8c71795cb41bc19e2550d6dd7e1843921c07117bba8864f7896c"
+  },
+  "imediatas": {
+    "arquivo": "relatorio\\mapas\\mapa_densidade_rgi.html",
+    "sha256": "55cf78260cb130c03323c4c295361f651b3626e21c9529d28243cd21b3fabac2"
+  },
+  "intermediarias": {
+    "arquivo": "relatorio\\mapas\\mapa_densidade_rgint.html",
+    "sha256": "86fa48217a4119192c3023b71a88c5d5060c8c065ce71250d3b255f6b5846f36"
+  },
+  "administrativas": {
+    "arquivo": "relatorio\\mapas\\mapa_ra_extensao.html",
+    "sha256": "dd6016eff3b3b360038ed0f7d30f8f911a44f4a00fc9e1a76e6b9709f1956adf"
+  },
+  "zee": {
+    "arquivo": "relatorio\\mapas\\mapa_zee_extensao.html",
+    "sha256": "34144af0ec803e81d1acfe5c4ec901f0684b7c3552a07a3f58c5232dcb6f0744"
+  }
+}
